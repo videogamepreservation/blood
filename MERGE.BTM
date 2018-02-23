@@ -1,0 +1,47 @@
+@echo off
+setlocal
+
+iff "%1"=="" then
+    echo Usage: MERGE mergeDir
+	echo.
+    echo MERGE eliminates files in mergeDir which are duplicated locally and moves
+	echo files which are newer than local copies.
+    goto end
+endiff
+
+if NOT ISDIR backup md backup
+
+echo Backing up source directory...
+set backupName=%@INSTR[0,2,%_DATE]%@INSTR[3,2,%_DATE]%@INSTR[0,2,%_TIME]%@INSTR[3,2,%_TIME]
+pkzip -o -P backup\%backupName makefile src\*.asm src\*.h src\*.c* *.doc *.txt *.btm *.rfs names.h
+
+set lastAge=%@FILEAGE[UPDATE.DAT]
+
+echo Processing files...
+for %a in (%1\*.*) (
+    set b=%@filename[%a]
+	if NOT exist %b set b=src\%@filename[%a]
+	if NOT exist %b set b=seq\%@filename[%a]
+	if NOT exist %b set b=qav\%@filename[%a]
+    iff exist %b then
+		echos Comparing %a:
+		vcmpr %a %b nul > nul
+		iff %? == 1 then
+			echo   Same -- removing %a
+			del %a /q
+		else
+			iff %@FILEAGE[%b] LT %lastAge .AND. %@FILEAGE[%a] GT %@FILEAGE[%b] then
+				echo Replacing with newer
+				move %a %b /q
+			else
+				echo   Different
+			endiff
+		endiff
+    endiff
+)
+
+echo Merge complete.  Remaining files in %1 must be merged manually.
+
+:end
+endlocal
+

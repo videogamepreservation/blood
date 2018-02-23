@@ -1,0 +1,387 @@
+ษออออออัอออออออัอออออออัอออออออัอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+บStatusณ Owner ณPrior. ณ Date  ณDescription                                                      บ
+ศออออออฯอออออออฯอออออออฯอออออออฯอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+Work    PMF	*****	10/25	1	Get AI working
+
+Done    PMF	*****	10/25		1.1	Get Axe zombie walking towards player
+
+Done	PMF	*****	10/25		1.2	Get Axe Zombie attacking player
+
+					1.3	Underwater creatures should trail bubbles (or
+						blood?)
+
+	NCN	***	10/26	2	Define and fix clip distances for all dudes
+
+	NCN	**	10/26	3	Create pool of blood for creatures that die
+
+	NCN	**	10/26	4	Leave foot prints after walking through stuff
+
+	NCN	**	10/26		4.1	Create bubbles when underwater
+
+	NCN	***	10/26	5	Put sprites on reusable lists
+
+	NCN	***	10/26	6	BUG: Bullet ricochets appear on "walls" of
+						parallaxed sky sectors.
+
+	PMF		10/26	7	New view effects for players
+
+					7.1	Visibility
+
+					7.2	Delirium
+
+					7.3	Quake
+
+					7.4	Blindness
+
+					7.5	Tilt
+
+					7.6	Drowning
+
+					7.7	Recoil
+
+					7.8	Shock
+
+					7.9	Injury
+
+					7.10	Burning
+
+				8	Some face sprites need to be x-flipped in mirrors (ex.
+					burning TNT)
+
+				9	BUG: Players not shown in mirrors, except in external
+					view mode
+
+Done    PMF     	10/26   10	Get fog working via level def
+
+Done	PMF     ***     11/07   11	BUG: Intermittent crash moving RShift highlighted
+					sprites.  SAVE OFTEN!
+
+Done	PMF     	12/16   12	BUG: Waveform text is not always correct and can display
+					junk.
+
+Done	PMF     	10/26   13	BUG: View can move through ceiling in low areas
+
+	PMF     	10/26   14	BUG: View jerks going up stairs
+
+	PMF     	10/26   15	Swimming not working, need updated physics model
+
+Pend.				16	Crouching not working, need updated crouch sequence
+
+				17	BUG: Fix water currents - not dragging
+
+Done    PMF     	11/06   18	Wall panning needs to be scaled to floor panning
+
+				19	Physics model for inter sprite collision
+
+	NCN	****	10/26	20	Powerups
+
+	NCN	****	10/26		20.1	Get powerup effects working
+
+	NCN	***	10/26		20.2	Power-ups not displayed in correct position
+
+	NCN	**		21	Random items and dudes
+
+				22	Setup and launch program
+
+Work    PMF     	12/16   23	Music
+
+					23.1	Intro music
+
+Done    PMF     	12/02   	23.2	Level theme music
+
+					23.3	End level music
+
+					23.4	End game music
+
+					23.5	Credits music
+
+	PMF     		24	Sound effects
+
+Done    PMF     	01/14   	24.1	Interface sounds
+
+Done    PMF     	01/14   	24.2	1st person sound effects
+
+Done    PMF     	01/14   	24.3	Spec out sound manager
+
+Work    PMF     	01/14   	24.4	3D sound effects
+
+					24.5	Sound kits
+
+				25	Tommy Gun empty/reload sequence not working right
+
+Done    PMF     ***     	26	Need new throwing animation for TNT missing
+
+Done    PMF     ***     	27	Select and throw TNT bundles, Remote TNT, or Proximity
+					TNT
+
+				28	Create a way for the spear projectiles to be viewable
+					from side
+
+	NCN	**		29	Create smoke trails for flares
+
+Done	NCN	**			29.1	Create smoke trails for fireballs
+
+	NCN	**		30	Create bubble trails for spears
+
+				31	BUG: Physical triggers always trigger, even if target has
+					un-interruptable bit set.
+
+Done	PMF     	12/18   32	Linked sectors
+
+				33	Continuous motion sectors and collections
+
+					33.1	Simple: between two angles
+
+					33.2	Continous rotation
+
+					33.3	Up/down oscillation
+
+					33.4	Back/forth slider (to/fro slider)
+
+				34	Paths
+
+					34.1    Consist of linked control points. Each control
+						point contains x/y/z/angle info.
+
+					34.2	Next point(s)
+
+					34.3	Time to next point -or- velocity at this point
+
+					34.3	Stop here flag
+
+					34.4	Switch control points to determine which link to
+						follow.
+
+				35	Crushers not working
+
+				36	Objects not pushed by moving walls (not using pushwall
+					yet)
+
+Work	NCN	***	10/26	37	Sprites not lit properly in outdoor areas
+
+Work	NCN	***	10/26		37.1	Add sprite "support" shading too, see #46
+
+	NCN	**		38	Dropped items cannot always be seen
+
+				39	Determine if relative brightness will work for textures
+
+				40	Renew or Redo status bar
+
+					40.1	Add ammo/weapon selection displays
+
+				41    	Change player to use viewOffset2 and weaponOffset2 for
+					inertial displacement
+
+Done    PMF     	12/02   42	Talk to Jim Dose about creating timbre files for ASL
+
+				43	Menu code
+
+Work	NCN	***		44	Make sprite generators functional
+
+Done	NCN	***			44.1	Timer generators
+
+Done	NCN	***			44.2	Fireball generators
+
+	NCN	***			44.3	OTHER?
+
+				45	XSystem Dialogs
+
+					45.1	Allow wrapping for phase angle
+
+Done    NCN     	12/16   	45.2	Add interruptable flags to trigger data
+
+Done    NCN     	12/16   	45.3	Add new command types to XSectors and XWalls
+
+Done?	NCN		12/27		45.4	Dude Page (Added fields to sprite dialog page)
+
+				46	Use getzrangepoint() for shadowZ
+
+					46.1	Optimized GetZRange
+
+				47	NETWORK: Make sure all files loaded in shared mode
+
+				48	Allow specification of .INI files on command line
+
+				49	Allow multiple configuration files for different players
+
+				50	DOCS: Describe what messages get sent for decoupled
+					objects in XSYSTEM.TXT.
+
+				51	Game saving and loading
+
+				52	Demo recording and playback
+
+Work    PMF     	12/10   53	Logo & splash screens
+
+					53.1	Talk to Iguanu demo group about plasma effect
+
+				54	DOCS: Develop intro story
+
+Work	NCN     	12/01   55	DOCS: Develop overview of domains
+
+				56	Credit Screens / Coordinate and Code
+
+				57	End Level game screens
+
+				58	End Domain game screens
+
+				59	Grafitti on walls: Alt-Fire for Spray can
+
+				60	Interactive PALEDIT to display images while editing
+
+				61	Add LBM saving to REMAP
+
+				62	Add ANM saving and loading to REMAP
+
+				63	Starburst effect for flare of same type.
+
+				64	Leave spears for pickup
+
+				65	Touch triggers
+
+Work	NCN	****		66	Make sprite hazards functional
+
+Pend.	NCN	****			66.1	Circular saw hazard (non-player dudes only)
+
+				67	Damage sectors
+
+				68	Detail sprites
+
+Done	PMF		01/14   69	Remote Detonators
+
+Done    PMF     	01/14   70	Proximity bombs
+
+Done    PMF     	01/14   	70.1	Throwing
+
+Done    PMF     	01/14   	70.2	Dropping (arm bomb after short period with
+						callback; may need intermediate type.) Or armed
+						by going off on, and exploded going on to off.
+
+				71	Level analyzer tool / function in mapedit
+
+Done	PMF     	01/19   72	Sound generator sprites
+
+				73	Rachel
+
+				74	Copy / Paste operations in mapedit
+
+				75	Need key to make sprites invisible
+
+Done    PMF     	12/16   76	Way to lock/unlock XObjects (Active/Inactive as opposed
+					to On/Off)
+
+Done    PMF             10/26   77	Add new "guard" flag for dudes so they don't leave their
+					default sector.
+
+				78	Monster blocking flags for walls or doors, to keep them
+					in their areas or on ledges.
+
+	PMF     		79	Lens effect for crystal ball
+
+				80	Need a way to delete/clear XObjects in MapEdit
+
+				81	Add the ability to affect visibility based on sector
+					state
+
+				82	Allow sprites to be affected by XSector lighting effect
+					without having the shade floor bit set (indoors)
+
+				83	Make auto texture alignment work for "2" walls.
+
+				84	2D Map mode needs to show sprites
+
+Done    PMF     	1/13    85	Make no-clip mode work better (make it work like DF's no
+					height clipping, rather than allow the player to go
+					through white walls).
+
+				86	Tommy gun alt fire strafing
+
+				87	Control configuration via setup program
+
+				88	Game start network negotiation (player names and options)
+
+				89	Alt-Fire mode toggle
+
+				90	Lightning system event
+
+				91	EtherBlaster/BioWeapon/Shadow Gun.  What the hell is it,
+					and what does it do.  Maybe the staff of ground
+					lightning.
+
+				92	Underwater player/dude physics.  This should make things
+					sink and move slower, and make bubbles and dead bodies
+					float up.
+
+				93	Determine which art is not used for shareware maps and
+					eliminate them from the art file
+
+				94	TEN network support
+
+				95	Cover and ad artwork
+
+				96	Taunt and ridicule macros
+
+				97	Send text messages to other net players
+
+				98	Blood lust -- morph player to Beast and back
+
+Done    NCN			99	Shorten time for shroom power up
+
+Done    PMF     	12/16   100	Add recoil for dudes when damaged and hindered
+
+				101	Decide what to do about armor/shields
+
+					?? Talisman of Protection.  These items will take damage
+					for you, but after they absorb a certain amount, they are
+					destroyed.  Different types of talismans absorb different
+					types of damage (via a damage shift table).  Maybe
+					something like this, but with a Voodoo/Hoodoo theme.
+
+				102	Inventory
+
+				103	Save total editing time in mapedit
+
+Work    PMF     **      11/06   104	Add bit to sprite->cstat (or equivalent bitfield) for
+					display of tsprite smoke.  This could then be set by a
+					sequence for burning deaths and similar effects.
+
+Done    PMF     	12/02   105	Add support in sequence editor for smoke, fire,
+					translucency 2, and triggering
+
+				106	Figure out a way to generalize (possible with a table)
+					how to display sprites which appear one way when they're
+					in the air, and another when they are on the ground.  The
+					MoveThing could should be capable of switching between
+					the two tiles as needed.
+
+Done    PMF     ****    11/07   107	Right Alt sector copying from map to map not working
+
+	PMF	***	12/23	108	Sector panning effects are not based on fixed time
+					interval -- take a look at code in SECTORFX.CPP.
+
+	   	*	1/13	109	Low pass filter for weapon lighting values.
+
+
+ษออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+บLegend:                                                                                         บ
+วฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤถ
+บStatus:                                                                                         บ
+บ       Work    = Work In Progress                                                               บ
+บ       Done    = Done                                                                           บ
+บ       Killed  = Cancelled                                                                      บ
+บ       Hold    = On hold (see notes *)                                                          บ
+บ       Pending = Needs some other item completed first (see notes *)                            บ
+วฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤถ
+บOwner:                                                                                          บ
+บ       NCN     = Nick Newhard                                                                   บ
+บ       PMF     = Peter Freese                                                                   บ
+วฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤถ
+บPriority:                                                                                       บ
+บ       ******  = I'm an anus-sniffer and can't use legends.                                     บ
+บ       *****   = Now. ASAFP. Must be done                                                       บ
+บ       ****    =                                                                                บ
+บ       ***     =                                                                                บ
+บ       **      =                                                                                บ
+บ       *       =                                                                                บ
+ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ

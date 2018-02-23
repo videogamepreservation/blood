@@ -1,0 +1,481 @@
+# Undefine this next line for release build
+!define RELEASE
+
+# Undefine this next line to use Causeway in all EXEs
+#!define USE_CAUSEWAY
+
+SRCDIR = SRC
+OBJDIR = OBJ
+LIBDIR = \qtools\lib;\blood\obj;\helix32
+
+.cpp.obj: .AUTODEPEND
+!ifdef RELEASE
+        wpp386 -we -wx -4r -mf -d1 -s -ox -dNOMC $[@ /fo=$(OBJDIR)\$^&
+!else
+       wpp386 -we -wx -4r -mf -d2 -s -dNOMC $[@ /fo=$(OBJDIR)\$^&
+!endif
+
+.c.obj: .AUTODEPEND
+!ifdef RELEASE
+        wcc386 -we -wx -4r -mf -d2 -ox -dNOMC $[@ /fo=$(OBJDIR)\$^&
+!else
+        wcc386 -we -wx -4r -mf -d2 -s -dNOMC $[@ /fo=$(OBJDIR)\$^&
+!endif
+
+.asm.obj: .AUTODEPEND
+!ifdef RELEASE
+	tasm -mx -m2 -q $[@ $(OBJDIR)\$^&
+!else
+       tasm -mx -m2 -zi $[@ $(OBJDIR)\$^&
+!endif
+
+# Specify the location of dependencies
+.obj : 	$(OBJDIR)
+.lib :	$(LIBDIR)
+.c : 	$(SRCDIR)
+.cpp : 	$(SRCDIR)
+.h : 	$(SRCDIR)
+.asm :	$(SRCDIR)
+
+BLOODOBJS = &
+	blood.obj &
+	screen.obj &
+	view.obj &
+	db.obj &
+	gameutil.obj &
+	fire.obj &
+	fframe.obj &
+	sectorfx.obj &
+	map2d.obj &
+	asstimer.obj &
+	usrhooks.obj &
+	levels.obj &
+	sound.obj &
+	sfx.obj &
+	controls.obj &
+	actor.obj &
+	player.obj &
+	replace.obj &
+	tile.obj &
+	triggers.obj &
+	eventq.obj &
+	qav.obj &
+	weapon.obj &
+	options.obj &
+	gui.obj &
+	seq.obj &
+	mirrors.obj &
+	dude.obj &
+	warp.obj &
+	credits.obj &
+	mmulti.obj &
+	ai.obj &
+	aicult.obj &
+	aigarg.obj &
+	aihand.obj &
+	aihound.obj &
+	airat.obj &
+	aispid.obj &
+	aizomba.obj &
+	aizombf.obj &
+
+
+MAPEDITOBJS = &
+	bstub.obj &
+	db.obj &
+	screen.obj &
+	gameutil.obj &
+	sectorfx.obj &
+	gui.obj &
+	replace.obj &
+	tile.obj &
+	options.obj &
+	edit2d.obj &
+	edit3d.obj &
+
+QAVEDITOBJS = &
+	qavedit.obj &
+	qav.obj &
+	gui.obj &
+	replace.obj &
+	tile.obj &
+	gameutil.obj &
+	screen.obj &
+	options.obj &
+
+SEQEDITOBJS = &
+	seqedit.obj &
+	gui.obj &
+	replace.obj &
+	tile.obj &
+	gameutil.obj &
+	screen.obj &
+	options.obj &
+
+ARTEDITOBJS = &
+	artedit.obj &
+	gui.obj &
+	replace.obj &
+	tile.obj &
+	gameutil.obj &
+	screen.obj &
+	options.obj &
+
+EDGAROBJS = &
+	edgar.obj &
+	gui.obj &
+	replace.obj &
+	tile.obj &
+	gameutil.obj &
+	screen.obj &
+	options.obj &
+
+TABLESOBJS = &
+	tables.obj &
+
+PALTOOLOBJS = &
+	paltool.obj &
+
+CONVDB6 = &
+	convdb6.obj &
+
+APEOBJS = &
+	ape.obj &
+
+SLUTOBJS = &
+	slut.obj &
+
+REMAP = &
+	remap.obj &
+
+SHPLAY = &
+	shplay.obj &
+
+SETUP = &
+	setup.obj &
+
+JOYTEST = &
+	joytest.obj &
+
+SPRITEST = &
+	spritest.obj &
+	db.obj &
+
+dummy : globals.obj blood.exe mapedit.exe
+
+all : globals.obj blood.exe mapedit.exe qavedit.exe seqedit.exe artedit.exe tables.exe paltool.exe ape.exe slut.exe remap.exe shplay.exe setup.exe joytest.exe
+
+blood.exe : $(BLOODOBJS) qtools.lib helix32.lib engine.lib blood.lnk
+	wlink @$^*
+
+mapedit.exe : $(MAPEDITOBJS) qtools.lib helix32.lib engine.lib mapedit.lnk
+        wlink @$^*
+
+qavedit.exe : $(QAVEDITOBJS) qtools.lib helix32.lib qavedit.lnk
+	wlink @$^*
+
+seqedit.exe : $(SEQEDITOBJS) qtools.lib helix32.lib seqedit.lnk
+	wlink @$^*
+
+artedit.exe : $(ARTEDITOBJS) qtools.lib helix32.lib artedit.lnk
+	wlink @$^*
+
+edgar.exe : $(EDGAROBJS) qtools.lib helix32.lib edgar.lnk
+	wlink @$^*
+
+tables.exe : $(TABLESOBJS) qtools.lib tables.lnk
+	wlink @$^*
+
+paltool.exe : $(PALTOOLOBJS) qtools.lib paltool.lnk
+	wlink @$^*
+
+convdb6.exe : $(CONVDB6) qtools.lib convdb6.lnk
+	wlink @$^*
+
+ape.exe : $(APEOBJS) qtools.lib ape.lnk
+	wlink @$^*
+
+slut.exe : $(SLUTOBJS) qtools.lib slut.lnk
+	wlink @$^*
+
+remap.exe : $(REMAP) qtools.lib helix32.lib remap.lnk
+	wlink @$^*
+
+shplay.exe: $(SHPLAY) qtools.lib helix32.lib shplay.lnk
+	wlink @$^*
+
+setup.exe: $(SETUP) qtools.lib setup.lnk
+	wlink @$^*
+
+joytest.exe: $(JOYTEST) qtools.lib joytest.lnk
+	wlink @$^*
+
+spritest.exe: $(SPRITEST) qtools.lib spritest.lnk
+	wlink @$^*
+
+globals.obj : globals.cpp globals.h qtools.lib engine.lib $(BLOODOBJS) $(MAPEDITOBJS)
+!ifdef RELEASE
+       	wpp386 -w2 -4r -mf -oneatx -dNOMC $[@ /fo=$(OBJDIR)\$^&
+!else
+       wpp386 -w2 -4r -mf -d2 $[@ -dNOMC /fo=$(OBJDIR)\$^&
+!endif
+
+blood.lnk : makefile
+	%create $^@
+	%append $^@ NAME $^&
+        %append $^@ DEBUG ALL
+	%append $^@ FILE $(OBJDIR)\globals.obj
+        for %i in ($(BLOODOBJS)) do %append $^@ FILE $(OBJDIR)\%i
+	%append $^@ FILE \helix32\hgd13.obj
+	%append $^@ FILE \helix32\hgdx.obj
+	%append $^@ LIB mca3r.lib
+	%append $^@ LIB qtools.lib
+	%append $^@ LIB engine.lib
+	%append $^@ LIB audio_wf.lib
+!ifdef USE_CAUSEWAY
+        %append $^@ SYSTEM CAUSEWAY
+!endif
+        %append $^@ OPTION
+	%append $^@   VERBOSE,
+	%append $^@   REDEFSOK,
+	%append $^@   STACK=8K,
+	%append $^@   MAP=$(OBJDIR)\$^&.map,
+
+
+mapedit.lnk : makefile
+	%create $^@
+	%append $^@ NAME $^&
+        %append $^@ DEBUG ALL
+	%append $^@ FILE $(OBJDIR)\globals.obj
+        for %i in ($(MAPEDITOBJS)) do %append $^@ FILE $(OBJDIR)\%i
+	%append $^@ FILE \helix32\hgd13.obj
+	%append $^@ FILE \helix32\hgdx.obj
+	%append $^@ FILE $(OBJDIR)\build.obj
+	%append $^@ LIB mca3r.lib
+	%append $^@ LIB qtools.lib
+	%append $^@ LIB engine.lib
+!ifdef USE_CAUSEWAY
+        %append $^@ SYSTEM CAUSEWAY
+!endif
+        %append $^@ OPTION
+	%append $^@   VERBOSE,
+	%append $^@   REDEFSOK,
+	%append $^@   STACK=8K,
+	%append $^@   MAP=$(OBJDIR)\$^&.map,
+
+qavedit.lnk : makefile
+	%create $^@
+	%append $^@ NAME $^&
+        %append $^@ DEBUG ALL
+	%append $^@ FILE $(OBJDIR)\globals.obj
+        for %i in ($(QAVEDITOBJS)) do %append $^@ FILE $(OBJDIR)\%i
+	%append $^@ FILE \helix32\hgd13.obj
+	%append $^@ FILE \helix32\hgdx.obj
+	%append $^@ LIB mca3r.lib
+	%append $^@ LIB qtools.lib
+	%append $^@ LIB engine.lib
+!ifdef USE_CAUSEWAY
+        %append $^@ SYSTEM CAUSEWAY
+!endif
+        %append $^@ OPTION
+	%append $^@   VERBOSE,
+	%append $^@   REDEFSOK,
+	%append $^@   STACK=8K,
+	%append $^@   MAP=$(OBJDIR)\$^&.map,
+
+seqedit.lnk : makefile
+	%create $^@
+	%append $^@ NAME $^&
+        %append $^@ DEBUG ALL
+	%append $^@ FILE $(OBJDIR)\globals.obj
+        for %i in ($(SEQEDITOBJS)) do %append $^@ FILE $(OBJDIR)\%i
+	%append $^@ FILE \helix32\hgd13.obj
+	%append $^@ FILE \helix32\hgdx.obj
+	%append $^@ LIB mca3r.lib
+	%append $^@ LIB qtools.lib
+	%append $^@ LIB engine.lib
+!ifdef USE_CAUSEWAY
+        %append $^@ SYSTEM CAUSEWAY
+!endif
+        %append $^@ OPTION
+	%append $^@   VERBOSE,
+	%append $^@   REDEFSOK,
+	%append $^@   STACK=8K,
+	%append $^@   MAP=$(OBJDIR)\$^&.map,
+
+artedit.lnk : makefile
+	%create $^@
+	%append $^@ NAME $^&
+        %append $^@ DEBUG ALL
+	%append $^@ FILE $(OBJDIR)\globals.obj
+        for %i in ($(ARTEDITOBJS)) do %append $^@ FILE $(OBJDIR)\%i
+	%append $^@ FILE \helix32\hgd13.obj
+	%append $^@ FILE \helix32\hgdx.obj
+	%append $^@ LIB mca3r.lib
+	%append $^@ LIB qtools.lib
+	%append $^@ LIB engine.lib
+!ifdef USE_CAUSEWAY
+        %append $^@ SYSTEM CAUSEWAY
+!endif
+        %append $^@ OPTION
+	%append $^@   VERBOSE,
+	%append $^@   REDEFSOK,
+	%append $^@   STACK=8K,
+	%append $^@   MAP=$(OBJDIR)\$^&.map,
+
+edgar.lnk : makefile
+	%create $^@
+	%append $^@ NAME $^&
+        %append $^@ DEBUG ALL
+	%append $^@ FILE $(OBJDIR)\globals.obj
+        for %i in ($(EDGAROBJS)) do %append $^@ FILE $(OBJDIR)\%i
+	%append $^@ FILE \helix32\hgd13.obj
+	%append $^@ LIB mca3r.lib
+	%append $^@ LIB qtools.lib
+	%append $^@ LIB engine.lib
+!ifdef USE_CAUSEWAY
+        %append $^@ SYSTEM CAUSEWAY
+!endif
+        %append $^@ OPTION
+	%append $^@   VERBOSE,
+	%append $^@   REDEFSOK,
+	%append $^@   STACK=8K,
+	%append $^@   MAP=$(OBJDIR)\$^&.map,
+
+tables.lnk : makefile
+	%create $^@
+	%append $^@ NAME $^&
+        for %i in ($(TABLESOBJS)) do %append $^@ FILE $(OBJDIR)\%i
+	%append $^@ LIB qtools.lib
+        %append $^@ OPTION
+	%append $^@   VERBOSE,
+	%append $^@   REDEFSOK,
+
+paltool.lnk : makefile
+	%create $^@
+	%append $^@ NAME $^&
+        for %i in ($(PALTOOLOBJS)) do %append $^@ FILE $(OBJDIR)\%i
+	%append $^@ LIB qtools.lib
+        %append $^@ OPTION
+	%append $^@   VERBOSE,
+	%append $^@   REDEFSOK,
+
+convdb6.lnk : makefile
+	%create $^@
+	%append $^@ NAME $^&
+        %append $^@ DEBUG ALL
+        for %i in ($(CONVDB6)) do %append $^@ FILE $(OBJDIR)\%i
+	%append $^@ LIB qtools.lib
+!ifdef USE_CAUSEWAY
+        %append $^@ SYSTEM CAUSEWAY
+!endif
+        %append $^@ OPTION
+	%append $^@   VERBOSE,
+	%append $^@   REDEFSOK,
+	%append $^@   MAP=$(OBJDIR)\$^&.map,
+
+ape.lnk : makefile
+	%create $^@
+	%append $^@ NAME $^&
+        %append $^@ DEBUG ALL
+        for %i in ($(APEOBJS)) do %append $^@ FILE $(OBJDIR)\%i
+	%append $^@ LIB qtools.lib
+!ifdef USE_CAUSEWAY
+        %append $^@ SYSTEM CAUSEWAY
+!endif
+        %append $^@ OPTION
+	%append $^@   VERBOSE,
+	%append $^@   REDEFSOK,
+	%append $^@   STACK=8K,
+	%append $^@   MAP=$(OBJDIR)\$^&.map,
+
+slut.lnk : makefile
+	%create $^@
+	%append $^@ NAME $^&
+        for %i in ($(SLUTOBJS)) do %append $^@ FILE $(OBJDIR)\%i
+	%append $^@ LIB qtools.lib
+
+remap.lnk : makefile
+	%create $^@
+	%append $^@ NAME $^&
+        %append $^@ DEBUG ALL
+        for %i in ($(REMAP)) do %append $^@ FILE $(OBJDIR)\%i
+	%append $^@ FILE \helix32\hgd13.obj
+	%append $^@ LIB qtools.lib
+
+!ifdef USE_CAUSEWAY
+        %append $^@ SYSTEM CAUSEWAY
+!endif
+        %append $^@ OPTION
+	%append $^@   VERBOSE,
+	%append $^@   REDEFSOK,
+	%append $^@   STACK=8K,
+	%append $^@   MAP=$(OBJDIR)\$^&.map,
+
+shplay.lnk : makefile
+	%create $^@
+	%append $^@ NAME $^&
+        %append $^@ DEBUG ALL
+        for %i in ($(SHPLAY)) do %append $^@ FILE $(OBJDIR)\%i
+	%append $^@ FILE \helix32\hgd13.obj
+	%append $^@ LIB mca3r.lib
+	%append $^@ LIB qtools.lib
+	%append $^@ LIB audio_wf.lib
+!ifdef USE_CAUSEWAY
+        %append $^@ SYSTEM CAUSEWAY
+!endif
+        %append $^@ OPTION
+	%append $^@   VERBOSE,
+	%append $^@   REDEFSOK,
+	%append $^@   STACK=8K,
+	%append $^@   MAP=$(OBJDIR)\$^&.map,
+
+setup.lnk : makefile
+	%create $^@
+	%append $^@ NAME $^&
+        %append $^@ DEBUG ALL
+        for %i in ($(SETUP)) do %append $^@ FILE $(OBJDIR)\%i
+	%append $^@ LIB mca3r.lib
+	%append $^@ LIB qtools.lib
+	%append $^@ LIB audio_wf.lib
+!ifdef USE_CAUSEWAY
+        %append $^@ SYSTEM CAUSEWAY
+!endif
+        %append $^@ OPTION
+	%append $^@   VERBOSE,
+	%append $^@   REDEFSOK,
+	%append $^@   STACK=8K,
+	%append $^@   MAP=$(OBJDIR)\$^&.map,
+
+joytest.lnk : makefile
+	%create $^@
+	%append $^@ NAME $^&
+        %append $^@ DEBUG ALL
+        for %i in ($(JOYTEST)) do %append $^@ FILE $(OBJDIR)\%i
+	%append $^@ LIB qtools.lib
+!ifdef USE_CAUSEWAY
+        %append $^@ SYSTEM CAUSEWAY
+!endif
+        %append $^@ OPTION
+	%append $^@   VERBOSE,
+	%append $^@   REDEFSOK,
+	%append $^@   STACK=8K,
+	%append $^@   MAP=$(OBJDIR)\$^&.map,
+
+spritest.lnk : makefile
+	%create $^@
+	%append $^@ NAME $^&
+        %append $^@ DEBUG ALL
+        for %i in ($(SPRITEST)) do %append $^@ FILE $(OBJDIR)\%i
+	%append $^@ FILE $(OBJDIR)\globals.obj
+	%append $^@ LIB qtools.lib
+	%append $^@ LIB engine.lib
+!ifdef USE_CAUSEWAY
+        %append $^@ SYSTEM CAUSEWAY
+!endif
+        %append $^@ OPTION
+	%append $^@   VERBOSE,
+	%append $^@   REDEFSOK,
+	%append $^@   STACK=8K,
+	%append $^@   MAP=$(OBJDIR)\$^&.map,
+

@@ -1,0 +1,86 @@
+=============================================================================
+			     QAVEDIT History File
+		 Copyright (c) 1994-95 Q Studios Corporation
+			    Contact: Peter Freese
+		    pfreese@qstudios.com or CIS:74170,543
+=============================================================================
+
+KEYBOARD FUNCTIONS:
+
+	Esc		Exit the editor
+	Enter		Play the animation
+	F2		Save
+	Ctrl F2		Save As
+	F3		Load
+	1/2		Go backward/forward one frame
+	Home		Go to first frame
+	End		Go to last frame
+	Page Up/Down	Move up/down a layer
+	-/+		Change ticks per frame by ñ1
+	Space		Play QAV once
+	Enter		Play QAV and loop
+
+	O 		Nudge origin
+	O LMouse	Drag origin
+	O Ctrl		Move origin and adjust all frame offsets
+
+	Insert		Duplicate a tile
+	Delete		Delete the current tile
+	LMouse		Drag tile
+			Nudge tile
+	P		Change Palookup by +1
+	Alt P		Select Palookup via dialog
+	R		Toggle tile positioning from origin to corner
+	T		Cycle between translucency levels 0, 1, and 2
+	V		Select tile
+	X		Toggle x flipping
+	Y		Toggle y flipping
+	Pad +/-		Change tile shade ñ1
+	Ctrl Pad +/-	Set tile shade to min/max
+	Pad 0		Set tile shade to 0
+	< >		Coarse tile angle change
+	Sh < >		Fine tile angle change
+	Pad / *		Coarse zoom up/down
+	Sh Pad / *	Fine zoom up/down
+	Sh Page Up/Dn	Drag tile up/down a layer
+
+	F		Edit trigger for current frame
+
+	Ctrl Ins	Insert a layer
+	Ctrl Del	Delete a layer
+	Ctrl Sh Pg Up/Dn Drag an entire layer up/down
+
+	Alt Ins		Insert a frame
+	Alt Del		Delete a frame
+
+While playing animation:
+
+	Ctrl		Play at 1/2 speed
+	Shift		Play at 1/4 speed
+	-/+		Adjust ticks per frame
+
+-----------------------------------------------------------------------------
+
+95/06/13
+
+This document created.
+
+-----------------------------------------------------------------------------
+
+95/12/21
+
+QavEdit, formerly AnimEdit, has undergone a complete overhaul.  The QAV engine
+now uses a different metaphor to create and display animations.  It is now
+based on fixed frames intervals, with a fixed number of layers (currently 8).
+This means that it is much easier to control the z-ordering of tiles, and
+simple to adjust the overall speed of playback.
+
+You should convert all existing QAVs with the command line:
+
+	QAVEDIT -c path\*.QAV
+
+-----------------------------------------------------------------------------
+
+96/01/15
+
+Fixed a crash bug that would occur when deleting entire frames.

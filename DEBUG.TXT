@@ -1,0 +1,424 @@
+DPMI Memory report:
+  Largest Block Avail:	20402176
+  Max Unlocked Pages:	4981
+  Max Lockable Pages:	4981
+  Linear Addr Pages:	5724
+  Num Unlocked Pages:	4981
+  Num Free Pages:	4987
+  Total Physical Pages:	5724
+  Free Linear Pages:	4987
+  Page File Pages:	-1
+QHeap: attempting allocation of 19924K
+QHeap: allocated 19876K
+Reading external resource file: FOG.FLU
+Reading external resource file: CANFIRE.QAV
+Reading external resource file: BLOOD.PAL
+Reading external resource file: FIRE.PAL
+Reading external resource file: RFIRE.CLU
+Reading external resource file: PALETTE.DAT
+Reading external resource file: VGA.CFG
+kmalloc(2400) = 01976AD1
+kmalloc(2400) = 01976161
+kmalloc(64000) = 01966751
+14 tile files opened
+Preload weapon QAV tiles
+USRHOOKS_GetMem allocated 32 bytes at 018aae91
+USRHOOKS_GetMem allocated 32 bytes at 018aae61
+Reading external resource file: DRIPS.MAP
+Preload dude sequence tiles
+evInit()
+trInit()
+Trigger start broadcast
+Coop start broadcast
+Preload floor and ceiling tiles
+Preload wall tiles
+Preload sprite tiles
+Initializing player 0
+Resetting player 0
+0 mirrors initialized
+WeaponRaise:  weapon = 1, mode = 0
+actSpawnEffect: missing sequence
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 1
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 7
+OperateSprite for kGen Object
+Drip landed: z=-4096, zTop=-7936, zBot=-3616, floorz=-4096
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Dispatching callback event to sprite 0
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 3
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Dispatching callback event to sprite 7
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 1
+OperateSprite for kGen Object
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Drip landed: z=-4096, zTop=-7936, zBot=-3616, floorz=-4096
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 3
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Dispatching callback event to sprite 0
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 7
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 1
+OperateSprite for kGen Object
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Drip landed: z=-4096, zTop=-7936, zBot=-3616, floorz=-4096
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Dispatching callback event to sprite 3
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 3
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 1
+OperateSprite for kGen Object
+Dispatching callback event to sprite 7
+OperateSprite for kGen Object
+Dispatching callback event to sprite 0
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=-4096, zTop=-7936, zBot=-3616, floorz=-4096
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 1
+OperateSprite for kGen Object
+Dispatching callback event to sprite 3
+OperateSprite for kGen Object
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Drip landed: z=-4096, zTop=-7936, zBot=-3616, floorz=-4096
+Dispatching callback event to sprite 0
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 7
+OperateSprite for kGen Object
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Dispatching callback event to sprite 3
+OperateSprite for kGen Object
+Dispatching callback event to sprite 1
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=-4096, zTop=-7936, zBot=-3616, floorz=-4096
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Dispatching callback event to sprite 7
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 0
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 3
+OperateSprite for kGen Object
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 7
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 1
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=-4096, zTop=-7936, zBot=-3616, floorz=-4096
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 0
+OperateSprite for kGen Object
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Dispatching callback event to sprite 1
+OperateSprite for kGen Object
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=-4096, zTop=-7936, zBot=-3616, floorz=-4096
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 3
+OperateSprite for kGen Object
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Dispatching callback event to sprite 7
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 1
+OperateSprite for kGen Object
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Drip landed: z=-4096, zTop=-7936, zBot=-3616, floorz=-4096
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Dispatching callback event to sprite 0
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 7
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 3
+OperateSprite for kGen Object
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 1
+OperateSprite for kGen Object
+Drip landed: z=-4096, zTop=-7936, zBot=-3616, floorz=-4096
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Dispatching callback event to sprite 7
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 3
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 0
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 4
+OperateSprite for kGen Object
+Dispatching callback event to sprite 5
+OperateSprite for kGen Object
+Dispatching callback event to sprite 6
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 7
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Dispatching callback event to sprite 2
+OperateSprite for kGen Object
+Dispatching callback event to sprite 1
+OperateSprite for kGen Object
+Drip landed: z=8192, zTop=4352, zBot=8672, floorz=8192
+Drip landed: z=-4096, zTop=-7936, zBot=-3616, floorz=-4096
+MUSIC_Shutdown()
+Removing timer
+USRHOOKS_FreeMem at 018aae91
+USRHOOKS_FreeMem at 018aae61
+uninitengine()
+All subsystems shut down.  Processing exit functions

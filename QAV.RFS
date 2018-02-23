@@ -1,0 +1,225 @@
+# ---------------------------------------------------------------------------
+# Miscellaneous QAV sequences
+# ---------------------------------------------------------------------------
+alias qav\hand.qav	0x00	PRELOCK		# hand choking player
+alias qav\spider.qav	0x01	PRELOCK		# spider on player's face
+
+
+# ---------------------------------------------------------------------------
+# WEAPON:	Lighter
+#
+# BASE:		0x100
+# ---------------------------------------------------------------------------
+alias qav\liteopen.qav	0x100	PRELOCK		# weapon up
+alias qav\liteclo2.qav	0x101	PRELOCK		# weapon down
+						# weapon reload
+alias qav\liteidle.qav	0x103	PRELOCK		# weapon idle full
+						# weapon idle empty
+						# weapon alternate idle
+alias qav\liteflam.qav	0x106	PRELOCK		# weapon attack 1
+
+#liteclos.qav	#are these still necessary?
+#litesprk.qav	#are these still necessary?
+
+
+# ---------------------------------------------------------------------------
+# WEAPON: Pitchfork
+#
+# BASE:		0x110
+# ---------------------------------------------------------------------------
+alias qav\forkup.qav	0x110	PRELOCK		# weapon up
+alias qav\forkdown.qav	0x111	PRELOCK		# weapon down
+						# weapon reload
+alias qav\forkidle.qav	0x113	PRELOCK		# weapon idle full
+						# weapon idle empty
+						# weapon alternate idle
+alias qav\pfork.qav	0x116	PRELOCK		# weapon attack 1
+
+
+# ---------------------------------------------------------------------------
+# WEAPON: FlareGun
+#
+# BASE:		0x120
+# ---------------------------------------------------------------------------
+alias qav\flarup.qav	0x120	PRELOCK		# weapon up
+alias qav\flardown.qav  0x121	PRELOCK		# weapon down
+						# weapon reload
+alias qav\flaridle.qav  0x123	PRELOCK		# weapon idle full
+						# weapon idle empty
+						# weapon alternate idle
+alias qav\flarfire.qav	0x126	PRELOCK		# weapon attack 1
+
+
+# ---------------------------------------------------------------------------
+# WEAPON: Shotgun
+#
+# BASE:		0x130
+# ---------------------------------------------------------------------------
+alias qav\shotup.qav	0x130	PRELOCK		# weapon up
+alias qav\shotdown.qav	0x131	PRELOCK		# weapon down
+alias qav\shotl1.qav	0x132	PRELOCK		# weapon reload
+alias qav\shoti1.qav	0x133	PRELOCK		# weapon idle full
+alias qav\shoti3.qav	0x134	PRELOCK		# weapon idle empty
+alias qav\shoti2.qav	0x135	PRELOCK		# weapon alternate idle
+alias qav\shotf1.qav	0x136	PRELOCK		# weapon fire 1
+alias qav\shotf2.qav	0x137	PRELOCK		# weapon fire 2
+
+
+# ---------------------------------------------------------------------------
+# WEAPON: TommyGun
+#
+# BASE:		0x140
+# ---------------------------------------------------------------------------
+alias qav\tomup.qav	0x140	PRELOCK		# weapon up
+alias qav\tomdown.qav	0x141	PRELOCK		# weapon down
+						# weapon reload
+alias qav\tomidle.qav	0x143	PRELOCK		# weapon idle full
+						# weapon idle empty
+						# weapon alternate idle
+alias qav\tomfire1.qav	0x146	PRELOCK		# weapon fire 1
+alias qav\tomfire2.qav	0x147	PRELOCK		# weapon fire 2
+alias qav\tomfire3.qav	0x148	PRELOCK		# weapon fire 3
+alias qav\tomfire4.qav	0x149	PRELOCK		# weapon fire 4
+
+# toms1.qav -- toms14.qav STRAFING - how will this be handled?
+
+
+# ---------------------------------------------------------------------------
+# WEAPON: Dynamite, STICK
+#
+# BASE:		0x150
+# ---------------------------------------------------------------------------
+alias qav\dynpre.qav	0x150	PRELOCK		# weapon up
+alias qav\dyndown.qav	0x151	PRELOCK		# weapon down
+						# weapon reload
+alias qav\dynidle1.qav	0x153	PRELOCK		# weapon idle full
+						# weapon idle empty
+alias qav\dynfusea.qav	0x155	PRELOCK		# weapon alternate idle
+alias qav\dynlita.qav	0x156	PRELOCK		# weapon fire 1
+alias qav\throw.qav	0x157	PRELOCK		# weapon fire 2
+						# weapon fire 3
+						# weapon fire 4
+
+
+# ---------------------------------------------------------------------------
+# WEAPON: Dynamite, BUNDLE
+#
+# BASE:		0x160
+# ---------------------------------------------------------------------------
+alias qav\dynpre2.qav	0x160	PRELOCK		# weapon up
+alias qav\dyndown2.qav	0x161	PRELOCK		# weapon down
+						# weapon reload
+alias qav\dynidle2.qav	0x163	PRELOCK		# weapon idle full
+						# weapon idle empty
+alias qav\dynfuseb.qav	0x165	PRELOCK		# weapon alternate idle
+alias qav\dynlitb.qav	0x166	PRELOCK		# weapon fire 1
+alias qav\throw.qav	0x167	PRELOCK		# weapon fire 2
+						# weapon fire 3
+						# weapon fire 4
+
+# ---------------------------------------------------------------------------
+# WEAPON: Dynamite, PROXIMITY
+#
+# BASE:		0x170
+# ---------------------------------------------------------------------------
+alias qav\proxup.qav	0x170	PRELOCK		# weapon up
+alias qav\proxdown.qav	0x171	PRELOCK		# weapon down
+						# weapon reload
+alias qav\proxidle.qav	0x173	PRELOCK		# weapon idle full
+						# weapon idle empty
+						# weapon alternate idle
+alias qav\throw.qav	0x176	PRELOCK		# weapon fire 1
+
+# ---------------------------------------------------------------------------
+# WEAPON: Dynamite, REMOTE
+#
+# BASE:		0x180
+# ---------------------------------------------------------------------------
+
+
+# ---------------------------------------------------------------------------
+# WEAPON: SprayCan
+#
+# BASE:		0x190
+# ---------------------------------------------------------------------------
+alias qav\canpref.qav	0x190	PRELOCK		# weapon up
+alias qav\candown.qav   0x191	PRELOCK		# weapon down
+						# weapon reload
+alias qav\canidle.qav	0x193	PRELOCK		# weapon idle full
+						# weapon idle empty
+						# weapon alternate idle
+alias qav\canfire1.qav	0x196	PRELOCK		# weapon fire 1
+alias qav\canfire2.qav	0x197	PRELOCK		# weapon fire 2
+alias qav\canfire3.qav	0x198	PRELOCK		# weapon fire 3
+
+
+# ---------------------------------------------------------------------------
+# WEAPON: SpearGun
+#
+# BASE:		0x200
+# ---------------------------------------------------------------------------
+alias qav\sgunup.qav	0x200	PRELOCK		# weapon up
+alias qav\sgundown.qav	0x201	PRELOCK		# weapon down
+						# weapon reload
+alias qav\sgunidl1.qav	0x203	PRELOCK		# weapon idle full
+alias qav\sgunidl2.qav	0x204	PRELOCK		# weapon idle empty
+						# weapon alternate idle
+alias qav\sgunfire.qav	0x206	PRELOCK		# weapon fire 1
+
+
+# ---------------------------------------------------------------------------
+# WEAPON: ShadowBlaster
+#
+# BASE:		0x210
+# ---------------------------------------------------------------------------
+alias qav\darkup.qav	0x210	PRELOCK		# weapon up
+alias qav\darkdown.qav	0x211	PRELOCK		# weapon down
+						# weapon reload
+alias qav\darkidle.qav	0x213	PRELOCK		# weapon idle full
+						# weapon idle empty
+						# weapon alternate idle
+alias qav\darkfire.qav	0x216	PRELOCK		# weapon fire 1
+						# weapon fire 2
+
+
+# ---------------------------------------------------------------------------
+# WEAPON: BeastHands
+#
+# BASE:		0x220
+# ---------------------------------------------------------------------------
+alias qav\bstup.qav	0x220	PRELOCK		# weapon up
+alias qav\bstdown.qav	0x221	PRELOCK		# weapon down
+						# weapon reload
+alias qav\bstidle.qav	0x223	PRELOCK		# weapon idle full
+						# weapon idle empty
+						# weapon alternate idle
+alias qav\bstatak1.qav	0x226	PRELOCK		# weapon fire 1
+alias qav\bstatak2.qav	0x227	PRELOCK		# weapon fire 2
+alias qav\bstatak1.qav	0x228	PRELOCK		# weapon fire 3
+alias qav\bstatak2.qav	0x229	PRELOCK		# weapon fire 4
+
+
+# ---------------------------------------------------------------------------
+# WEAPON: DeadHands1
+#
+# BASE:		0x230
+# ---------------------------------------------------------------------------
+alias qav\dead1up.qav	0x230	PRELOCK		# weapon up
+						# weapon down
+						# weapon reload
+						# weapon idle full
+						# weapon idle empty
+alias qav\dead1idl.qav	0x235	PRELOCK		# weapon alternate idle
+
+# ---------------------------------------------------------------------------
+# WEAPON: DeadHands2
+#
+# BASE:		0x240
+# ---------------------------------------------------------------------------
+alias qav\dead2up.qav	0x240	PRELOCK		# weapon up
+						# weapon down
+						# weapon reload
+						# weapon idle full
+						# weapon idle empty
+alias qav\dead2idl.qav	0x245	PRELOCK		# weapon alternate idle
+

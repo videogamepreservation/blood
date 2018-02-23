@@ -1,0 +1,154 @@
+=============================================================================
+			    SEQEDIT History File
+		 Copyright (c) 1994-95 Q Studios Corporation
+			    Contact: Peter Freese
+		    pfreese@qstudios.com or CIS:74170,543
+=============================================================================
+
+KEYBOARD FUNCTIONS:
+
+	Esc		Exit the editor
+	F2		Save
+	Ctrl F2		Save As
+	F3		Load
+
+	Enter		Play the sequence continuously
+	Space		Play the sequence once
+	Caps Lock	Draw tiles unmasked (while pressed)
+	1/2		Go backward/forward one frame
+	-/+		Change ticks per frame by ñ1
+	< >		Change view angle by 45 degrees
+	/		Set view angle to 0
+	Insert		Insert a new frame
+	Ctrl Insert	Insert a new frame before the current one
+	Delete		Delete the current frame
+	B		Toggle Blocking
+	F		Toggle trigger Firing
+	H		Toggle Hitscan
+	S		Toggle Smoke
+	T		Cycle between translucency levels 0, 1, and 2
+	P		Change Palookup by +1
+	Alt P		Select Palookup via dialog
+	V		Change tile for frame
+	Pad +/-		Change shade ñ1
+	Ctrl Pad +/-	Set shade to min/max
+	Pad 0		Set shade to 0
+	Alt Pad +/-	Change relative global shade
+	Page Up/Down	Change tile by ñ1
+	O 		Nudge global origin
+	O LMouse	Drag global origin
+
+These key modify the art file:
+
+			Nudge tile origin
+	Shift 	Set tile origin to respective edge
+	Shift Pad 5	Set tile origin to center
+	W		Change tile vieW type
+	O Ctrl		Move Origin and adjust all frame offsets
+
+
+Frame flag legend:
+
+	F	Fire a trigger
+	S	Smoke tsprite
+	T	Mostly translucent
+	t	Partially translucent
+	B	Blocking
+	H	Hitscan
+	R	Remove when done
+	L	Loop when done
+
+-----------------------------------------------------------------------------
+
+95/06/13
+
+This document created.
+
+The global origin (adjusted with the "O" key) affects only where tiles are
+displayed while you are editing.
+
+You have the option to save adjustments to tile origins when you exit.
+
+You cannot yet save, load, or play sequences, but you can try out the editing
+features.
+
+I'm releasing this program now in an incomplete state because it's extremely
+useful for adjusting tile origins (much better than editart).
+
+-----------------------------------------------------------------------------
+
+95/07/13
+
+Somehow, I think I lost a revision to this text file. I'll document the
+information I lost again. The list of keyboard functions above is fairly self
+explanatory except for a few small items.
+
+Global shade is an editor concept which allows you to see how the sequence
+will look when it is played for a sprite in a sector with a non-zero shade.
+In other words, a dark sector might have a floor shade of 12, for example, so
+by setting the global shade to 12 you can see how the sequence would look in
+that sector. Setting global shade to a dark value also gives you the ability
+to see the difference in shade for sequence frames that have shades < 0.
+
+The status bar on the bottom of the screen has two parts. The left part (in
+yellow) describes the current frame:
+
+	1023 VIEW: SINGLE T:0 B:1 H:0 SH: -8 PAL: 0
+
+The first number is the tile number in the current frame.
+
+View is the view type of the current tile. Remember, if you change the view
+type, you are modifying the art file, since view mode is a tile attribute.
+
+T, B, and H are the frames translucency, blocking, and hitscan flags,
+respectively.
+
+SH is the shade of the current frame.
+
+PAL is the palookup for the current frame.
+
+The right part of the status line (in light gray) gives information about the
+sequence and the display mode:
+
+	SH: 16 ANG:  45 FR:  1/ 8 TPF: 16
+
+SH is the global shade. This is only relevent to the display of the
+sequence in the editor. It is not saved with the sequence.
+
+ANG is the current angle from which the sequence is being viewed. This is
+only relevent if your are using non single view tiles.
+
+FR indicates the current frame and the total number of frames.
+
+TPF is the Ticks Per Frame for the sequence. Each ticks is 1/120th of a
+second, and lower numbers mean faster playback. You can calculate frame
+rate by dividing TPF into 120. For example 12 TPF would result in 10 frames
+per second, and 5 TPF would result in 24 frames per second.
+
+-----------------------------------------------------------------------------
+
+95/07/27
+
+Loading a sequence now sets the current frame index to 0.
+
+You can no longer play a 0 length sequence.
+
+-----------------------------------------------------------------------------
+
+95/11/08
+
+New version!  Run slut to convert all your sequences.
+
+SeqEdit now supports multiple levels of translucency.  The new level is the
+mostly opaque view.
+
+You can specify which frames fire off a trigger to the callback function with
+the "F" key.
+
+-----------------------------------------------------------------------------
+
+96/02/05
+
+You can now use the Caps Lock key to cause tiles to be displayed unmasked.
+This is useful to check the size of the various tiles to make sure dudes don't
+bounce.

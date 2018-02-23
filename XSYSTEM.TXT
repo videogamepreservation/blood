@@ -1,0 +1,1163 @@
+==============================================================================
+			    XSYSTEM Documentation
+		 Copyright (c) 1994-95 Q Studios Corporation
+			    Contact: Peter Freese
+		    pfreese@qstudios.com or CIS:74170,543
+==============================================================================
+
+
+This file documents the XSystem used in Blood. The XSystem is a system of
+communication between dynamic world objects. A firm grasp of the XSystem is
+crucial for Blood level designers. The XSystem provides basic building blocks
+for creating simple doors, switches, and platforms, as well as the
+flexibility for building extremely complex scenarios and puzzles.
+
+
+==============================================================================
+				  Overview
+==============================================================================
+
+
+XSectors, XWalls, and XSprites
+
+	The XSystem is based on extending the three simple object types used
+	in the Build engine: sectors, walls, and sprites. The extensions to
+	these are referred to as XSectors, XWalls, and XSprites, or
+	collectively as XObjects. Internally, the XSystem manages a list of
+	each of each XObject and maintains links between its related object.
+	The links are stored in the extra field, which you cannot edit in
+	MapEdit, but can view with the Tab key in 2D mode.
+
+
+State
+
+	Fundamental to every XObject is the concept of state. In the XSystem,
+	state is a simple boolean condition: ON or OFF. The meaning of state
+	changes within different contexts, and can mean such things as open
+	or closed for a door, alive or dead for a creature, or moving or
+	still for a platform. For some types of XObjects, the implementation
+	of state is hardwired, i.e., the meaning of ON and OFF are fixed. In
+	most cases, however, you are free to manipulate the meaning of the
+	two states as you see fit. Nevertheless, consistency and protocol
+	will go a long way towards creating maintainable maps that are easy
+	to debug.  For example, it is recommended that you create doors such
+	that ON is open, and OFF is closed, but this is by no means enforced.
+
+	There are many sector effects that are implicitly tied to state. The
+	two most commonly used effects, lighting and panning, are both by
+	default directly controlled by sector state, and you will need to
+	understand state in order to make full use of these effects.
+
+	Simply put, the effect is active when the state is ON, and the effect
+	is inactive when the state is OFF. This means that the water in a
+	sector could be made to flow or be still, depending on the sector's
+	state. In the same way, a sector's lighting effect can be made to go
+	on and off by changes in the state of the sector. The lighting wave
+	form (if any) and amount of lighting (positive or negative) are
+	independently configurable, which means the implementation of ON and
+	OFF are still up to you.
+
+	Switches are XSprites that work by changing their state in response
+	to some stimulus, such as being pressed by the player, or impacted by
+	a projectile. Nearly every XObject can change state in this fashion,
+	although you can also effect state changes through the use of
+	messages transmitted from one XObject to another.
+
+
+Triggers
+
+	All changes in state ultimately originate as a result of some
+	physical event, usually an action by the player. These events are
+	known as triggers, and XObjects can be made sensitive to triggers by
+	setting the appropriate trigger flags:
+
+	[x] Push
+	[x] Impact
+	[x] Explode
+	[x] Pickup
+	[x] Touch
+	[x] Sight
+	[x] Proximity
+	[x] Enter
+	[x] Exit
+	[x] WallPush
+
+	The Push trigger flag can be set for all XObjects, and is activated
+	when the player presses the action key while facing the XObject. The
+	player must be within a certain distance (currently 64 pixels) in
+	order to activate the trigger. However, if the player is in an
+	XSector that has the Push flag set, the trigger can be activated if
+	no other XObject within push range has the Push flag set. Push
+	triggers have many uses, such as switches that control other
+	XObjects, swinging doors, or walls the player can push back.
+
+	An Impact trigger is generated when the XObject is hit by a vector
+	weapon, such as the shotgun or the tommy gun, regardless of whether
+	the source of the vector was a player or a creature. The Impact
+	trigger flag can be set for all XObjects. Use the Impact trigger flag
+	to make glass windows change state (and break) when shot.
+
+	The Explode trigger is similar to the Impact trigger, except it is
+	created when the XObject is affected by an explosion. All XObjects
+	can have Explode triggers. Explode triggers can be used for walls
+	that can be demolished with TNT.
+
+	The Pickup trigger flag can only be set for XSprites. This trigger is
+	generated when an item is picked up by a player. If you use the
+	Pickup trigger, you should use the XSprite to send out a message to
+	another XObject, since it will be deleted immediately after being
+	triggered.  The Pickup trigger makes it easy to create an ambush
+	where picking up a crucial item causes doors to open exposing hordes
+	of enemies. This differs from DOOM, which requires that the player
+	step into a sector that actuates a trigger. Use of the sprite Pickup
+	flag is preferable to using an XSector's Enter flag where the intent
+	is to trigger another XObject when a special item is picked up.
+
+	The Touch trigger is generated when the player is standing on (and
+	being supported by) a particular XSprite. Only XSprites can use Touch
+	triggers. A good use for Touch triggers is to create a break away
+	floor section using floor sprites that drops the player into some
+	other hazard.
+
+	The Sight trigger flag allows XSprites to generate a trigger when a
+	player is visible from the XSprite's location. The visibility test is
+	computationally expensive, so use this trigger flag very sparingly!
+
+	The Proximity trigger flag can be set for XSprites to allow them to
+	trigger when a Dude (not just players) is within a finite distant
+	from the XSprite. The dude must be with 64 pixels AND be visible from
+	the location of the XSprite. The visibility test ensures that
+	proximity triggers don't get generated for Dudes that are on the
+	other sides of walls. Proximity triggers are used automatically for
+	player placed proximity bombs, but you can create preset proximity
+	bombs with this trigger flag.
+
+	XSectors can generate triggers when a player enters and exits a
+	sector by using the Enter and Exit trigger flags. It is not yet
+	determined whether teleporting from or dying in a sector constitute
+	leaving, so be careful when using these flags together not to create
+	potential deadlocks.
+
+	The WallPush is an XSector flag that is the equivalent of setting the
+	Push trigger flag for all of the outward facing walls of a sector.
+	Setting the WallPush trigger flag makes it easy to trigger red sector
+	doors. This Flag may be used in conjunction with the Push flag in
+	sectors where the intent is to have the player activate the XSector
+	from the inside or outside.
+
+	For most XObjects, the effect of a physical trigger is to toggle the
+	state of the object. This is not always the case, however, and the
+	implementation of an XObject's response to a physical trigger is
+	dependent on the type of XObject. In the descriptions of each
+	specific XObject type, you can assume that a physical trigger toggles
+	state unless explicitly stated otherwise.
+
+
+Keys
+
+	You can limit what triggers the player is able to generate by
+	specifying a key requirement. There are up to 7 different keys that
+	the player can acquire each level. If the key field is set to a value
+	other than 0, the XObject will not generate a trigger unless the
+	player possesses the appropriate key. For example, a wall tile might
+	possess a key hole. If the player has the silver key, pressing the
+	action button while facing the wall will open the adjoining door (via
+	a command message to the door). If the player does not have the
+	silver key, the door will not open.
+
+
+Messages
+
+	The XSystem enables you to create highly interactive and complex
+	environments, and the primary mechanism for accomplishing this
+	complexity is the message system. Every XObject has the ability to
+	send and receive messages to and from other XObjects. Communication
+	between XObjects is what allows a wall switch to open a door, a trap
+	to open upon entering a secret area, or a combination lock to
+	activate a teleporter.
+
+	Communication takes places in the form of commands which can be
+	broadcast on any of 1023 different 'channels'. Each XObject has a
+	separate transmit and receive channel, called txID and rxID,
+	respectively. These can be set to the same channel, but usually they
+	will be different. Think of the receive channel as the channel that
+	the XObject is listening to. A message will have as many receivers as
+	there are listeners. If a command is broadcast on channel 200, then
+	every other XObject with an rxID of 200 can react to that message.
+	Different types of XObjects can be listening to channel, and each
+	react differently on reception of a message.
+
+	The conditions for when to transmit a message are defined by an
+	XObject's Send Mask, which is described later.
+
+
+Commands
+
+	The primary reason for sending a message to an XObject is to alter
+	the state of the recipient. To that end, there are several different
+	commands that a message may encapsulate:
+
+		OFF
+		ON
+		state
+		toggle
+		!state
+		link
+		LOCK
+		UNLOCK
+		*LOCK
+
+	The simplest of these are the OFF command and the ON command. As you
+	would expect, these force the recipient to the specified state. To
+	turn an XObject ON, send an ON command on the channel to which it is
+	listening. To turn it OFF, send an OFF command on the same channel.
+
+	For example, a wall switch could transmit an ON message on channel
+	142 when the player presses the action key on the front of the
+	switch.  An XSector with an rxID of 142 would change from OFF to ON
+	when receiving the message. If the XSector had a lighting effect
+	defined, it would be activated by the change in state. This is how
+	you would create a room with a light switch on the wall.
+
+	The state command allows an XObject to transmit an OFF or ON command,
+	depending on what its current state is. If the XObject is OFF, it
+	transmits an OFF command. If it is ON, it transmits an ON command.
+	The state command provides a convenient way to synchronize the states
+	of two or more XObjects.
+
+	Any XObject receiving a toggle command will invert its state. Use
+	this command when you don't care what the original or resulting state
+	will be, and you just want to ensure that the receiving XObject
+	changes state.
+
+	The !state (read "not state") works similar to the state command,
+	except the state of the sender is inverted. If it is OFF, it
+	transmits an ON command. If it is ON, it transmits an OFF command.
+
+	The link command is used to synchronize the state of two or more
+	XObjects at a more fundamental level than the state command, and is
+	described in detail under "Linking".
+
+
+Locking
+
+	The LOCK and UNLOCK commands alter the state of the recipients locked
+	status.  When an XObject is locked, it will ignore any physical
+	triggers sent to it.  It will still respond to any messages it
+	receives. The *LOCK command will toggle the locked state of the objects
+	recieving the message.
+
+
+System Channels
+
+	Channels 0 - 99 are system channels and are reserved for certain global
+	tasks. Some of these should be transmitted on to trigger global events,
+	and others can only be received.
+
+	Here are the uses of the system channels:
+
+		0	Null channel. No commands are ever sent on channel 0.
+		1	RESERVED
+		2	RESERVED
+	tx     ÿ3	Voice/text over
+	tx      4	End level A
+	tx      5	End level B
+	tx      6	Lightning
+	rx      7	Called at startup
+	rx      8	Called at BloodBath startup
+	rx      9	Called at Coop startup
+		10..89	RESERVED
+		90..99	Used internally for remote detonators
+	tx/rx	100+	Miscellaneous level channels
+
+	Channels from 100 to 1023 are free and should be used by the level
+	designer for communication between XObjects. The uses of the system
+	channels is further described in the section on System Triggers.
+
+
+Send Flags
+
+	XObjects broadcast messages as a result of a state change. You can
+	specify which state changes will cause the XObject to transmit by the
+	send flags:
+
+	[x] going ON
+	[x] going OFF
+
+	When the state changes from OFF to ON, a message will be broadcast if
+	the "going ON" flag is set.  When the state changes from ON to OFF, a
+	message will be sent if the "going OFF" flag is set.  If neither flag
+	is set, the XObject will not broadcast any messages as a result of
+	state changes.  If both flags are set, it will broadcast at any state
+	change.
+
+	For example, suppose you want to use a lever to control a portcullis.
+	When the lever is pulled one way, you want it to raise the
+	portcullis, and when it is pulled the other way, you want to lower
+	the portcullis.  You would set the command to "state" and set both
+	send flags, so the level would send an ON or OFF command every time
+	the lever is moved.
+
+	If, on the other hand, you wanted to use two switches to control the
+	portcullis, you might have switch A raise the portcullis when it is
+	turned on, and switch B lower it when turned off. In this case you
+	would set switch A's "going ON" send flag and set its command to
+	"ON"; and switch B's "going OFF" send flag and set its command to
+	"OFF". Switch A would then send an ON command only when its state
+	changed to ON, and switch B would send an OFF command only when its
+	state changed to OFF.
+
+
+The Busy state
+
+	For many XObjects, such as doors or lifts, state is used to indicate
+	one of two spatial positions that it can move between. By definition,
+	however, transitions between the two states cannot occur
+	instantaneously, but must progress over some finite period of time.
+	In this case, the state change will not be considered complete until
+	the object reaches its destination.
+
+	While the object is undergoing a state change, the state field will
+	remain unchanged, but an internal variable, called "busy" will track
+	the progress of the state change. The busy value is a binary fraction
+	that ranges from 0 (OFF) to 1 (ON). You can control how long the
+	state change takes (for the appropriate XObject types) by specifying
+	a value for busyTime in 1/10ths of a second. A door with a busy time
+	of 50 will take 5.0 seconds to open or close. The current maximimum
+	busyTime is 25.5 seconds, though this may be raised to accommodate
+	the longer waitTimes used with Momentary Switches.
+
+	Once the object reaches its goal state, the state field is changed,
+	and a message is broadcast, depending on the send flags. The effect
+	of delaying the state change until transition is complete allows
+	actions of objects to be sequenced.
+
+	For example, imagine what is necessary to move a boat through a set
+	of locks. First one door opens, and when the door is completely open,
+	it sends a message to the boat to move it through the door. When the
+	boat reaches it's destination, it sends a message to the door, which
+	starts closing. Once the door is closed, it sends a message to the
+	sector, which raises the water level. When the water reaches its
+	desired level, it sends a message to the other door, etc.
+
+
+Callbacks
+
+	For many of the XObjects in a level, you will want them to be reset
+	after a period of time. For example, you might want to create a
+	vertical door that closes automatically after being open for 10
+	seconds. The XSystem supports this through the use of callbacks.
+	Callbacks are a special message type that is generated internally and
+	gets delivered to the XObject after a time period that you specify.
+
+	You control the generation of callbacks through two fields, the
+	waitTime and the restState. If waitTime is 0, the XObject will not
+	generate a callback, otherwise it specifies the delay in 1/10ths of a
+	second between a state change and receiving the callback. The
+	restState is either OFF or ON, and indicates the default "resting"
+	state for the XObject. It will post a callback when changing away
+	from the restState, and when it receives the callback message, it
+	will set its state to the restState.
+
+	In the above example of a vertical door that closes after 10 seconds,
+	you would create a door such that OFF is closed, and ON is open. Set
+	the waitTime to 100, and the restState to OFF. Whenever the door
+	opens, changing state from OFF to ON, it will post a callback message
+	to itself. After 10.0 seconds, the callback is delivered, and the
+	door will close.
+
+	Unlike broadcast messages which are sent out on a particular channel,
+	callbacks are delivered directly to the XObject which generated them,
+	and are not concerned with rxID or txID. Callbacks also work
+	irrespective of the XObject's send flags. This allows callbacks to
+	work independently of any other messaging you might involve the
+	XObject in. You can still broadcast messages on a state change,
+	regardless of whether that state change occured as a result of a
+	physical trigger, a command message, or a callback message.
+
+	In most cases you will want to leave restState at its default value
+	of FALSE. There are a few cases where having a restState of ON can
+	solve some rather unusual design problems, but a description here
+	would only be confusing. It will suffice to say that you'll know when
+	you need to change it.
+
+
+Linking
+
+	Imagine opening the door to a dark closet, and as the door opens, the
+	interior of the closet gets brighter. Imagine raising a flood gate,
+	and as the gate opens, the water downstream begins to move, slowly at
+	first, but them more rapidly as the gate gets higher. These are some
+	of the effects you can accomplish with link messages.
+
+	The link command essentially allows an XObject, a master, to
+	broadcast its busy state. It is not necessary to set send flags for
+	the link command. The link command will be sent out continuously as
+	the master changes state. This will cause any XObjects receiving the
+	link commands, slaves, to synchronize with the master by copying the
+	master's busy value. When the master finishes its transition, its
+	state field will change, and so too will that of all the slaves.
+
+	The interpretation of the busy value will depend entirely on the type
+	of XObject receiving the command. Certain sector attributes, such as
+	lighting amplitude and pan velocity are by default controlled by
+	state, and therefore busy value. Sending link commands from a door
+	XSector to a room XSector is an easy to synchronize the illumination
+	of the room with how far the door is open.
+
+	The XSystem makes no checks for slaves starting out in the same state
+	as masters. If a slave is ON and the master is OFF when a map is
+	loaded, and the master broadcasts a link command as it changes state
+	from OFF to ON, the slave will seem to 'pop' to OFF when it receives
+	the first link command, and then slowly change to the ON state
+	simultaneously with the master. You should avoid this by ensuring
+	that slaves start out in the same state as masters.
+
+
+Decoupling
+
+	Each XObject can be thought of as having several components: a
+	component which handles state and the sending and receiving of
+	messages, a component which interprets and implements state in an
+	object specific way, and a part which detects physical triggers.
+	Normally, these components all function as a single unit. When an
+	XObject is triggered, its state is modified, the physical
+	representation changes, and a message may be sent out. This 'unit'
+	functionality is intuitive, and it makes creating the most common
+	types of XObjects quite simple.
+
+	Suppose, however, that you want to control the lighting in a room
+	with a wall switch, but you also want to be able to detect when a
+	player enters the room in order to trigger some sort of trap. You
+	might set up a static lighting effect controlled by state, so that
+	when the sector is ON the room is bright and when it is OFF the room
+	is dark. Pressing a wall switch could send a toggle command to the
+	room XSector, turning the lights on and off. If you simply set the
+	Enter trigger flag in the sector, then a player entering the room
+	would toggle the state of the sector, turning the lights on or off.
+	And any message sent out would have to depend on a state change,
+	which would mean it would be triggered not only by physical
+	triggers, but by state changes caused by the light switch.
+
+	Fortunately, there is a way to isolate the functioning of the
+	XObject's physical trigger component from its state mechanism. The
+	decouple bit, when set, causes physical triggers not to affect the
+	XObject's state, and to directly generate a physical trigger message.
+	This message is broadcast on the txID channel, and causes the
+	physical trigger to be applied to all receiving XObjects. In other
+	words, to any XObject receiving the message, the trigger will be
+	handled exactliy as if it were generated by that XObject itself.
+
+
+
+==============================================================================
+				  XSPRITES
+==============================================================================
+
+
+Data1 .. Data3
+
+	The data fields are a catch all storage area for miscellaneous data
+	with no place to go.  Their use is type dependant.
+
+
+Difficulty
+
+	This specifies at what difficulty level the object appears. Level 0
+	is the easiest, and level 3 is the hardest. Not yet implemented.
+
+
+Detail
+
+	Not yet implemented.
+
+
+Map flags
+
+	( ) when seen
+	( ) never
+	( ) initial
+	( ) secret
+
+	These allow you to specify the conditions under which the object will
+	be visible on the players 2D map. The default is "when seen", which
+	means that it must be first seen in 3D mode before it will be
+	displayed on the map. XSprites marked as "never" will be invisible
+	in 2D map mode. To have an XSprite start on the map, use "initial".
+	"Secret" is not yet defined.
+
+
+Sound kit
+
+	Not yet implemented. See Ideas section.
+
+
+Respawn flags
+
+	Not yet implemented. See Ideas section.
+
+
+XSprite types
+
+Markers
+
+	None implemented yet.
+
+Switches
+
+	Toggle Switches:
+
+	The most basic of all switch types. It will display as one of two
+	pictures in 3D mode, depending on the state. The picnum should be set
+	to the OFF state picture. The ON picture (picnum + 1) will be displayed
+	when the switch is on. All physical triggers toggle the state of the
+	Toggle switch.
+
+	Momentary Switches:
+
+	Like the Toggle switch, except physical triggers can only change its
+	state to ON. You'll need a callback or a message from another XObject
+	to reset the switch to the OFF position.
+
+	Combination Switches:
+
+	Combination switches are multi-way switches which change to an ON state
+	when they are set to a certain combination.  These switches can be used
+	for combination locks, or even counters, as I will demonstrate.  Their
+	behavior is controlled through 3 data fields:
+
+	        data1   Current value ( 0 <= x < N-1 )
+	        data2   Key value
+	        data3   Number of values (N)
+
+	The switch can have a value from 0 to N-1, where N is specified in the
+	data3 field.  If data3 = 5, for example, the switch can have a value
+	from 0 to 4, for a total of different values, or positions.  Each value
+	is represented by a different tile.  You specify the base tile, which
+	is the picture it will have when value = 0.  For example, if you pick
+	tile 2300 for the switch, and data3 = 5, the switch will cycle through
+	tiles 2300-2304.
+
+	The current value for the switch is specified in the data1 field.
+	Normally value is manipulated by the program, but you can set the
+	initial value so when the map starts a switch will be in a particular
+	position.
+
+	If you enable a trigger for a combination switch, such as the Push
+	trigger, whenever the trigger occurs the value (data1) for the switch
+	will increment, wrapping around if it reaches N (data3).  In this way
+	you can cycle continuously through all the different combinations for a
+	particular switch.
+
+	You can also control a combination switch with messages.  By sending an
+	ON command to a combination switch, it will cycle UP.  By sending an
+	OFF command to a combination switch, it will cycle DOWN.  In this
+	manner, you can create a counter.  The switch will have a value equal
+	to the number of ON messages it has received, minus the number of OFF
+	messages, assuming it starts out with a value of 0 and you don't have
+	any physical triggers enabled.
+
+	The real power of combination switches comes from the ability to set a
+	key value in the data2 field.  The switch will changes its state
+	depending on whether data1 = data2.  In other words, data2 is the
+	"combination" of the lock.  If data2 = 3, whenever the switch cycles to
+	3, its state will change to ON, and whenever it cycles away from 3, its
+	state will go to OFF.
+
+	With this knowledge, you can create a combination lock consisting of
+	multiple switches like the example in the hallway of FXTEST.MAP.  This
+	combination lock actually consists of 4 combination switches: 3 used as
+	tumblers, and one used as a counter.  The tumblers as set up pretty
+	much as you would expect.  For each, data3 specifies the number of
+	tiles to cycle through, and data2 specifies the key value for each.
+	Each tumbler sends State to the counter.  Unlike the tumblers, the
+	counter does not have any physical triggers set, so it is only cycled
+	by messages it receives from the tumblers.  Since each tumbler sends a
+	State command to the counter, it effectively "counts" how many of the
+	tumblers are in the correct position to open the door.
+
+	Since the door should open only when all three tumblers are in the
+	correct position, the counter switch has data2 = 3.  Thus, when it
+	reaches a value of 3, it will go to an ON state, and send a message to
+	the door to open.  The data3 field for the counter is set to a
+	arbitrary high value to prevent the switch from cycling around to 0
+	before it reaches 3.  I just checked the code, and it will work just as
+	well if data3 = 0.  So, if you don't want a counter to "wrap around",
+	just store a value of 0 in data3. In the example, the counter is
+	visible so you can see how it works, but you should probably hide it in
+	the real game maps.
+
+	The multi-way door setup in the outside area of FXTEST.MAP is only
+	slightly more complicated than the combination lock.  In this setup,
+	there are also 4 switches, but 3 of them are hidden by embedding them
+	in the wall next to each door.  The combination switch in the center of
+	the pool is a Master switch, and the 3 hidden switches are slaves.  The
+	master switch sends Link commands to the 3 slaves. The Master switch is
+	the only one which responds to physical triggers, in this case, a Push
+	trigger. Whenever the Master switch cycles to a new value, it sends a
+	Link command to all the slaves, and they all change to the same value.
+	The value of data2 is irrelevant for a Master switch, and the value of
+	data3 is irrelevent for a Slave.
+
+	Each slave switch has a key value (data2) set so that whenever the
+	Master (and all the slaves) cycles to a certain value, it will go ON
+	and send a message to the door it controls to open. In the example in
+	FXTEST.MAP, the slaves have key values of 1, 2, and 3, in clockwise
+	order starting with the west most slave.
+
+	There is no limit to the number of Slaves switches you can tie to a
+	Master. They simply all receive on the same channel the Master
+	transmits on.  There is also no limit to the number of tumblers you can
+	use in creating a combination lock.
+
+
+Weapons
+
+Ammo
+
+Keys
+
+Items
+
+Dudes
+
+	Creatures can use their state to indicate whether they are alive or
+	dead. Thus, they can send commands when they are killed. It is also
+	possible for creatures to respond to command words to change their
+	state -- ergo, they can be killed and brought back to life by remote
+	control. Creatures can, of course, have many more states than can be
+	represented by a simple binary state variable. The state bit here can
+	be considered to mean active/inactive. For example, a creature could
+	start out life as an inactive statue, and become animated when the
+	player reaches a certain location. This has the potential for some
+	really neat stuff.
+
+	A creature with a non-zero value in the key field will drop a key of
+	the specified ID upon death.
+
+
+Generators
+
+	Timer events are used to generate triggers at regular or semi-regular
+	intervals.
+
+	txID	command is broadcast on txID channel at each interval, and
+		optionally going on or off depending on the sendWhen
+		parameter.
+
+	rxID	used to turn the generator on or off.
+
+	state	on  = triggers every busyTime +/- data1 tenths of a second.
+	        off = no triggers generated
+
+	command	used for trigger generation, and normal messages
+
+	sendWhen used only for normal messages, ignored for trigger generation
+
+	busyTime	trigger interval in tenths of a second.
+			If busyTime is zero then the object will activate only once
+			for each trigger on.
+
+	waitTime	time before shutting off
+
+	data1	random interval, added or subtracted from data1.
+	data2	reserved for specific generator types (see kGenFireball)
+	data3	used internally as callback semaphore to prevent multiple callbacks
+
+	What all this means is that the kGenTrigger type, and future
+	generator types, support being turned on and off by other triggers
+	(like switches), or OFF by its own waitTime.
+
+	The specified command is sent on the specified txID at specified
+	(busyTime +|- data1) intervals while the kGenTrigger object's state is
+	ON, regardless of what the sendWhen parameter is set to.
+
+	The kGenTrigger will also send the specified command on the specified
+	txID when the state is turned ON or OFF, if one or both of the
+	sendWhen fields are set.
+
+	kGenFireball
+		data2 == 0 : no animation, shoots fireball immediately
+		data2 == 1 : gargoyle "green man" sequence triggers fireball
+		data2 == 2 : gargoyle "bat face" sequence triggers fireball
+
+	kGenSound
+		soundID == Sound ID
+
+	kGenWaterDrip & kGenBloodDrip
+		The falling object will automatically determine which splash
+		and sound to make based on the impacted surface type.
+
+	Q. What should these be used for?
+	A. Almost any event that you want to be triggered repeatedly and
+	regular intervals. In future versions, specific kGen??? types will be
+	added to generate blood drips, water drips, fireballs, etc. These
+	will work in much the same way as kGenTrigger except that they will
+	spawn a special sprite at each interval instead of sending a message.
+
+	Q. What should these NOT be used for?
+	A. DO NOT use the kGenTrigger object to simulate any continuous
+	motion.  We will be adding a continuous motion feature to some of our
+	sector effects in the near future. If you use the kGenTrigger feature
+	to simulate this, you will only be hurting your map and wasting
+	precious time.
+
+Tricks and traps
+
+	Tricks/Traps/Hazards
+
+	80	TNT barrels - large barrels of explosive material. Will blow
+		up after receiving a certain amount of damage. Blowing up is
+		considered a state change. You can also blow them up with
+		command messages.
+
+	81	Floor spike - sort of like a sharp stalagmite. Does damage
+		when touched. ??? Damage once or continuous
+
+	82	Falling rock trap - several rocks fall to the ground. Needs
+		to be triggered via command.
+
+	83	Gas emitting statue - when triggered, emits a cloud of
+		poisonous gas
+
+
+
+==============================================================================
+				   XWALLS
+==============================================================================
+
+Panning
+
+Types
+
+
+==============================================================================
+				  XSECTORS
+==============================================================================
+
+Shade effects
+
+	Wave forms
+	Period
+	Amplitude
+	Phase
+
+Panning effects
+
+	pan floor
+	pan ceiling
+	velocity
+	angle
+
+
+Water depth
+
+Underwater
+
+Types
+
+
+
+==============================================================================
+				SYSTEM TRIGGERS
+==============================================================================
+
+Voice/Text overs
+
+	You can specify one of several messages to display during the game by
+	sending a message on system channel 3. To choose which message is
+	displayed, set the XObjects Command field to a user ID from 0 to 63.
+	Corresponding messages must be defined in the map definition (.DEF)
+	file for each map. Up to 64 messages may be declared in a .DEF file,
+	using the syntax defined below.
+
+	The idea is to provide the ability to present some sort of plot
+	element during game play. The message would be associated with a
+	sound effect which would be played on top of the rest of the
+	music/audio (like Katarn's voice in Dark Forces). This is NOT the way
+	to create a sound effect that is supposed to come from some location
+	in the map.
+
+	Perhaps we could create a a level definition file (INI file, perhaps)
+	that would allow level designers to specify the text of messages and
+	associated sound resource, rather that having a fixed set for the
+	game.
+
+	Using the data field has some problems, since it is needed for some
+	specific XObject types, such as combination switches.
+
+
+
+
+==============================================================================
+			   LEVEL DEFINITION FILES
+==============================================================================
+
+A level definition file is used for each level to store information that is not
+easily editable with the map editor. The definition file is a plain text file
+with a format similar to that of INI files. There is only one anonymous
+section, and it consists of various keys.
+
+Author=string
+
+	This is where you get to put your name.
+
+Description=string
+
+	The long name of your map.  Be creative.
+
+Song=string
+
+	The name of the music (midi) file for the level.  Do NON include
+	the extension.
+
+Message?=string
+
+	Messages generated by voice over triggers.  ? is a value 0 to 63.
+
+
+==============================================================================
+				Experimental
+==============================================================================
+
+This section describes new features of the XSystem that are being tested. The
+implementation of these is subject to change, so while you are encouraged to
+experiment, please do not rely heavily on them heavily.
+
+Fog:
+
+	By adding the line "Fog=1" to your level definition file, you can cause
+	a level to use fog depth cueing instead of the normal light
+	diminishing.  Having fog enabled will dramatically limit the number of
+	shade levels available.  Fog is global for the level, so you will
+	probably want to consider using it only for an all outdoor level.
+
+
+Linking:
+
+	Sector linking is now working.  To link two sectors place an upper link
+	marker in one, and a lower link marker in the other.  The upper link
+	goes in the sector where you move upward to end up in the other sector,
+	and the lower link goes in the sector where you can move downward to
+	enter the other sector.  If this seems backward to people, I can change
+	it.
+
+	The markers are paired by specifying a unique value for the data1
+	field.  This value is shown in 2D mode in the editor.  There should be
+	exactly 2 markers for each value, an upper and a lower marker.
+
+	When linking two areas, you should either place them very far apart on
+	the map, or overlap them properly in the XY plane.  This will allows 3D
+	sound effects to either be out of ear shot, or heard correctly,
+	respectively.
+
+
+==============================================================================
+				    Ideas
+==============================================================================
+
+
+Damage:
+
+	Sector damage:
+		Damage frequency (every n.nn seconds)
+		[ ] in sector
+		[ ] on floor
+		DAMAGE DESCRIPTOR
+
+	Damage descriptor
+	Damage period (every 1/10th seconds)
+	[ ] Damage on floor only
+	[ ] Damage only when ON
+
+Damage Descriptor
+
+	Type:
+		Pummel		Punch, pummel, impact or crush
+		Burn		Burn from heat or fire
+		Bullet		Bullets or other piercing projectile
+		Cut		Cutting or cleaving from a blade or sharp edge
+		Stab		Stabbing or impaling
+		Explode		Explosion concussion
+		Gas		Poison gas
+		Drown		Lack of air underwater
+		Sonic
+		Psyche
+		Spirit
+		Magic
+
+	Amount:
+		# hit points
+
+
+Sound effects
+
+	Each sound effect will have the following properties:
+
+		Sample length
+		Sample rate
+		Looping flag
+
+Sound Kits
+
+	Since it would be difficult, if not cumbersome, to assign sounds for
+	each possible sound effect that an object might make, sound kits
+	provide a predefined collection of sounds for object state changes.
+
+		(0) -> 1
+		0 (->) 1 (loop)
+		0 -> (1)
+
+		(1) -> 0
+		1 (->) 0 (loop)
+		1 -> (0)
+
+Respawning
+
+	permanent	// 0=not permanent, 1=permanent (respawn ignored)
+	respawn		// 0=never, 1=always, 2=optional never, 3=optional always
+	respawnTime	// 0=instant, >0=time in tenths of a second,
+	launchMode	// 0=all, 1=bloodbath, 2=ally, 3=ally&bloodbath,
+
+
+Surface Kits
+
+	Surfaces are used to describe the way that materials react to damage,
+	object collisions, and interaction with the player.
+
+	Surfaces have the following properties:
+
+		Footfall sound
+		Impact sound
+		Impact effect
+
+	Predefined surface types are:
+
+		Stone
+		Wood
+		Dirt
+		Metal
+		Water
+		Lava
+		Air
+
+
+Miscellaneous
+
+	a boat
+
+	mine cart
+
+	mausoleum - door opens, and a platform slides out with a body on it
+
+	moving platforms, such as one in ShadowWarrior
+
+	You walk by a window and hear the sound of rain coming from outside.
+	Occasionally, the sky flashes, and then you hear the sound of thunder
+	from far away.
+
+	Floor lightning:  Connect a bunch of floor sprites together to create
+	a lightning-like effect. Imagine a guy pounding a staff on the ground,
+	and lightning radiates outward on the floor from his staff. When it
+	hits the player it does damage.
+
+
+Elevators:
+
+	At each floor, there is a call switch for the elevator. Pressing the
+	switch will illuminate a light, which will stay lit until the elevator
+	arrives. Above or to one side of the elevator is a panel which
+	displays the current floor the elevator is on. When the elevator
+	arrives, a door splits open to allow access to the elevator interior.
+	Once inside the elevator, the player can press one of several floor
+	buttons.
+
+	Elevator is open on same level as player. Player enters. Player
+	presses action bar => elevator closes, moves to next floor. Player
+	presses action bar => elevator opens.
+
+
+Rachel
+
+	She will appear, walk towards her target location (a marker sprite),
+	and then disappear. Any actions you wish her to perform should be
+	accomplished with the initial trigger.
+
+
+Sound generator
+
+	Place one of these where you want to create a custom sound, e.g., a
+	creaky floor or mysterious laugh. When it gets triggered, it will
+	play the sound id specified in its data field. The sprite's waitTime,
+	if non-zero, specifies that the sound generator is self triggering,
+	and determines the average period between sounds in 1/10 seconds. The
+	interval will vary by +/- 50%.
+
+
+Wall traps
+
+	Force field wall. Blocks all movement when energized (including
+	bullets).
+
+	Crushing wall - moves forward until it meets another wall, crushing
+	anything and anyone in between. Use two opposing walls to make a nice
+	sandwich.
+
+	Swinging pendulum trap. A large bladed pendulum swings out of a niche
+	in the wall.
+
+	Guillotine - huge blade drops from above.
+
+	For flexibility, the blade and projectile wall traps are not
+	self-triggered. You need something else to trigger them. This allows
+	you to adjust their timing to suit your needs. For example, you can
+	trigger the razor doors by placing a player-cross trigger (see below)
+	a short distant before the blade wall. Adjust the distance so that a
+	player walking at a normal pace gets sliced neatly in two!
+
+
+Kinetic effects:
+
+	warp to marker sprite
+	warp to sector
+	stair case sectors
+	Sinusoidal floor heights
+	Sinusoidal walls
+	Collapsing stairs
+	[x] Drag objects
+
+Container effects:
+
+	Teleport
+	Relocate
+	Sinking through floor
+	Linking
+
+	Upper linked sector
+	Lower linker sector
+
+	Upper linked water
+	Lower linked water
+
+	Linked sectors are combined vertically so that the ceiling of one is
+	the floor of another. This means it is possible for the player to move
+	between them, and to partially be in both.
+
+	Teleport when enter once to target location
+	Teleport when enter always to target location
+
+
+Combination Switches:
+
+	* Counter switches cycled by messages from something other than a
+	combination switch.  For example, you can keep track of the number of
+	times a Player enters a sector.  On the 10th time -- Zap!
+
+	* Combination locks with more than one set on combinations.  You could
+	do this by have a set of tumblers which are used as Masters, controlling
+	several sets of Slaves each with their own combinations.  In this
+	manner, you could have a combination lock which causes one action when
+	one combination is entered, and another action for a different
+	combination.
+
+	* Combine tumblers with a momentary switch so the Player needs to enter
+	a combination and then press a switch to perform an action.  The
+	momentary switch would send state when going ON and OFF just like the
+	tumblers, but would provide an extra value to the count.
+
+	* Lots of other cool stuff.  These things are really powerful -- there's
+	an almost unlimited potential in using hidden switches that nobody's
+	using yet.  If you have something you want to try, but can't figure out
+	how to do it, just tell me and I'll try to create an example for you. I
+	welcome any challenges!
+
+
+==============================================================================
+				  GLOSSARY
+==============================================================================
+
+Dude
+
+Missile
+
+Projectile
+
+Trigger
+
+Vector weapon
+
+==============================================================================
+			       TROUBLESHOOTING
+==============================================================================
+
+WHY DON'T MY DOORS WORK?
+
+Make sure the doors are receiving triggers. If they are triggered externally,
+you need a matching txId->rxId pair. If they are triggered internally, check
+your trigger flags. Make sure the sector is not decoupled.
+
+
+WHY DO DOORS START IN THE WRONG POSITION?
+
+Remember that you must draw your doors in the OPEN position, but set their
+state to reflect how you want the door to first appear in the level.
+
+
+WHY DOES A TEXTURE STRETCH ON A SLIDING DOOR?
+
+You may have an extra wall tagged for movement. If not all your walls move,
+then at least some of the wall textures will stretch. Try to make them hidden.
+
+
+WHY DO DOORS 'POP' FROM OPEN TO CLOSED?
+
+Make sure that busyTime is non-zero.
+
+
+MOMENTARY SWITCHES DON'T RESET.
+
+Momentary switches do not automatically reset, although you can cause any
+XObject to reset to a rest state after a period of time by setting the
+waitTime.
+
+
+==============================================================================
+				   HISTORY
+==============================================================================
+
+95/07/13
+
+First official release.  The type specific descriptions for XSprites, XWalls,
+and XSectors is missing, but the overview is complete and contains the
+information that everyone needs. Please address questions or suggestions to
+me at the email address in the file header.
+
+-----------------------------------------------------------------------------
+
+95/12/10
+
+Anybody notice that we haven't been documenting things in here anymore?  Me
+neither.
+
+The ink was hardly dry on the new locking code when I decided to make a change
+which I think will make it more flexible.  The locked flag now only prevents
+XObjects from responding to physical triggers.  They can now still be
+controlled with messages.
+
+-----------------------------------------------------------------------------
+
+95/12/18
+
+Added experimental notes for Fog and linking sectors.
+
+-----------------------------------------------------------------------------
+
+96/01/17
+
+Added Fireball generators
+Added Sound generators
+Added WaterDrip generators
+
+-----------------------------------------------------------------------------
+96/01/18
+Added MachineGun hazard which can also be destroyed.

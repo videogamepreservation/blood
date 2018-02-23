@@ -1,0 +1,3 @@
+ape -b %@NAME[%1]
+zip %1 %@NAME[%1].APD
+ape -c %@NAME[%1]

@@ -1,0 +1,7 @@
+@echo off
+iff "%1" == "" then
+	echo Missing drive parameter
+	quit
+endiff
+
+pkunzip %1\*.zip -d -n \

@@ -1,0 +1,154 @@
+#: 645-3119  [MAIL]
+    17-Nov-95  10:46
+Sb: Level Task List                         
+Fm: Nick Newhard [Q Studios] 74017,163
+To: Peter Freese [Q Studios] 74170,543
+
+=============================================================================
+Status	Owner		Priority	Date    Location	Description
+=============================================================================
+Open	All		*****	11/16		Define the shareware Domain(s)
+Open	Jwilson	****	11/16		Cut out usable sections from various levels
+into Domain types
+Open			****	11/16		Divide levels into various directories
+Play			***	11/16	C	JCASTLE1 -- Playtest
+Open			***	11/16	C	MAP01 -- Expand, add exit, make
+underwater
+Open			***	11/16	C	MAP08 -- Expand or connect to another
+map
+Open			***	11/16	C	MAP20	-- Separate large areas,
+reconnect w/ rooms not halls
+Open			***	11/16	C	QSEFMF -- Expand, possible fortress
+level
+Open			***	11/16	C	TMAP05 -- Expand and complete
+Open			***	11/16	C	VABLD001 -- Expand and complete,
+Optimize
+Open	Jwilson	**	11/16	C/P	GMPIAZZA -- Keep temple, library and fountain
+Open			**	11/16	C/P	JBOIL -- Castle scraps (boiler room
+and chain area)
+Open			**	11/16	C/P	KEVIN1 -- Connect to other castle area
+Open			**	11/16	C/P	MAP09 -- Castle parts
+Open			**	11/16	C/P	MAP28 -- Castle parts
+Open			**	11/16	C/P	QSEXMX -- Castle parts
+Open			*	11/16	C/S	GMCARNGA -- Castle scrap	
+Open			***	11/16	W	CALYPSO -- Expand to full map
+Open			***	11/16	W	GMFERGUS -- Major relight and
+retexture, lose wood areas
+Open	Jwilson	***	11/16	W	JSEWER -- Resize Nick area (Playtest)
+Open			***	11/16	W	MAP03 -- Connect to other areas, or
+expand, update
+Open			***	11/16	W	MAP11 -- Expand sewer, dump fireplace
+Open			***	11/16	W	QSEBMB -- Expand possible connect to
+map03
+Open			***	11/16	W	TDAM -- Complete
+Open			**	11/16	W/P	GMKALOO2 -- water parts
+Open			**	11/16	W/P	MAP05 -- Water parts, some retexture
+Open			**	11/16	W/P	MAP17 -- Water parts
+Open			**	11/16	W/P	MAP27 -- Water Parts
+Open	Jwilson	***	11/16	CR	JCRYPT -- Optimize (playtest)
+Open			***	11/16	CR	TLAIR -- Expand and complete
+Open			***	11/16	CR	VAB002 -- Retex/resize, optimize,
+needs a theme
+Open			**	11/16	CR/P	GMRUBBLE -- Cemetery/Crypt parts
+Open			**	11/16	CR/P	GMKALOON -- Crypt parts
+Open	Jwilson	**	11/16	CR/P	GMNARNIA -- Crypt parts
+Open	Jwilson	**	11/16	CR/P	GMRIGMAR -- Keep stained glass  crypt area
+Open	Jwilson	**	11/16	CR/P	GMSARNAT -- Keep Crypt areas
+Open			**	11/16	CR/P	MAP10 -- Crypt part
+Open			**	11/16	CR/P	TMAP04 -- Crypt part
+Open			*	11/16	CR/S	GMMADNES -- Optimize before use -
+Crypt scrap
+Open			***	11/16	M	GMRUBBLE -- Turn into ruined mansion,
+optimize
+Open	Kkilstro	**	11/16	M	JHOUSE -- Resize doors, lighten and
+contrast, finish
+Open	Kkilstro	***	11/16	M	KREDRUMP -- Add exit, finish.
+(increase door swing)
+Open	Jwilson	***	11/16	M	MAP02B -- Expand/connect first area, basement
+from storage
+Open			**	11/16	M/P	GMKALOO3 -- Mansion parts
+Open	Jwilson	**	11/16	M/P	GMKEDLES -- Mansion parts (library)
+Open			**	11/16	M/P	MAP19 -- Expand
+Open			**	11/16	M/P	MAP26 -- Mansion parts
+Open	Jwilson	*	11/16	M/S	GMLORD -- Mansion Library area
+Open			***	11/16	F	AREA1 -- Use as parts or expand
+Open			***	11/16	F	DONOR2 -- Attach or Expand
+Open			***	11/16	F	GMAQUILA -- Split caves for
+underwater, major retexture
+Open			***	11/16	F	GMKINKEN -- Retexture as fortress,
+lose hedges, industrial
+Open			***	11/16	F	GMSEPTIA -- Cut vines, make outdoor,
+fill out fortress, retex.
+Open			***	11/16	F	GMSERVAG -- Rework tex., some rooms
+Play			***	11/16	F	JALTAR --Playtest (crypt?)
+Open			***	11/16	F	MAP14 -- Complete Secret area, add
+exit, optimize, test
+Open			***	11/16	F	MAP31 -- Complete
+Open			***	11/16	F	Map32 -- Complete
+Open			**	11/16	F	TMAP02 -- Complete
+Open			**	11/16	F	VAB001 -- Retex and resize, needs
+fewer tex and more room
+Open			*	11/16	F/P	JDTEMPLE -- Fortress parts
+Open			*	11/16	F/P	MAP04 -- Move river to a water map,
+possible expand
+Open			*	11/16	F/P	QSECMC -- Separate center area and
+hallway with grates
+Open			*	11/16	F/P	RIGMAR1 -- Fortress parts
+Open			*	11/16	F/S	GMCASTRA -- Fortress scrap
+Open			***	11/16	T	GMKADATH -- Cut crappy areas to cut
+down map, finish
+Open			**	11/16	T	GMMYRA -- Major rework, retexture,
+relight, Temple level
+Open	Kkilstro	**	11/16	T	JMAUS -- Contrast lighting, Optimize
+Open	thamel		**	11/16	T	MAP25 -- Complete and playtest
+Open			*	11/16	T/P	GMDACIA -- Temple Parts
+Open			*	11/16	T/P	MAP06 -- Temple Parts
+Open			*	11/16	T/P	MAP07 -- Use over/under, water area in
+another map
+Open			*	11/16	T/P	MAP12 -- Temple parts
+Open			*	11/16	T/P	MAP12B -- Temple Parts
+Open			*	11/16	T/P	MAP15 -- Temple parts
+Open			*	11/16	T/P	MAP16 -- Temple parts
+Open			*	11/16	T/P	MAP24 -- Temple parts
+Open			*	11/16	T/P	QSEEME -- Simplify/optimize, temple
+parts
+Open			*	11/16	MI	GMCASTR2 -- interesting structure
+Open			*	11/16	MI	GMKEDLES -- Nice general use Facade
+Open	Jwilson	*	11/16	MI	GMPARLOR -- Scrap
+Open	Jwilson	*	11/16	MI	GMRURITA -- Facade and Bedroom area
+Open			*	11/16	MI	GMTRAJAN -- Keep sewer, mansion,
+rework ceiling,furniture
+Open			*	11/16	MI	QSEZMZ -- Mine area
+Open			*	11/16	MI	TMAP03 -- Snow area
+=============================================================================
+Legend:
+=============================================================================
+Status:
+	Open	= Work In Progress
+	Play       =  Needs only playtesting
+	Done	= Done
+	Can	= Cancelled
+	Hold	= On hold (see notes *)
+	Pending	= Needs some other item completed first (see notes *)
+_____________________________________________________________________________________
+_
+Owner:
+	All	    =Major game decision requiring everyone's attention
+	nnewhard   = that genius-boy-programmer  guy
+	jwilson       = that rockin' out guy
+	thamel	    = that oatmeal and fruit guy
+	kkilstro	    = that poop guy
+	Gray          = that lord guy
+	Vab	   = that Andrew guy
+_____________________________________________________________________________________
+_
+Priority:
+	******	= I'm an anus-sniffer and can't use legends.
+	*****	= Must be done ASAFP
+	****	= High Priority
+	***	= Soon, but higher priority items must be done first.
+	**	= Must be done for game, but can wait until later.
+	*	= Could be done later, may not make it to game.
+_____________________________________________________________________________________
+_
+

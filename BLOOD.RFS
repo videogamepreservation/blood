@@ -1,0 +1,15 @@
+fonts\*.fnt
+tables\*.* prelock
+music\*.mid
+music\gmtimbre.tmb
+
+alias fonts\pfont2o.qfn	0x00	PRELOCK
+alias fonts\pfont1.qfn	0x01	PRELOCK
+
+snd\*.raw
+
+# RESOURCE\*.MAP
+
+# include script for sequences
+@SEQS.RFS
+@QAVS.RFS

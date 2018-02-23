@@ -1,0 +1,1461 @@
+=============================================================================
+			    MAPEDIT History File
+		 Copyright (c) 1994-95 Q Studios Corporation
+			    Contact: Peter Freese
+		    pfreese@qstudios.com or CIS:74170,543
+=============================================================================
+
+================
+2D EDITING MODE:
+================
+
+HIGHLIGHTING:
+
+	The mouse cursor will highlight the nearest object within a specific
+	threshold (see MAPEDIT.INI).  The selected object will flash, and any
+	XObject information will be displayed in the lower panel.  Key
+	operations in 2D will apply to the selected object.
+
+
+SPRITES:
+--------
+	Sprites have various shapes in the overhead map, depending on
+	their attributes:
+
+	* Face sprites are cyan circles with a line extending from
+	the center to indicate their angle. (ref. '<' and '>')
+
+	* Thick sprites have the blocking attribute set. (ref. 'B')
+
+	* Purple sprites have the hitscan attribute set. (ref. Ctrl-H)
+
+	* Sprites with three or four lines extending from the circle
+	are wall sprites. The shorter lines indicate which sides are
+	visible. (ref. 'R' and '1' in 3D mode keys.)
+
+	* Sprites with square centers are floor sprites, and can be
+	manipulated with all the keys referred to above.
+
+WALLS:
+------
+	This section not complete.
+
+MOUSE FUNCTIONS:
+----------------
+	Mouse		Move mouse cursor
+
+	LeftButton	Click and hold on an endpoint to drag.
+			See RightShift and RightAlt for other options.
+			To delete an endpoint, drag that point into the
+			next point and it will be deleted. (NOTE: Grid-locking
+			must be enabled. See 'L' key below.)
+
+	RightButton	Click to change the 3D view cursor position.
+
+	RightShift	Press and hold to highlight endpoints and sprites in
+			a rectangular region. Release the key once the chosen
+			region is highlighted. Drag objects in the highlighted
+			area by clicking and holding the left mouse button
+			down and then dragging the mouse. Release the left
+			mouse button to drop the objects at the target
+			position. Press RightShift without dragging the mouse
+			to deselect the highlighted objects.
+
+	RightAlt	Highlight sectors for duplication or dragging. Similar
+			in operation to the RightShift key, this key
+			highlights entire sectors and the sprites within them.
+			See the Insert key for information on duplication.
+
+KEYBOARD FUNCTIONS:
+-------------------
+	Arrows		Moves the 3D view cursor position. The cursor will be
+			clipped against blocking wall and sprite boundaries.
+			Press the right mouse button to move the 3D view
+			cursor to a different position on the map.
+
+	ESC		Brings up the menu. Press ESC again to cancel.
+
+	PadEnter	Toggle between 2D and 3D editing modes
+
+	SpaceBar	Press the space bar when drawing new sectors. There
+			are several ways of drawing new sectors.  The
+			following three ways of drawing sectors can all be
+			done by only using the space bar.  The application is
+			"smart" enough to decide which method you are using.
+
+			1.  Drawing a FULL LOOP - that is, whenever the new
+				sector meets the old sector, draw over that line
+				again.  In full loop mode the new sector must not
+				already be in another sector.  The loop is done
+				when you press the space bar at the first point
+				again.
+			2.  SPLITTING a sector - press space bar to draw points
+				at which you want to split a sector.  The computer
+				knows you are done splitting when you end at
+				another point that's on the edge of the sector you
+				are splitting.
+			3.  Drawing a sector COMPLETELY INSIDE another sector.
+				(for example, columns) To do this, just press space
+				bar at every point in the loop.  The loop is done
+				when you press the space bar at the first point
+				again.
+
+	Backspace
+		Deletes previously plotted point during sector creation. Press
+		repeatedly to get rid of all previously plotted points.
+
+	Insert	Inserts a new endpoint at the midpoint of the highlighted
+		line.  Then you can drag the point to wherever you like.  (If
+		you insert on a red line, the point will be inserted on both
+		sides of the sector line.) If a bunch of sectors are selected
+		(see right ALT) then instead of inserted points, the selected
+		sector bunch will be duplicated (stamped).  Don't forget to
+		drag the selected sectors after stamping.
+
+	Delete	Use this to delete sprites. Do NOT delete marker sprites
+		created by the XSYSTEM. Instead, change the sector type.
+		NOTE: To delete endpoints from a line, DON'T PRESS DELETE.
+		Instead, drag the endpoint onto a neighboring endpoints, while
+		the grid is on.  If the endpoint is dragged exactly on top of
+		the neighboring endpoint, it will automatically be deleted.
+
+	Right Ctrl-Delete
+		This deletes the whole sector that the mouse cursor is in. Use
+		this option with caution as it has been know to cause problems
+		in maps.
+
+	ScrollLock
+		Set editing starting position (reddish arrow) to your current
+		position (white arrow). Also used to define the default player
+		starting positions, but level designers are expected to place
+		player starting marker sprites in all maps.
+		NOTE: Eight co-op and eight deathmatch markers must be placed
+		on all maps. (ref.  Alt-S, 3D MODE EDITING)
+
+	TAB	View attributes of the sector under the cursor.
+
+	AltTAB	View attributes of the wall or sprite closest to the cursor.
+
+	A/Z	Zoom the 2D view in and out. Text tags may disappear when the
+		view is zoomed out. Zoom in to view them again. (ref. Ctrl-T)
+
+	B	Toggles blocking attribute of walls and sprites. A blocked
+		wall or sprite will with a thick line in 2D EDIT MODE.  See
+		the description for 'B' in the 3D EDIT MODE section for more
+		details.
+
+	C	Turn a line into a circle defined by short line segments.
+		Press 'C' on a highlighted wall, and move the mouse cursor to
+		change the arc of the circle. Press '+' or '-' to change the
+		number of line segments in the circle. Press 'C' again to
+		cancel circle creation, or SpaceBar to accept the changes.
+		(NOTE: Grid size affects the position of the arc. Refer to 'G'
+		and 'L' below.)
+
+	E	Change a sprite's status list number. Level designers should
+		not have to change a sprite's status directly, unless a bug is
+		reported when running the game.
+
+	G	Change grid resolution. The grid resolution cycles through the
+		following sequence:
+		* Off : no grid
+		*  1x : 64x64 pixel grid
+		*  2x : 32x32 pixel grid
+		*  4x : 16x16 pixel grid (* DEFAULT *)
+		*  8x : 8x8 pixel grid
+		* 16x : 4x4 pixel grid (Has wall texturing problems.)
+		* 32x : 2x2 pixel grid (Has wall texturing problems.)
+
+		Use the two finest grid resolutions only for positioning
+		sprites.  Wall vertices should not be closer to each other
+		than the grid lines at 8x resolution.
+
+	H	Edit the high tag for the sector under the cursor.
+
+	Alt-H	Edit the high tag for the wall or sprite under the cursor.
+		(See also: T and Alt-T. Level designers should not edit these
+		fields directly, as they are used internally by XSYSTEM.)
+
+	Ctrl-H	Toggle the hitscan sensitivity of a sprite or masked wall.
+		Objects which are hitscan sensitive can be hit be vector
+		weapons.
+
+	L	Turns grid locking on or off. If the mouse cursor is pink then
+		grid locking is on. If it is white then grid locking is off.
+		There is no grid locking if the grid is turned off.  Also,
+		grid locking will lock to nearby points.
+
+	J	Join two neighboring sectors.  Press J when mouse cursor is
+		over the first sector.  Then press J again when the mouse
+		cursor is over the neighboring sector.  The attributes of the
+		combined sector will be taken from the first sector selected.
+
+	K	Mark a wall or sprite for motion
+		(blue = forward motion, green = reverse motion)
+
+	M	Make a wall masked
+
+	S	Places a sprite at the location under the mouse cursor. Refer
+		to the SPRITES section (above) for more information.
+
+	Alt-S	Convert internal white sector (single-sided linedef) to a red
+		sector (double-sided linedef). Ctrl-Delete can be used to
+		reverse this. (NOTE: Outer loop cannot be converted!)
+
+	T	Edit the low tag for the sector under the cursor.
+	Alt-T	Edit the low tag for the wall or sprite under the cursor.
+		(See also: H and Alt-H. Level designers should not edit these
+		fields directly, as they are used internally by XSYSTEM.)
+
+	Ctrl-T	Toggle the text captions for sectors, walls and sprites.
+
+	< | >	Rotate a Sprite: Rotation has a precision of 2048 degrees, and
+		sprites can have an angle value range of 0 to 2047. Pressing
+		the shift key allows a finer degree of rotation.
+		Rotate a Sector: Sectors highlighted with RightAlt can also be
+		rotated using these keys.
+
+	[ | ]	Rotate a sprite without wrapping. Generally used for marker
+		sprite rotation, allowing marked sprites to rotate several
+		times throughout a busy cycle. If you don't understand this,
+		talk to Peter.
+
+	F5	Display sector specific data
+	F6	Display sprite/wall specific data
+	Alt-F5	Edit sector specific data in the editing dialog.
+	Alt-F6	Edit sprite/wall specific data in the editing dialog.
+
+	While in the editing dialog, the following keys are active:
+		Esc	Exit dialog and abandon changes
+		Enter	Exit dialog and save changes
+		Left	Previous control
+		Sh Tab	Previous control
+		Right	Next control
+		Tab	Next control
+		Up	Increase value by 1 or move radio button up
+		Pad +	Increase value by 1
+		Down	Decrease value by 1 or move radio button down
+		Pad -	Decrease value by 1
+		Pg Up	Increase value to next multiple of 10
+		Pg Dn	Decrease value to next multiple of 10
+		Space	Toggle check boxes
+		F10	Get next unused channel (rxID and txID only)
+
+
+================
+3D EDITING MODE:
+================
+
+	CapsLock	change zmode
+	Tab		Copy to buffer
+	Enter		Paste buffer
+	Sh Enter	Paste shade and palette
+	Ctrl Enter	Paste tile to all walls in loop
+	Sh Ctrl Enter	Paste tile, shade, and palette to all walls in loop
+	Alt Enter	Copy attribute (extra) information
+	<		Rotate sprite CW
+	Sh <		Fine rotate sprite CW
+	>		Rotate sprite CCW or auto fix wall panning
+	Sh >		Fine rotate sprite CCW
+	/		Set x and y repeat to default values
+	Sh /		Set sprite x repeat to match y repeat
+
+	1		Toggle 1 sides sprites and 1 way walls
+	2		Toggle bottom wall swapping
+
+	Pad +/-		Brighten / darken texture
+	Ctrl Pad +/-	Set texture to max/min brightness
+	Pad 0		Set texture to 0 brightness
+	Pad arrow	Adjust tile repeats
+	Ctrl Pad arrow	Adjust tile panning
+
+	PageUp		Raise z by 4 pixels
+	Sh PageUp	Raise z by 1 pixel
+	Alt PageUp	Enter new floor or ceiling height
+	Alt PageDn	Enter new floor or ceiling height
+	Ctrl PageUp	Put sprite on ceiling /
+			Move floor or ceiling to next higher neighbor Z
+	PageDn		Lower z by 4 pixels Sh PageDn	Lower z by 1 pixel
+	Ctrl PageDn	Put sprite on floor /
+			Move floor or ceiling to next lower neighbor Z
+	Delete		Delete 	sprite
+
+	B		Toggle blocking
+	Alt C		Change all tiles matching buffer to target
+	D -/+		Adjust depth cueing level
+	E		Toggle expansion of floor/ceiling texture
+	F		Flip texture
+	Alt F		Turn on relative alignment in the highlighted sector.
+			If already on, change the first wall in the sector.
+			Relative alignment affects textures or slopes.
+	G -/+		Adjust gamma level
+	Alt G		Change Global palette
+	H		Hitscan sensitivity for masked walls AND sprites.
+	L		Light bomb
+	M		Toggle maskable wall
+	Sh M		Toggle single side maskable wall
+	O		Toggle orientation or post sprite on wall
+	P		Toggle parallaxing for floor or ceiling
+	Ctrl P		Change sky parallaxing type
+	Alt P		Change palookup
+	R		Toggle floor/ceiling relative alignment or change sprite
+			rotation type
+	S		Insert sprite
+	T		Toggle translucency
+	V		Select tile
+	Alt V		Select heightmap
+	W		Change lighting effect waveform
+
+	F2		Toggle state
+	F3		Show sector OFF z position
+	Alt F3		Capture sector OFF z position
+	F4		Show sector ON z position
+	Alt F4		Capture sector ON z position
+	F9		Auto stair builder.  Highlight a group of sectors,
+			then point to an adjoining sector floor or ceiling
+			and press F9.  The floor or ceiling you point to will
+			be the lowest step.
+	F11		Enable/disable panning
+	F12		Toggle beeps
+
+	Ctrl Alt - | +	Decrease/Increase sector visibility
+	Ctrl - | +	Decrease/Increase light effect amplitude
+	Shift - | +	Decrease/Increase light effect phase
+	[ | ]		Change floor or ceiling slope
+	\		Remove floor slope
+
+
+-----------------------------------------------------------------------------
+
+94/12/18
+
+This document created.  I have renamed BUILD.EXE to MAPEDIT.EXE.  I hope
+this will prevent confusion between Ken's version and our version for Blood.
+Also, this allows changes specific to MAPEDIT to be documented independently.
+For maximum viewing pleasure, this document is formatted at 78 characters
+wide, tab stops of 8, and contains no upper ASCII characters.
+
+MAPEDIT supports loading custom palette remap and translucency tables.  It
+looks for NORMAL.PLU and TRANS.TLU in the currect directory.  If they are
+present, it will use them; if not, it will use the defaults in PALETTE.DAT.
+
+I am phasing out the CNT files and replacing them with MPX (MaP eXtension)
+files.  This files store all the Blood specific information for sprites,
+walls, and sectors.  The CNT files were a hack to test out adding custom edit
+controls to BUILD.  I don't think anyone was using them for anything, but
+just in case you were, MAPEDIT will automatically convert the CNT files and
+remove them when you save changes.
+
+For a discussion of the various fields and their meanings, see the
+TRIGGERS.TXT document.
+
+At present, only the sprite editing fields are active.  Wall and sector
+editing will be completed shortly.
+
+-----------------------------------------------------------------------------
+
+94/12/28
+
+Completely replaced Ken's keyboard handler with my own.  This will allow key
+repeat to work for all functions, so now you can just hold down the pad plus
+key to lighten a sprite, etc.  This also gives me the ability to add new
+functionality at will, without waiting for Ken to add a new function.  To
+this end, I've added stub code for Alt-P while in 3D mode.  Currently, this
+just gives you the tile selection screen, but it will be used for editing
+tiled parallaxing skies.
+
+An assertion failure that would occur when an invalid reference was noted
+between a map and an mpx file has been changed.  The invalid reference will
+now be simply deleted.  This allows you to delete the mpx file if you want to
+trash all the additional map data.
+
+-----------------------------------------------------------------------------
+
+94/12/30
+
+Due to some problems discovered in trying to handle keystrokes from within a
+secondary ISR (Ken's code doesn't handle it well, and I can't work around it
+because his functions are not reentrant), I've adopted a new strategy for
+adding to key functions.  I'm still using my own keyboard handler, so you'll
+still get the benefit of key repeat.
+
+I'm now 'subclassing' Ken's editinput() function by renaming his function to
+kensinput() by directly modifying the object file.  This is a true hack, but
+it should work cleanly.  However, I'll need to make the same change to future
+versions of build.obj unless I can convince Ken to make a similar change.
+
+Just to prove that it works, I've added a few extra key functions for 3D
+mode:
+
+Alt-L while the cursor is on a sprite will set the sprite's shade to -42 (the
+maximum brightness without side effects).
+
+Alt-0 while the cursor is on a sprite will set the sprite's shade to 0.  This
+should cause the sprite to have the same shade as the sector it is in (good
+for floor and ceiling sprites).
+
+I was going to add a function to build stairs automatically, but some of
+Ken's variables for handling highlighted sectors are static and I can't
+access them.  I'll try to get him to change this and add this in a later
+version.
+
+-----------------------------------------------------------------------------
+
+95/01/02
+
+Make sure you run CONVMAP6 on ALL your maps. The easiest (DOS) method
+to accomplish this is to type:
+
+for %1 in (*.map) do convmap6 %1
+
+Peter implemented a raw auto stair builder. Create your stair sectors in
+2D mode, without (unnecessarily) changing the heights in 3D mode. In 2D mode,
+use the R.Alt key to select all the stairs you want to auto-height adjust.
+In 3D mode, point to a sector outside the selected stairs that you want use
+as the base height for the stairs and press F9. Enter the stair height in
+pixels. Use 8 or 12 pixels or risk death by immolation; other stair heights
+will be too tall to walk over. Expect more cool additions in the future!
+
+Peter made changes to the width of the character, as well as height at
+which things can be walked over. If you notice any peculiarities let him
+know.
+
+Peter has also added sector lighting effects to BUILD, but they have not
+been documented. Also, they don't work in Blood yet, but will very soon.
+The next update you get will be probably executables only.
+
+Note from Nick: Try to make your bonus, one-up and weapon sprites
+non-blocking. Thanks!
+
+-----------------------------------------------------------------------------
+
+95/02/06
+
+Key handling has changed (again), and is now much cleaner, thanks to the
+changes Ken made to his code during his visit with us.  I'll no longer have
+to keep hacking build.obj.
+
+Along with Ken's changes, a bug crept in which would cause F5-F8 to crash if
+you pressed them in 3D mode.  This has been fixed.
+
+Sector lighting effects are now functional and work in Blood as well.  You
+can edit them in 2D mode or 3D mode.  See the new keys documented above.  I
+may be making another change in the implementation of sector lighting to
+allows walls to be modified, but this shouldn't affect sectors which you have
+already worked on, so bang away on this feature.
+
+The MPX format has been enhanced again.  It now contains version information,
+so should be easier to update periodically.  Older format files are
+automatically converted when loaded.  With this new version, you'll be able
+to add author name and level name to the mpx files (editing not yet
+implemented, though.)  Global visibility is now saved in the mpx file and
+properly loaded in Blood.
+
+You can now tile parallax skies.  See the new keys documented above.
+
+-----------------------------------------------------------------------------
+
+95/02/08
+
+Updated sector shading effects code.  Instead of storing the base floor and
+ceiling shade, the MPX structure now has a single field which is the
+current relative shade.  By adding and subtracting this offset, it is
+possible to do relative shading effects to floors, ceilings, and walls
+without extra storage.  The only overhead is some additional processing time,
+since I now call DoSectorLighting() and UndoSectorLighting() once per frame.
+
+The sectorExt dialog now has checkboxs for shading floors, ceilings, and
+walls, so it is possible to apply lighting effects to any or all of these.
+Also, for lighting effects to take place, the sector status must be ON.  I'm
+going to get the message system working Real Soon Now, and the first thing
+I'll test is turning on and off lighting effects.
+
+A major bug was fixed in the code that ensured referential integrity between
+the sprite, sector, wall and respective Ext structures.  I believe that this
+was THE bug that was causing the occasional weird sector lighting values.
+Please let me know ASAP any other problems of this nature.
+
+When loading maps, all item and creature sprites are automatically
+sized to their proper x and y repeats.  This is intentional, and will ensure
+uniformity between levels.  There is no such thing as a miniature zombie!
+
+Sprite Ext structures are automatically added for creatures when maps are
+loaded.  This adds the proper type and view flags based on picnum.
+
+-----------------------------------------------------------------------------
+
+95/02/14
+
+Did a major restructuring of source code.  This was a sorely needed cleanup
+to produce organization out of a loose collection of hacks.  This should make
+future changes and additions much easier.
+
+Fixed a problem with the IncBy and DecBy inlines functions which caused
+weird step values when you used the PageUp and PageDn keys in dialogs.
+
+-----------------------------------------------------------------------------
+
+95/02/18
+
+Parallax sky tiling should be working again.  I had an incorrect assumption
+about the way pskybits works.  I thought it represented the width of the sky
+tiles, but it actually indicates the number of tiles.  Go figure.
+
+I've assigned the ext editing functions to the Alt combinations of F5 and F6
+instead of F7 and F8.  I'm limited to F5-F8 in 2d mode for adding features,
+so I'm going to overload these keys for all their worth.  Prepare for the
+worst.
+
+Rewrote initialization code so that it uses the same module as Blood.  You'll
+now see the same initialization diagnostic messages in both.  This means that
+MAPEDIT also uses the same gamma correct and sin tables as Blood, and loads
+information from the BLOOD.INI file.
+
+MAPEDIT loads the gamma correction from and writes changes to the BLOOD.INI
+file.  Do not use F11 to change the gamma level.  Instead use the G +/-
+combination, the same as in Blood.  The gamma level is displayed momentarily
+when changed.
+
+Changed key combination to change the depth cueing (visibility) to D +/- for
+compatibility with BLOOD.
+
+-----------------------------------------------------------------------------
+
+95/02/18
+
+Fixed a bug in the key handler which caused the (G)oto command to stop
+working in the tile selection screen.  The solution was to change the key
+combination for this to Alt-G.  Essentially, anything you used G for
+previously, use Alt-G for now (except setting gamma correction).
+
+-----------------------------------------------------------------------------
+
+95/02/27
+
+This version includes a substantial rewrite of ALL 3D editing keys.  Please
+report anything that's not working as it should.
+
+PageUp and PageDn in 3D mode now support fine movement (1 pixel) and coarse
+movement (4 pixels).  Use shift for fine movement.  It did this before, but
+not correctly all the time due to the way I was intercepting the keys.
+Sprite fine z adjustment now works for highlighted sprites.  Coarse z
+adjustment now moves to the next multiple of 4 pixels, rather than in steps
+of 4.  You can no longer move a floor above a ceiling or vice versa.
+
+Fixed coarse sprite rotation so it moves to the next multiple of 256.
+Fine rotation now moves to the next multiple of 16 instead of 1.
+
+Changed screen capture key to PrintScreen.  Now I can use F12 for something
+more useful.
+
+You can no longer wrap shades by going too dark or too light.  Shades are now
+correctly clipped at their max values.
+
+Changed keys for setting shade to 0, min, or max.  The key combinations for
+setting texture brightness are now Ctrl Pad + for max brightness, Ctrl Pad -
+for min brightness, and Pad 0 for 0 brightness.  I would have done this
+originally, but I couldn't without rewriting a fair amount of the 3d editor
+code (which I now have done).  These key combinations now present a
+consistent metaphor:  Pad +/- is exclusively used for brightness; and Control
+in combination with a step key sets a min or max.
+
+Fixed a bug in which any sprite inserted that had a tile height of 32
+pixels or more would automatically be set to blocking.  It will now
+automatically set sprites to blocking only if there is something other than a
+sprite in the tab buffer.
+
+Added some clicks and beeps for feedback.  Let me know if they are too
+annoying.
+
+Ctrl Enter on a parallax floor or ceiling will now paste to ALL parallaxed
+floors or ceilings, not just neighboring sectors.
+
+The key to auto adjust panning will no longer change orientation of any
+walls.  This means that some walls will not automatically be aligned, but you
+would have had to fix these walls anyway.
+
+This version of MapEdit includes a new 2D animation editor.  You start this
+editor by using F7.  See the new animator editor keys documented at the top
+of this file.  Call me if you need help.  Level designers do not need to use
+this tool.  The animation editor will probably not work in unchained mode or
+screen buffer mode.  Try it in these modes at your own risk.  You have been
+warned, Nick!
+
+-----------------------------------------------------------------------------
+
+95/03/05
+
+Fixed a bug which would cause extended keys (e.g. Page Up and Delete) to be
+dropped if NumLock was on.  This bug was introduced when I added code to
+prevent filling up the keyboard buffer.  These keys are actually transmitted
+as multiple make codes when Num Lock is on, hence the bug.
+
+Fixed a bug in the debug version of the heap.  Sheesh!  It would dassert out
+occasionally when it was unable to allocate a block when it thought it had
+enough memory.  I wasn't subtracting out the space used for the fenceposts.
+
+MapEdit now uses our heap and resource caching system, so it should lurch
+less.
+
+I replaced the gettile() function, so now tile histories for walls, ceilings,
+floors, masked walls, face sprites, and flat sprite can all be maintained
+independently.  Tile selection should now be significantly faster.
+
+-----------------------------------------------------------------------------
+
+95/03/06
+
+Added an assertion to check for overflow of the ext arrays.  I found out that
+some maps had sectorExt structures for nearly every sector, and were
+overflowing the array!
+
+-----------------------------------------------------------------------------
+
+95/03/24
+
+BUG FIXES
+
+Fixed problem with allocatepermanenttile not marking the block of memory as
+locked.  It could get added to the purge list during precaching....
+
+Added some missing modify [...] registers to an inline function in the
+dynamic fire system.  This would inevitably cause problems when
+optimizations were enabled.
+
+Fixed the hang on exit problem.  Ken's unintengine function was closing
+STDIN.  Replaced his function to fix.
+
+-----------------------------------------------------------------------------
+
+95/03/26
+
+Fixed a bug with adjust x and y repeats of wall textures (you couldn't).  You
+can now also match x and y repeats by pressing shift / on a wall.
+
+Added preliminary light bomb.
+
+-----------------------------------------------------------------------------
+
+95/04/02
+
+When switching between 2D and 3D mode, I now do a reference check for all ext
+structures.  This will ensure that any editing done in 2D mode is
+reflected immediately in 3D mode.
+
+Ctrl-Enter will no longer copy shade or palette values.  If you want to copy
+shade and palette values to every wall in a loop, use Shift-Ctrl Enter.  Note
+that the previous function of Shift-Ctrl Enter has been removed.
+
+-----------------------------------------------------------------------------
+
+95/04/07
+
+MAJOR FORMAT CHANGE.  This version requires you to run CONVDB3 on all your
+maps.  This new format eliminates the need for separate MAP and MPX files,
+and adds many new fields, support for which will be added *soon*.
+
+You can now adjust the floor or ceiling z of a red sector from outside the
+sector.  Just point to one of the walls and press page up or down.  This new
+feature makes it easy to open closed vertical doors.
+
+Increased angle resolution of light bomb.  Expect it to be about twice as
+slow.
+
+-----------------------------------------------------------------------------
+
+95/04/07
+
+BUG FIX.  There was a problem which resulted in an incorrect file CRC if you
+deleted sprites and then saved.  I wasn't checking the statnum of sprites
+which had an attached xsprite.
+
+BUG FIX.  If you started MAPEDIT and created a new map, all sectors would have
+an extra field of 0 instead of -1.  This caused an assertion failure when you
+tried to enter 3d mode.  This is a kenbug which I worked around by
+initializing all extra fields to -1.  There is still a problem if you create a
+new map after editing another map.  When you add sectors, they will get extra
+references to old xsectors, xwalls, and xsprites, respectively.
+
+BEHAVIOR CHANGE.  The program now automatically adds xsprites for all sprites
+and sizes them correctly before saving.
+
+-----------------------------------------------------------------------------
+
+95/04/07
+
+BUG FIX.  All extra fields of 0 are now set to -1 on loading.  I'll fix this
+nasty bug yet!
+
+BUG FIX.  Hooked my unitialization routine into exit so that keyboard
+interrupt and timer rate gets restored, even on crashes.  This should cure
+the occasional and bothersome runaway clock.
+
+-----------------------------------------------------------------------------
+
+95/04/18
+
+Separated code for tile selection into it's own module.
+
+Made the sequence editor use the new tile picking code.
+
+-----------------------------------------------------------------------------
+
+95/04/31 - NCN
+
+BUG FIX.  Fixed a bug that screwed up masked walls. MAPPERS: You may not have
+seen this bug since it occurred in an interim version.
+
+The H key now toggles the hitscan value in 3D mode for sprites as well as
+masked walls. Use Ctrl-H in 2D mode.
+
+The Alt F key combo was added in 3D mode to change the relative alignment of a
+sector. Press it once to make a sector relative aligned. The key may be
+pressed again (and again) to change the first wall in a sector. To check which
+is the first wall, press TAB in a sector and note the first wall number, then
+press Alt-TAB on each wall to figure out which one it is.
+IMPORTANT NOTE: Only use Alt-F in sectors NOT containing other sectors!
+
+Added crude menus to sector dialog. To edit an extended dialog box,
+highlight one of the menu selections and press Enter. When you are done
+editing in the extended dialog box, press Enter to save the dialog changes
+and return you to 2D editing mode. If you wish to go back to the menu,
+press Escape. Any changes you have made will be held until you either press
+Enter again, or press Escape to abort any changes you have made.
+
+Added a txID verification key to the sector and sprite trigger dialog boxes.
+When the txID field is highlighted, enter a number and press the '?' key. This
+will tell you whether the txID you entered is used and by what. I intend to
+expand on this for the rxID field and add the same features to the wall
+dialog.
+
+Added wind currents to sectors. There are now 8 hard-coded wind levels, which
+are selectable by changing the wind field in the sector dialog. If the field
+is 0, then no wind is generated in that sector.
+
+Added water current data to sectors, which can be edited in the sector dialog.
+First select a water depth from 0 to 3: 0=no current, 1=tread, 2=wade, 3=swim.
+Next select the speed and angle. If a sector has relative alignment set, the
+initial current angle will be determined by the angle of first wall in the
+sector, and the 'angle' field will is added to the wall angle.
+
+Added key support for certain sector effects. Change the key field in a sector
+to indicate that the sector requires a key to operate.
+
+MAPPERS: We will be moving from the tag system to the new extended system, a
+few effects at a time. Please watch for changes in my maps and this text file
+to show you which effects have changed. Some things, like one-shot triggers,
+don't work yet, but set the fields anyway for compatibility and so you
+won't have to go back and edit them later. For now, you should be able to go
+back through all your maps and make switches and keys function, and that
+should eat up a few days. Good luck!
+
+Check out the following sector types: Lift, Swingdoor, Topdoor,
+Bottomdoor, and Floor Pad. Use my example TRIGGERS.MAP to figure some of it
+out, or call me if you need to. Eventually we'll have docs explaining how this
+stuff works.
+
+-----------------------------------------------------------------------------
+
+95/05/02 - NCN
+
+Fixed trigger bug with floor pads. Check out the expanded physical trigger
+flags for sprites and sectors. MAPPERS: Make sure the following things are
+applied to your maps: 1) All switches should be non-blocking with the
+Push and/or Impact triggers set. 2) Door sectors currently need the Push
+flag set. This will change as soon as wall triggers are done. 3) Lifts will
+need the Push flag set to function while the player is in the sector, unless
+a switch is installed at the top and bottom of the lift, either inside or
+outside the shaft, up to you. The switch sprite will not move with the lift.
+
+You can use the physical triggers with ANY sector type, including NORMAL.
+Physical triggers for sectors of type NORMAL will not change state when
+the trigger is activated. The "only once" trigger now works with the NORMAL
+type of sector. Expect the same additions to all sector types soon.
+
+BUGS/PROBLEMS:
+* Lifts no longer work when the action key is pressed while inside,
+though they will activate if you are next to them. This will be fixed
+in the next version.
+
+* Wall flags are still not implemented. Expect them also in the next
+version. These will be used to signal door sectors to open.
+
+NOTES:
+
+* Shrink all switches to 40x40. I'll try and add this in next MAPEDIT.
+* Shrink all gargoyle statues to 40x40. Same deal.
+* Shrink all chairs to 40x40. Okay, this one too.
+
+-----------------------------------------------------------------------------
+
+95/05/07
+
+When relative sector alignment is set with Alt-F, flipping and xy swapping is
+cleared.  This should fix water current problems.
+
+-----------------------------------------------------------------------------
+
+95/05/08
+
+Added new fields to sector effects dialog.  Redid all dialogs in character
+coordinates and tightened up display.  Non-tab control now are highlighted.
+
+Add F2 to toggle state in 3D mode.
+
+-----------------------------------------------------------------------------
+
+95/05/10
+
+Added display of wave form when 'W' pressed in 3D mode.
+
+Modified xsector and xsprite dialogs to access new waitTime and busyTime
+fields.  These fields control the speed of door movement (time in .1 secs),
+and the delay before reset (time in .1 secs).  If your doors or momentary
+switches don't seem to be working, check the values in these fields.
+
+Added xwall dialog.
+
+-----------------------------------------------------------------------------
+
+95/05/12
+
+Provided a workaround for a memory allocation bug which would cause the
+editor and blood to hang in any mode which required screen buffering.  This
+workaround will NOT work in stereo display modes -- I need an engine update
+from Ken to fix this.
+
+-----------------------------------------------------------------------------
+
+95/05/19
+
+Added trouble-shooting section at top.
+
+
+-----------------------------------------------------------------------------
+
+95/05/24
+
+Added lots of great new stuff that will be documented shortly. Take a look at
+the sample maps to see how most of the effects are accomplished. You will
+notice that MAPEDIT has changed significantly.
+
+BLUE "SPRITES" are controls for SLIDE type sectors, and come in pairs.  GREEN
+"SPRITES" are controls for ROTATE type sectors.
+
+Use the controls to make rotating and sliding doors or other gimmicks. If you
+delete a control accidently it will be reinserted, though the angles and
+position are not retained. Sorry. Don't delete controls by accident. :)
+
+Here is a mini-tutorial on how things work, please run the maps then look at
+them before you post a bunch of questions. Everything should be the same for
+raising and lowering sector doors.
+
+For a swinging door:
+* Create a red-line sector for a door and raise it to the height you want it.
+* NOTE: Doors should be created in the OPEN position.
+* Use AltF5 to select a sector type of "Rotate" in the sector dialog.
+* WARNING: Do NOT select the "Swing door" type. It won't work.
+* Set the triggers, keys, and busyTime/waitTime EFFECTS in the same dialog.
+* NOTE: A green control is automatically inserted (visible in 2D mode only!)
+* Place the control on the pivot point of the sector.
+* Change the angle of the green control to point right. O---->
+* Now, adjust the angle of the green control to be the angle it needs rotate
+  to OPEN from the CLOSED position. This is a bit confusing but you'll get
+  the hang of it. Look at the swinging doors in MAP01-MAP04.
+
+For a sliding door:
+* Okay, I'll send this to you guys in e-mail. There is a simple example in
+  MAP01.MAP. Look for the BLUE ARROW. Yes! The blue arrow points in the
+  direction of movement. (Let the other teams try and beat that!)
+
+More on sliding doors later, as well as morphing walls. For now just
+experiment with triggers and slide/rotate walls. Good luck.
+
+-----------------------------------------------------------------------------
+
+95/05/28
+
+Changed code that automatically inserts marker sprites so they start out at
+angle 0. O---->  This only effect markers in rotate sectors.
+
+-----------------------------------------------------------------------------
+
+95/05/29
+
+Added combination switches.  These are multi-way switches which change to the
+ON state when their data field equals the value set in lotag.  The sprite's
+hitag contain the number of values that the switch will cycle through.  These
+switches can be used for combination locks, or even counters.  See my map
+FXTEST for examples of both.
+
+Changed the way that slide sectors work so you only need to tag the walls
+that you want to move, and the code figures out which vertices need to be
+updated.  No more stretching wall bullshit.
+
+Added support for sprite link messages so a master combination switch can
+control slave switches.
+
+-----------------------------------------------------------------------------
+
+95/05/30
+
+Created MAPEDIT.INI for storing various edition options.
+
+Fixed an overflow problem which could cause long lines to be unselectable.
+Overhauled line selection so it is zoom dependent, and controlled by a
+configurable distance threshold, HighlightThreshold in [Options] of
+MAPEDIT.INI.
+
+Fixed a lot a subtle problems in the light bomb, which would cause certain
+reflections to be calculated incorrectly.  I also (hopefully) eliminated
+problems with overflow in the ray tracing algorithm.  Sometimes fixed point
+math sucks.  You can control various aspects of the light bomb through
+configuration options in MAPEDIT.INI.
+
+Changed Ctrl-Shift-Enter so it only pastes shade and palette to all walls in
+a loop.  Previously, it would copy over textures as well.  This is the way
+that I really intended it to work.
+
+-----------------------------------------------------------------------------
+
+95/05/31
+
+YES!  I think I found a solution for maintaining marker sprites that will
+ensure references don't get hosed.  In level designer terms, this means you
+won't occasionally lose slide or rotate markers.
+
+-----------------------------------------------------------------------------
+
+95/06/01
+
+This time I _really_ think I've fixed the marker sprite problem.  There
+shouldn't be any changes required to your maps, and the marker sprites should
+stay put.  Let me know any problems ASAP.
+
+-----------------------------------------------------------------------------
+
+95/06/02
+
+Moved troubleshooting section to the new XSYSTEM.TXT file, which will
+document the trigger system, sector, wall, and sprite effects, and other
+crucial information for level designers.  This file will continue to document
+editor changes, but won't discuss specific aspects of effects.
+
+-----------------------------------------------------------------------------
+
+95/06/04
+
+Fixed a mouse selection problem which would cause the wrong texture to be
+copied instead if the mouse was at an extreme edge of the screen.  The bug is
+in Ken's code, so the only thing I can do is limit the mouse in by a pixel
+from all the edges.
+
+You can now use PageUp and PageDn on the lower wall of a bi-textured wall to
+move a red sector up and down.
+
+Player height is now identical in MapEdit and Blood.  Just remember to put
+your switches lower in areas where the player will be in the water.
+
+Added sector visibility keys: Press CtrlAlt+ and CtrlAlt- to change the
+sector visibility values. Don't abuse this feature or Nick will kill you.
+
+-----------------------------------------------------------------------------
+
+95/06/04
+
+========================================================================
+			!! READ THIS FIRST !! (please)
+========================================================================
+Save ALL of your maps before running the new conversion utility.
+
+Once you've saved your maps in another directory or ZIP file, run the
+CONVDB4.EXE conversion utility. You can use wildcards, so typing "CONVDB4
+*.MAP" is acceptable.
+
+Next, run "MAKEPLU 64 96" before viewing, editing or playing any maps.
+========================================================================
+
+* From now on all Door, Lift and moving stair types should be created using
+the "Z Motion" sector type. (These are automatically converted when CONVDB4
+is run on version 3.x maps.) The Z values cannot yet be viewed in the 2D
+dialogs, but are displayed when created or changed in 3D mode.  NOTE: Lift
+types will be converted, but you must manually go in and set on and off Z for
+each of them. Sorry. It was this, or linking the entire engine into the
+converter, or wasting time rewriting code.
+
+To create and set the default on and off Z values for a "Z Motion" sector:
+
+First, make the sector a "Z Motion" sector using the Alt-F5 dialog.
+
+Position the sector ceiling and floor heights where you want them to be when
+the sector is in the OFF position. For doors, it is easiest to make OFF the
+CLOSED position. Point at the Z Motion sector (ceiling, floor, adjacent
+non-white wall, or interior white wall) and press Alt F3 to set the OFF Z
+values. Pressing Alt F3 will set the Z values for both the ceiling and floor,
+so you don't have to press it twice.
+
+Now position the ceiling and floor heights where you want them to be when the
+sector is in the ON position. (Best in the OPEN position.) Point at the "Z
+Motion" sector and press Alt F4 to set the ON Z values.  Again, this only has
+to be done once, as it will autmoatically set the ceiling and floor ON Z
+values with one keypress.
+
+To view the positions, point at the sector with the mouse cursor, hold the
+left mouse button down and press F3 and/or F4 to view the OFF and ON Z
+values, respectively.
+
+* New graphics for the pod creature and rat have been added, but they don't
+have MAPEDIT values in place. That means their captions won't yet show up in
+2D mode, nor will they be sized correctly.
+
+* Dialogs have changed a bit, and will change more in the future.  At least
+this time they all look more alike. Live with it.
+
+-----------------------------------------------------------------------------
+
+95/06/13
+
+Changed 3D movement so you are no longer blocked by the ceiling in sectors
+with parallaxed skies.  Moving way 'up there' can give you an interesting
+perspective on (and hopefully new ideas for) your map.
+
+Rewrote the GUI.  You probably won't see any significant visible changes, but
+please report any problems.
+
+-----------------------------------------------------------------------------
+
+95/06/30
+
+Added menu to insert game objects. From now onw, press Alt-S instead of S to
+insert game object sprites. You can still use S for ornaments like torches,
+weeds, etc. NOTE: Hazard insertion is not done yet.
+
+If you have not already done do, run CONVDB4 on all your maps. You should
+then load and save *every* map to reset the object types. The only sprites
+that are converted in MAPEDIT (during loading and saving) are listed below.
+If you have a creature sprite not using one of these tiles, fix it
+immediately or risk certain death.
+
+#	Name			Creature
+896	kAnmPhantasmM1		Phantasm
+1170    kAnmZomb1M1		AxeZombie
+1270    kAnmHellM2		HellHound
+1280    kAnmHellM1		HellHound (also)
+1370    kAnmZomb2M1		FatZombie
+1470    kAnmGargoyleM1		FleshGargoyle
+1530    kAnmGargStatue		FleshGargoyle Statue
+1570    kAnmGillM1		GillBeast
+1595    kAnmGillM2		GillBeast (also)
+1745    kAnmRatM1		Rat
+1792    kAnmPodM1		GreenPod
+1797    kAnmTentacleM1		GreenTentacle
+1835    kAnmEelM2		Eel
+1870    kAnmEelM1		Eel (also)
+1920    kAnmSpiderM1		RedSpider
+1948    kAnmBatM2		Bat (sleeping)
+1950    kAnmBatM1		Bat (flying)
+1980    kAnmHandM1		Hand
+2680    kAnmCerberusM1		Cerberus
+2820    kAnmCultistA1		TommyCultist    *
+2860    kAnmCultistM1		ShotgunCultist  *
+
+-----------------------------------------------------------------------------
+
+95/07/03
+
+Maps of version 4.00 are auto converted to version 4.01.  The conversion
+involves adjusting the z position of wall and face sprites to handle the new
+origin alignent mode.
+
+Added new lighting type, Flicker3.  This is a mostly on, flakey flourescent
+light sort of flicker effect.
+
+Added our tile preloading code from Blood to MapEdit, so you should have less
+lurching due to tiles not being in memory.
+
+-----------------------------------------------------------------------------
+
+95/07/08
+
+Rewrote "O" code to paste sprite onto a wall.  Let me know if you still have
+occasional problems ornamenting sprites (where it won't go onto the wall).
+
+-----------------------------------------------------------------------------
+
+95/07/09
+
+Fixed a problem where marker sprites would occasionally get converted to
+other sprite types if they had a picnum which got recognized by Nick's
+conversion code.
+
+Improved performance of 2D display code by eliminating unnecessary math for
+non-displayed red walls.
+
+Now that sprite FIFO code is working, the insertsprite cover function now
+sets all new sprites to the following defaults:
+
+	sprite[].cstat = kSpriteOriginAlign;
+	sprite[].shade = 0;
+	sprite[].pal = 0;
+	sprite[].clipdist = 32;
+	sprite[].xrepeat = 64;
+	sprite[].yrepeat = 64;
+	sprite[].xoffset = 0;
+	sprite[].yoffset = 0;
+	sprite[].picnum = 0;
+	sprite[].ang = 0;
+	sprite[].xvel = 0;
+	sprite[].yvel = 0;
+	sprite[].zvel = 0;
+	sprite[].owner = -1;
+	sprite[].lotag = 0;
+	sprite[].hitag = 0;
+	sprite[].extra = -1;
+
+This should help cure some of the problems caused by sprites being inserted
+with bogus values in the fields.
+
+Renabled CRC checking for loaded maps.  Let me know if you have any problems
+in loading some of your converted maps.
+
+ALERT!  Ken made some clipping fixes to the engine which may cause sprites
+that are exactly on the wall to be non-visible.  This is especially true with
+red walls.  Changed the ornament function ("O" or "S" while pointing at a
+wall) so that sprites are offset from walls by 1/4th a pixel distance.  You
+should go through your maps and re-ornament all walls.  Unfortunately,
+there's not an easy way to do this automatically.
+
+Ornamented sprites are set by default to non-blocking and 1 sided.
+
+All dudes (creatures) are set to non-blocking and non-hitscan in the editor.
+This makes it a lot easier to move around in 3D mode.  Don't worry, the
+status bits are automatically set to the appropriate values in the game.
+
+-----------------------------------------------------------------------------
+
+95/07/17
+
+Fixed a bug with ammo names. Load and save all your maps. We apologize for
+this inconvenience.
+
+-----------------------------------------------------------------------------
+
+95/07/20
+
+			 !!! MAP VERSION CHANGE !!!
+
+Once you've backed up all your maps in another directory or ZIP file, run the
+CONVDB5.EXE conversion utility. You can use wildcards, so typing "CONVDB5
+*.MAP" is acceptable.  The old maps will be saved with an extension of ".MA4".
+
+This update adds fields necessary for implementing creature AI.  You'll see
+fields added to the XSprite dialog shortly.
+
+Fixed a bug in the code to auto align wall textures -- it would occasionally
+get caught in a loop and bail out after a certain number of iterations.  Now
+it should correctly detect when it is looping around walls.
+
+You can now press F10 while editing the rxID and txID fields, and it will
+automatically fill in the next unused channel.
+
+Object type is now stored in the former lotag field, and object mass is
+stored in the former hitag field.  Do NOT edit lotag or hitag manually.
+
+Fixed a crash bug that would occur if you pressed Enter in 2D mode while a
+wall was not highlighted.
+
+Optimized the sectorofwall() function, which probably won't make much of a
+difference to anybody.
+
+-----------------------------------------------------------------------------
+95/07/27
+
+* Added Ctrl-PgUp / Ctrl-PgDn support (3D mode) for sectors / walls
+=============================================================================
+When pointing at single-sided walls, the ceiling of the sector is modified.
+When pointing double-sided walls, the sector ceiling or floor on the other
+side of the highlighted wall is modified.
+
+Ctrl-PgUp will set the highlighted sector ceiling to the next higher neighbor
+ceiling z, or floor to the next higher neighbor floor z.
+
+Ctrl-PgDn will set the highlighted sector ceiling to the next lower neighbor
+ceiling z, or floor to the next lower neighbor floor z.
+
+* Added Alt-PgUp / Alt-PgDn support (3D mode) for sectors / walls
+=============================================================================
+When pointing at single-sided walls, the ceiling of the sector is modified.
+When pointing double-sided walls, the sector ceiling or floor on the other
+side of the highlighted wall is modified.
+
+Alt-PgUp will bring up a dialog box where you can manually type in the pixel
+height of the ceiling or floor from its counterpart.
+
+In other words, if you Alt-PgUp on a floor, you can type in the floor's
+height from the ceiling. If you Alt-PgUp on a ceiling, you can type in the
+ceiling's height from the floor.
+
+Alt-PgUp and Alt-PgDn work the same way. If you can think of a cooler way to
+do this, let me know.
+
+Since not all of the monsters are selectable in 3D mode using the Alt-S object
+menu, use Alt-S to first insert the closest monster (e.g. flesh gargoyle
+instead of a stone gargoyle) then go into 2D mode and use AltF6 on the sprite
+then select a new type. This should be fixed soon, when all the monster types
+will be selectable through a list box.
+
+-----------------------------------------------------------------------------
+95/08/01
+
+Fixed bug with sector joining. This bug was caused by us while trying to fix
+a bug in the build.obj editor code that wasn't checking for invalid sectors
+and walls when joining sectors. We still have the error checking code in, but
+we the check is less strict than it was, since the strict check was causing
+the code to bail out before joining sectors.
+
+-----------------------------------------------------------------------------
+95/08/02
+
+Added what is hopefully the final fix for the resource/map caching problems
+we were experiencing on machines with > 8MB. All map changes should be now
+be flushed correctly, and the maps should reload without a problem.
+
+Ctrl-Alt-Plus & Ctrl-Alt-Minus:
+
+Made sector visibility keys work with sector highlighting, so you can now
+highlight sectors with the RightAlt key in 2D mode, then go to 3D mode and
+change the visibility of all highlighted sectors.
+
+-----------------------------------------------------------------------------
+95/08/03
+
+Fixed hitscan blocking
+
+Added 3D mode messages to wall and sprite x/y repeat keys.
+
+Added 3D mode messages to wall x/y panning keys.
+
+Added some new sample maps and a sample map definition file.
+
+-----------------------------------------------------------------------------
+95/08/04
+
+Reverted to the previous keyboard method of handling sub-dialogs.  To exit
+from the sector effects sub-dialog and save changes, press ENTER.  To return
+to the xsector dialog, just press ESC.  Sorry for the inconvenience.
+
+-----------------------------------------------------------------------------
+95/08/06
+
+Added respawning for items. Check out the sprite dialog using AltF6.
+Monsters and barrels do not respawn yet, but they will soon.
+
+-----------------------------------------------------------------------------
+95/08/07
+
+MapEdit is now MUCH faster in 2D mode, at the expense of a little memory
+overhead.  The speedups should be particularly noticeable in maps where there
+were a lot of captions being displayed.
+
+-----------------------------------------------------------------------------
+95/08/08
+
+Tile #457 has been removed. Use tile #356 with palette 5 to emulate #457.
+We apologize for this inconvenience
+
+-----------------------------------------------------------------------------
+95/08/09
+
+Added support for moving only marked walls and sprites within motion sectors.
+To mark a wall or sprite for motion, press the "K" key while highlighting the
+object in 2D mode.  When the object is blue, it will move forward (in the
+direction of the movement arrow, or the angle direction of the axis marker).
+When it is green, it will move in the opposite direction.
+
+You can also mark sprites for motion in Z Motion sectors.  If the sprite is
+blue, it will move with the floor.  If it is green, it will move with the
+ceiling.
+
+Change the key for marking walls for motion from "M" to "K".  This was
+done to allow setting walls to masked in 2D mode with the "M" key.  This
+change actually occured a few revs back, but I forget to document either key
+-- sorry.
+
+Changed the color of marker sprites to green/yellow to yellow/white to
+distinguish them from sprites marked with "K".  Marker sprites normally
+appear yellow.  If the cursor is in the sector they apply to, they are shown
+in white.
+
+There are now three different types of slide and rotate sectors. The first
+type, Slide Marked and Rotate Marked, will move only marked walls and
+sprites.  The second type, Slide and Rotate, will move ALL walls and marked
+sprites.  This is useful for sectors where you don't want to mark all the
+walls individually.  The third type, Slide Crush and Rotate Crush, isn't yet
+implemented, and acts like the move ALL types.
+
+-----------------------------------------------------------------------------
+95/08/16
+
+You can now rotate sectors more than 180 degrees!  Use the [/] keys to rotate
+a sprite in 2D mode without wrapping at 0 and 2048.  All axis markers
+for doors which rotate CCW are automatically set to negative angles.  You'll
+understand how this works when you take a look at the markers.
+
+Slide sectors can rotate!  Just set the start and end angles in the on and
+off marker sprites.  Rotation will occur around the center, as determined by
+the relative position of the ON marker.
+
+-----------------------------------------------------------------------------
+95/08/16
+
+Added and refined descriptions at the top of this document, mainly duplicating
+material from the older BUILD.TXT file.
+
+-----------------------------------------------------------------------------
+95/08/20
+
+Updated Alt-S game object insertion to use new keys, weapon and dude tiles.
+
+-----------------------------------------------------------------------------
+95/08/22
+
+Added mirrors to our game. Supports up to 64 mirrors per level. Mirrors
+cannot reflect other mirrors, so keep them far apart. Mirrors are created
+using a 1-way masked walls on red lines (double-sided linedefs.) The area
+behind the mirror must be the same size and shape as the area in front of
+the mirror. Apply the "mirror" texture (I think #504) to 1-way walls to
+make them a mirror.
+
+-----------------------------------------------------------------------------
+95/08/29
+
+*** CONFIDENTIAL! DO NOT DISCUSS THE FOLLOWING UPDATE! ***
+We've added slopes to our game. Slopes will be in Blood, Duke,
+Ruins & Shadow Warrior. The 3D mode keys used to add or modify
+slopes are listed above. See [, ], \, and Alt-F
+
+-----------------------------------------------------------------------------
+95/09/05
+
+Added hazards and miscellaneous sprites to the Alt-S menu.  Check out
+inserting coop mode starting positions in the Misc menu.  NOTE: Inserting
+switches using this menu isn't working yet.
+
+Added simple one-way teleporters to the editor. Create a teleport sector and
+a teleport marker will be inserted. Move that teleporter to the destination.
+For two-way teleporters, create the same at the destination and drag the
+marked to the first teleporter. Switched teleporters may work, but I haven't
+tested them yet. This could make for some interesting deathmatch play where
+you need a temporary ally.
+
+-----------------------------------------------------------------------------
+95/09/10
+
+Modified the way that Alt-F key works. You can now select the first wall of a
+sector by pointing at it in 3D mode and pressing Alt-F. Pointing at the floor
+or ceiling and pressing Alt-F will make the first wall the next wall in
+clocking order.
+
+You can disable all panning with the F11 key. This is useful for aligning the
+textures of panAlways sectors and walls.
+
+-----------------------------------------------------------------------------
+95/09/15
+
+When you insert a new sprite, if a sprite is not already in the tab buffer,
+you are given the opportunity to pick the tile for the sprite.  Pressing
+Escape will allow you to abort the sprite insertion.  The ability to abort
+also applies to inserting game objects with Alt-S.
+
+The Light bomb has been fixed.  Because some of the math has been changed,
+you will need to update some of the constants in your MAPEDIT.INI file. Here
+are my default constants:
+
+	[LightBomb]
+	Intensity=4		; controls how bright the light is
+	Reflections=3		; maximum number of reflections
+	Attenuation=0x0000	; how much light gets diminished
+	MaxBright=-4
+
+Intensity controls how bright the light source is.  You can increase this
+value if you don't like pressing L a lot to brighten up a room, but you won't
+get as much fine control with it then.
+
+Reflections is the number of times each light ray is allowed to bounce.  If
+this value is 0, no reflections are calculated (and the process is much
+faster).  More reflections can help by creating more diffuse lighting
+effects.
+
+Attenuation controls how much the light is diminished when it reflects off a
+wall or floor.  A value of 0 is a perfect reflection, and a value of 0x10000
+would result in non-reflective walls.
+
+MaxBright sets the limit on how bright the light bomb is allowed to make a
+wall.  By prevent the wall shade from getting too bright, you retain the
+ability to see some of the dynamic sector lighting effects, which won't be
+visible is the shade is too much < 0.
+
+Texture alignment code overhauled!  I think this new version should do
+everything you could want it to do (with reason).  It now follows multiple
+paths, aligning everything connected with the same texture perfectly.  It
+aligns red walls correctly, regardless of where the texture is pegged, and
+even knows about slopes.  You will be amazed. :-)
+
+For the sake of speed and congruity, I changed the key strokes for adjusting
+wall x/y repeat and x/y panning.  The arrows on the numeric keypad now
+adjust the panning of wall textures by a factor of 8.  If you want fine
+alignment, use the Shift key (sound familiar?)  To adjust the wall scale,
+press the 5 key on the numeric keypad while pressing the arrows.  This change
+should make it a little easier to manually adjust texture panning, since you
+won't have to hold so many darn keys down.
+
+For those of you with ingrained editor habits (or who have to use BUILD for
+other projects), you can retain the old keypad behavior by adding the
+following to the [Options] section of your MAPEDIT.INI file:
+
+	[Options]
+	OldKeyMapping=1
+
+This works the same way except for sprites, in which the function of the pad
+5 is reversed.  I did it this way because you seldom (if ever) need to adjust
+the x/y offset of sprites.
+
+-----------------------------------------------------------------------------
+95/09/16
+
+Added a timer event generator to the sprite type list.  See the
+appropriate section in XSYSTEM.TXT.
+
+-----------------------------------------------------------------------------
+95/11/26
+
+Fixed a rather subtle but NASTY map screw up bug which would occur if you tried
+to use Alt-F on a ceiling or floor of sector 0.  I intruced this bug when we
+went to the new map version.  Sorry about that. :-(  If you are curious what
+caused this, I made wall->point2 an unsigned value, not realizing that it can
+go negative during wall order rotation.
+
+
+-----------------------------------------------------------------------------
+95/12/27
+
+Modified dialog boxes, adding new fields like interruptable, lock, etc.
+Added dude-specific flags to the sprite dialog box.
+
+-----------------------------------------------------------------------------
+96/01/07
+
+Fixed sprite insertion and z movement functions so that sprites will go on
+floors and ceilings correctly.
+
+Changed '/' key so that is resets flip bits for floors and ceilings.
+
+Changed Alt-C so that it will change palookups if the picnum is the same in the
+tab buffer.
+
+Fixed an assertion bug that would occur when dragging highlighted points.
+
+-----------------------------------------------------------------------------
+96/01/16
+
+Added WaterDrip generator code.

@@ -1,0 +1,3 @@
+[Sound Setup]
+MusicDevice=0
+MusicVolume=255

@@ -1,0 +1,33 @@
+@echo off
+setlocal
+
+iff exist bsource.zip then
+	inkey /k"ac[Esc]" BSOURCE.ZIP exists. Add files, or Create new archive (A/C)? %%key
+	if "%key"=="c" del bsource.zip > nul
+	if "%key"=="" quit
+endiff
+
+iff EXIST UPDATE.DAT then
+	set lastAge=%@FILEAGE[UPDATE.DAT]
+else
+	set lastAge=0
+endiff
+
+set tempFile=%@UNIQUE[]
+set hFile=%@FILEOPEN[%tempFile, WRITE]
+
+for %fname in (makefile src\*.asm src\*.h src\*.c?? *.txt *.btm *.rfs names.h seq\*.seq qav\*.qav) do (
+	if %@FILEAGE[%fname] GT %lastAge (
+		set r=%@FILEWRITE[%hFile, %fname]
+		set changed=TRUE
+	)
+)
+set r=%@FILECLOSE[%hFile]
+
+if "%changed"=="TRUE" (
+	pkzip -o -P -selcycer bsource @%tempFile
+	wtouch update.dat /f bsource.zip
+)
+
+del %tempFile > nul
+

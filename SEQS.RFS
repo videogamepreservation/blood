@@ -1,0 +1,342 @@
+# General effect sequences
+alias seq\canfire1.seq	0x00	PRELOCK
+alias seq\canfire2.seq	0x01	PRELOCK
+alias seq\skull.seq	0x02    PRELOCK
+alias seq\explc1l.seq	0x03    PRELOCK
+alias seq\explc1m.seq	0x04    PRELOCK
+alias seq\explc1s.seq	0x05    PRELOCK
+alias seq\explc2l.seq	0x06    PRELOCK
+alias seq\explc2m.seq	0x07    PRELOCK
+alias seq\explc2s.seq	0x08    PRELOCK
+alias seq\explc2t.seq	0x09    PRELOCK
+alias seq\splash1.seq	0x0A    PRELOCK
+alias seq\splash2.seq	0x0B    PRELOCK
+alias seq\splash3.seq	0x0C    PRELOCK
+alias seq\ricoch01.seq	0x0D    PRELOCK
+alias seq\gwing.seq	0x0E    PRELOCK
+alias seq\headroll.seq	0x0F    PRELOCK
+alias seq\barrel.seq	0x10    PRELOCK
+alias seq\blood01.seq	0x11    PRELOCK
+alias seq\respawn.seq	0x12    PRELOCK
+alias seq\fsmoke.seq	0x13	PRELOCK
+alias seq\squib1.seq	0x14	PRELOCK
+alias seq\flolite.seq	0x15    PRELOCK
+alias seq\glass.seq	0x16    PRELOCK
+alias seq\sglass.seq	0x17    PRELOCK
+alias seq\bigweb.seq	0x18    PRELOCK
+alias seq\woodbeam.seq	0x19    PRELOCK
+alias seq\vase1.seq	0x1A    PRELOCK
+alias seq\vase2.seq	0x1B	PRELOCK
+alias seq\zbones.seq	0x1C	PRELOCK
+alias seq\skull2.seq	0x1D    PRELOCK
+alias seq\metgrat1.seq	0x1E    PRELOCK
+alias seq\fireball.seq	0x1F    PRELOCK
+alias seq\bone.seq	0x20    PRELOCK
+alias seq\treefir1.seq	0x21    PRELOCK
+alias seq\treefir2.seq	0x22    PRELOCK
+alias seq\hellfire.seq	0x23    PRELOCK
+alias seq\mgdead.seq	0x24    PRELOCK
+alias seq\ricoch02.seq	0x25	PRELOCK
+
+# Trigger effects
+alias seq\glass.seq	0x80    PRELOCK
+alias seq\sglass.seq	0x81    PRELOCK
+alias seq\bigweb.seq	0x82    PRELOCK
+alias seq\woodbeam.seq	0x83    PRELOCK
+alias seq\jarexplo.seq	0x84    PRELOCK
+alias seq\wateroff.seq	0x85    PRELOCK
+alias seq\wateron.seq	0x86    PRELOCK
+alias seq\spike.seq	0x87    PRELOCK
+alias seq\metgrat1.seq	0x88    PRELOCK
+alias seq\ftrap1.seq	0x89    PRELOCK
+alias seq\ftrap2.seq	0x8A    PRELOCK
+alias seq\padlock.seq	0x8B    PRELOCK
+alias seq\mgopen.seq	0x8C    PRELOCK
+alias seq\mgfire.seq	0x8D    PRELOCK
+alias seq\mgclose.seq	0x8E    PRELOCK
+alias seq\mgflare.seq	0x8F    PRELOCK
+
+#	kDudeTommyCultist
+#	kDudePlayer1
+#	kDudePlayer2
+#	kDudePlayer3
+#	kDudePlayer4
+#	kDudePlayer5
+#	kDudePlayer6
+#	kDudePlayer7
+#	kDudePlayer8
+#	kDudePlayer_Owned
+alias seq\cult1i1.seq	0x100	PRELOCK
+alias seq\cult1d1.seq	0x101   PRELOCK
+alias seq\cult1d2.seq	0x102   PRELOCK
+alias seq\cult1d3.seq	0x103   PRELOCK
+alias seq\cult1r1.seq	0x104   PRELOCK
+alias seq\cult1a1.seq	0x105   PRELOCK
+alias seq\cult1a2.seq	0x106   PRELOCK
+alias seq\cult1m1.seq	0x107   PRELOCK
+alias seq\cult1m2a.seq	0x108   PRELOCK
+alias seq\cult1m2b.seq	0x109   PRELOCK
+alias seq\cult1m2c.seq	0x10A   PRELOCK
+
+#	kDudeAxeZombie
+#	kDudeEarthZombie
+
+alias seq\zomb1i1.seq	0x110   PRELOCK
+alias seq\zomb1d1.seq	0x111   PRELOCK
+alias seq\zomb1d2.seq	0x112   PRELOCK
+alias seq\zomb1d3.seq	0x113   PRELOCK
+alias seq\zomb1r1.seq	0x114   PRELOCK
+alias seq\zomb1a1.seq	0x115   PRELOCK
+alias seq\zomb1d4.seq	0x116   PRELOCK
+alias seq\zomb1m1.seq	0x117   PRELOCK
+alias seq\zomb1m2.seq	0x118   PRELOCK		# climb out of ground
+alias seq\zomb1up.seq	0x119   PRELOCK		# flip up
+alias seq\zomb1i2.seq	0x11A   PRELOCK		# idle in ground
+
+#	kDudeFatZombie
+
+alias seq\zomb2i1.seq	0x120   PRELOCK
+alias seq\zomb2d1.seq	0x121   PRELOCK
+alias seq\zomb2d2.seq	0x122   PRELOCK
+alias seq\zomb2d3.seq	0x123   PRELOCK
+alias seq\zomb2r1.seq	0x124   PRELOCK
+alias seq\zomb2a1.seq	0x125   PRELOCK
+alias seq\zomb2d4.seq	0x126   PRELOCK
+alias seq\zomb2m1.seq	0x127   PRELOCK
+
+#	kDudeFleshGargoyle
+
+alias seq\garg1m1.seq	0x130   PRELOCK
+alias seq\garg1d1.seq	0x131   PRELOCK
+alias seq\garg1d2.seq	0x132   PRELOCK
+alias seq\garg1d3.seq	0x133   PRELOCK
+alias seq\garg1r1.seq	0x134   PRELOCK
+alias seq\garg1a1.seq	0x135   PRELOCK
+alias seq\garg1m2a.seq	0x136   PRELOCK
+alias seq\garg1m2b.seq	0x137   PRELOCK
+alias seq\garg1m2c.seq	0x138   PRELOCK
+
+#	kDudeStoneGargoyle
+
+alias seq\garg2m1.seq	0x140   PRELOCK
+alias seq\garg2d1.seq	0x141   PRELOCK
+alias seq\garg2d2.seq	0x142   PRELOCK
+# no burn death
+alias seq\garg2r1.seq	0x144   PRELOCK
+alias seq\garg2a1.seq	0x145   PRELOCK
+alias seq\garg2m2a.seq	0x146   PRELOCK
+alias seq\garg2m2b.seq	0x147   PRELOCK
+alias seq\garg2m2c.seq	0x148   PRELOCK
+
+#	kDudePhantasm
+
+alias seq\gost1m1.seq	0x150   PRELOCK #translucent
+alias seq\gost1d1.seq	0x151   PRELOCK
+# death2
+# death3
+alias seq\gost1r1.seq	0x154   PRELOCK #translucent
+alias seq\gost1a1.seq	0x155   PRELOCK
+alias seq\gost1m1.seq	0x156   PRELOCK #translucent
+alias seq\gost1m2.seq	0x157   PRELOCK #translucent
+alias seq\gost1r2.seq	0x158   PRELOCK #solid
+
+#	kDudeHound
+#	kDudeHound_Owned
+
+alias seq\hell1i1.seq	0x160   PRELOCK
+alias seq\hell1d1.seq	0x161   PRELOCK
+alias seq\hell1d2.seq	0x162   PRELOCK
+# death3
+alias seq\hell1r1.seq	0x164   PRELOCK
+alias seq\hell1a1.seq	0x165   PRELOCK
+alias seq\hell1a2.seq	0x166   PRELOCK
+alias seq\hell1m1.seq	0x167   PRELOCK
+
+#	kDudeHand
+
+alias seq\hand1i1.seq	0x170   PRELOCK
+alias seq\hand1d1.seq	0x171   PRELOCK
+alias seq\hand1d1.seq	0x172   PRELOCK # same as death1
+alias seq\hand1d3.seq	0x173   PRELOCK
+# recoil
+alias seq\hand1m1.seq	0x175   PRELOCK
+alias seq\hand1m2.seq	0x176   PRELOCK
+
+#	kDudeBrownSpider
+#	kDudeSpider_Owned
+
+alias seq\spid1i1.seq	0x180   PRELOCK
+alias seq\spid1d1.seq	0x181   PRELOCK
+alias seq\spid1d2.seq	0x182   PRELOCK
+alias seq\spid1d3.seq	0x183   PRELOCK
+# recoil
+alias seq\spid1a2.seq	0x185   PRELOCK
+alias seq\spid1m1.seq	0x186   PRELOCK
+alias seq\spid1m2.seq	0x187   PRELOCK
+
+#	kDudeRedSpider
+
+alias seq\spid2i1.seq	0x190   PRELOCK
+alias seq\spid2d1.seq	0x191   PRELOCK
+alias seq\spid2d2.seq	0x192   PRELOCK
+alias seq\spid2d3.seq	0x193   PRELOCK
+# recoil
+alias seq\spid2a2.seq	0x195   PRELOCK
+alias seq\spid2m1.seq	0x196   PRELOCK
+alias seq\spid2m2.seq	0x197   PRELOCK
+
+#	kDudeBlackSpider
+
+alias seq\spid3i1.seq	0x1A0   PRELOCK
+alias seq\spid3d1.seq	0x1A1   PRELOCK
+alias seq\spid3d2.seq	0x1A2   PRELOCK
+# death3
+# recoil
+alias seq\spid3a2.seq	0x1A5   PRELOCK
+alias seq\spid3m1.seq	0x1A6   PRELOCK
+alias seq\spid3m2.seq	0x1A7   PRELOCK
+
+#	kDudeMotherSpider
+
+#	kDudeGillBeast
+
+alias seq\gill1i1.seq	0x1C0   PRELOCK
+alias seq\gill1d1.seq	0x1C1   PRELOCK
+alias seq\gill1d2.seq	0x1C2   PRELOCK
+alias seq\gill1d3.seq	0x1C3   PRELOCK
+alias seq\gill1r1.seq	0x1C4   PRELOCK
+alias seq\gill1a1.seq	0x1C5   PRELOCK
+alias seq\gill1a2.seq	0x1C6   PRELOCK
+alias seq\gill1d4.seq	0x1C7   PRELOCK
+alias seq\gill1m1.seq	0x1C8   PRELOCK
+alias seq\gill1m2.seq	0x1C9   PRELOCK
+alias seq\gill1r2.seq	0x1CA   PRELOCK
+
+#	kDudeEel
+#	kDudeEel_Owned
+
+alias seq\eel1m1.seq	0x1D0   PRELOCK
+alias seq\eel1d1.seq	0x1D1   PRELOCK
+alias seq\eel1d2.seq	0x1D2   PRELOCK
+# death3
+# recoil
+alias seq\eel1m2.seq	0x1D5   PRELOCK
+
+#	kDudeBat
+
+alias seq\bat1i1.seq	0x1E0   PRELOCK
+alias seq\bat1d1.seq	0x1E1   PRELOCK
+alias seq\bat1d1.seq	0x1E2   PRELOCK # same as death1
+alias seq\bat1d3.seq	0x1E3   PRELOCK
+# recoil
+alias seq\bat1m1.seq	0x1E5   PRELOCK
+
+#	kDudeRat
+
+alias seq\rat1i1.seq	0x1F0   PRELOCK
+alias seq\rat1d1.seq	0x1F1   PRELOCK
+alias seq\rat1d1.seq	0x1F2   PRELOCK # same as death1
+alias seq\rat1d3.seq	0x1F3   PRELOCK
+# recoil
+alias seq\rat1m1.seq	0x1F5   PRELOCK
+
+#	kDudeGreenPod
+
+# idle
+alias seq\pod1d1.seq	0x201   PRELOCK
+alias seq\pod1d2.seq	0x202   PRELOCK
+# death3
+alias seq\pod1clos.seq	0x204   PRELOCK	#recoil
+alias seq\pod1open.seq	0x205   PRELOCK
+alias seq\pod1clos.seq	0x206   PRELOCK
+
+#	kDudeGreenTentacle
+
+alias seq\tent1i1.seq	0x210   PRELOCK
+alias seq\tent1d2.seq	0x211   PRELOCK # same as death 2
+alias seq\tent1d2.seq	0x212   PRELOCK
+# death3
+# recoil
+alias seq\tent1a1.seq	0x215   PRELOCK
+alias seq\tent1up.seq	0x216   PRELOCK
+alias seq\tent1dow.seq	0x217   PRELOCK
+
+#	kDudeFirePod
+
+# idle
+alias seq\pod2d1.seq	0x221   PRELOCK
+alias seq\pod2d2.seq	0x222   PRELOCK
+# death3
+alias seq\pod2clos.seq	0x224   PRELOCK # recoil
+alias seq\pod2open.seq	0x225   PRELOCK
+alias seq\pod2clos.seq	0x226   PRELOCK
+
+#	kDudeFireTentacle
+
+alias seq\tent2i1.seq	0x230   PRELOCK
+alias seq\tent2d2.seq	0x231   PRELOCK # same as death 2
+alias seq\tent2d2.seq	0x232   PRELOCK
+# death3
+# recoil
+alias seq\tent2a1.seq	0x235   PRELOCK
+alias seq\tent2up.seq	0x236   PRELOCK
+alias seq\tent2dow.seq	0x237   PRELOCK
+
+#	kDudeMotherPod
+#	kDudeMotherTentacle
+
+#	kDudeCerberus
+
+alias seq\cerb1i1.seq	0x260   PRELOCK
+alias seq\cerb1d1.seq	0x261   PRELOCK
+# death2
+# death3
+alias seq\cerb1r1.seq	0x264   PRELOCK
+alias seq\cerb1a1.seq	0x265   PRELOCK
+alias seq\cerb1m1.seq	0x266   PRELOCK
+
+#	kDudeCerberus2
+alias seq\cerb2i1.seq	0x270   PRELOCK
+alias seq\cerb2d1.seq	0x271   PRELOCK
+# death2
+# death3
+alias seq\cerb2r1.seq	0x274   PRELOCK
+alias seq\cerb2a1.seq	0x275   PRELOCK
+alias seq\cerb2m1.seq	0x276   PRELOCK
+
+#	kDudeTchernobog
+
+#	kDudeRachel
+
+#	kDudeBurning
+
+#	kDudeBeast
+#	kDudeBeast_Owned
+alias seq\best1i1.seq	0x2A0   PRELOCK
+alias seq\best1d1.seq	0x2A1   PRELOCK
+# death2
+alias seq\best1d3.seq	0x2A3   PRELOCK
+alias seq\best1r1.seq	0x2A4   PRELOCK
+alias seq\best1a1.seq	0x2A5   PRELOCK
+# attack2
+alias seq\best1m1.seq	0x2A7   PRELOCK
+
+#	kDudeFleshStatue
+alias seq\garg1tr.seq	0x2B5	PRELOCK
+
+#	kDudeStoneStatue
+alias seq\garg2tr.seq	0x2C5	PRELOCK
+
+#	kDudeShotgunCultist
+alias seq\cult2i1.seq	0x2D0	PRELOCK
+alias seq\cult2d1.seq	0x2D1   PRELOCK
+alias seq\cult2d2.seq	0x2D2   PRELOCK
+alias seq\cult2d3.seq	0x2D3   PRELOCK
+alias seq\cult2r1.seq	0x2D4   PRELOCK
+alias seq\cult2a1.seq	0x2D5   PRELOCK
+alias seq\cult2a2.seq	0x2D6   PRELOCK
+alias seq\cult2m1.seq	0x2D7   PRELOCK
+alias seq\cult2m2a.seq	0x2D8   PRELOCK
+alias seq\cult2m2b.seq	0x2D9   PRELOCK
+alias seq\cult2m2c.seq	0x2DA   PRELOCK
+

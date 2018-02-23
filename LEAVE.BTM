@@ -1,0 +1,10 @@
+@echo off
+iff "%1" == "" then
+	echo Missing drive parameter
+	quit
+endiff
+
+pkzip -u -P %1\blood \blood\*.* \blood\src\*.* \blood\seq\*.* \blood\qav\*.* \blood\snd\*.*
+pkzip -u -P %1\blood \blood\music\*.* \blood\tables\*.* \blood\fonts\*.*
+pkzip -u -P %1\qtools \qtools\*.* \qtools\src\*.* \qtools\h\*.*
+pkzip -u -P %1\ass \ass\*.* \ass\h\*.*

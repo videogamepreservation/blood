@@ -1,0 +1,1072 @@
+=============================================================================
+			     BLOOD History File
+		 Copyright (c) 1994-95 Q Studios Corporation
+			    Contact: Peter Freese
+		    pfreese@qstudios.com or CIS:74170,543
+=============================================================================
+
+KEYBOARD FUNCTIONS:
+
+D and +/-	Changes visibility
+
+G and +/-	Changes gamma correction
+
+S and +/-	Change player spring coefficient
+
+X		jump
+
+V		toggle external view (Alt-V rotates view)
+
+Z		Secondary fire key
+
+C		Crouch
+
+Ctrl		Primary fire
+
+Alt		strafe
+
+1 - 9		Selects/deselects weapon (only pitchfork, tommy gun, shotgun
+		for now)
+
+F1		Help (not implemented)
+
+F2
+
+F3
+
+F4
+
+F5
+
+F6
+
+F7
+
+F8
+
+F9		Quick Load
+
+F10
+
+F11		Changes gamma correction
+
+F12		Selects player view
+
+Insert		Inserts fake player
+
+Delete		Deletes fake player
+
+ScrollLock	Selects fake player
+
+
+CHEAT KEYS:
+
+QSMAPS		Full map
+QSAMMO		Full ammo
+QSKEYS		All keys
+QSCLIP		No clipping mode
+QSOUCH		Pummel death
+QSBURN		Burning death
+QSBOOM		Explode death
+QSRATE		Toggle display of frame rate
+QSGOTO		Go to a specific x,y location
+QSJUMP		Jump to a particular episode and level
+QSHIGH		Delirium mode
+QSONERING	Inviso mode
+QSAIM		Toggle display of aiming reticle
+
+=============================================================================
+
+95/01/20
+
+Change the tile cache size by editing the "TileCacheSize" parameter
+in BLOOD.INI. (Ex. TileCacheSize=2048 will create a 2MB tile cache.)
+Spaces between the parameter and value are NOT supported yet.
+
+Note the icon in the upper right corner when a cache miss causes
+a disk access to occur. Cool, eh?
+
+Here are the monsters in the game:
+* Gargoyle:       By far the coolest when running/jumping.
+* The Hand:       Way cool!
+* Gill Beast:     Cool, but sometimes humorous.
+* Fat Boy Zombie: Use the butcher knife!!
+* Jive Zombie:    No attack yet, kind of weak for a weak enemy.
+* Phantasm:       Ok, we need lots o' art for this one, but attack works.
+* Hell Hound:     Needs major art touchup.
+
+Here are the weapons in the game (still frames with bobbing.):
+* Pitchfork
+* Tommy Gun (much better than before)
+* Sawed-off shotgun (Love this baby.)
+
+Next week:
+Animated frames for the above weapons.
+The NAIL GUN, yes! ($25 a day for rental...sheesh.)
+
+-----------------------------------------------------------------------------
+
+95/02/06
+
+Sector lighting effects are now functional.  See the notes in MAPEDIT.TXT for
+information on creating lighting effects.
+
+Global visibility is now loaded from the mpx file, although you can still
+change it with the V Pad+/i keys.
+
+Tiled parallaxed sky information is loaded from the MPX file (although I
+haven't tested this yet).
+
+Almost all errors are now caught by a global error handler.  Let me know if
+you get any mysterious crashes.  There are still asserts which will go
+through the monochrome monitor if you have the DEBUG environment variable
+defined.
+
+Multi-player network play works.  Yeah!  I've added synchronization checks
+for now which should report if any slaves get out of sync.
+
+Player movement dynamics have been overhauled.  You can now "slide" sideways,
+spin in mid-air, crumple from a fall, and other stuff based on inertia.
+It's really cool.
+
+The tile cache system has been revamped.  It will now attempt to allocate as
+large a cache as possible, up to the limit of available memory.  The
+TileCache line in the INI file is now longer used, and can be removed.
+Additional dynamic allocations (such as sound effects) in the game will come
+from the tile cache.
+
+Dynamic fire is working again, and looks better than ever.  The tile number
+is 2342, and needs to be added to names.h.  We need a new 128x128 pic for
+tiles.art -- the one from Doom is 128x112.
+
+-----------------------------------------------------------------------------
+
+95/02/13
+
+Added new weapon swaying effect that is not directly related to the head bob.
+
+Screen resizing is functional again, although there are a few problems with
+the shade and size of the marble background.  Also, don't try resizing in
+640x480 mode -- there a still some serious problems in the engine related to
+view sizing.
+
+2D mapping now working in the game video mode.  This should prevent problems
+with mode switching (especially in network play with problematic video
+cards).  Also, we'll be able to do more cool stuff with the maps with 256
+colors, such as anti-aliased lines, parchment background, etc. -- we just need
+to figure out what we want.
+
+Zoom is no longer a player variable; it is solely a display metric now.
+
+Zoom and view size are now written to the blood.ini file.
+
+Fixed a inifile bug which caused an assertion failure if a key was not found
+and a section contained blank lines.
+
+Changed the way items are picked up to solve problems in picking up sprites
+which are not in the same sector as the player.  In order to be picked up,
+sprites now must be on stat list 1 (kSpriteStatTouch).  Sprites are
+automatically tagged with this status in mapedit, so you'll need to load and
+save all your maps.
+
+Changed location and persistence of the disk sprite which appears during
+cache misses.  It now appears on top of the status bar to ensure it doesn't
+get left on the background when the view size is less than full screen.
+
+During initialization, the status messages for building the various tables no
+longer appear unless the tables are actually being built.  If they are just
+being loaded, the messages do not appear.
+
+Re-enabled chaining to the old timer interrupt handler.  This was previously
+disabled due to a bug in Ken's network code.  Re-enabling it should cure those
+system date and time problems, as well as help with any timer dependent DOS
+drivers, such as disk caches.
+
+-----------------------------------------------------------------------------
+
+95/02/14
+
+Did a major restructuring of source code.  This was a sorely needed cleanup
+to produce organization out of a loose collection of hacks.  This should make
+future changes and additions much easier.
+
+Blood no longer uses Ken's keyboard handler.  This means functional key
+repeat, less key lockouts, and input stream buffering.
+
+Added support for cheat key sequences.  Try QSKFA!
+
+Modified desynchronization so that animations are desynced by time, and not
+be frame.  This means that even with only two frames, a lot of sprites of the
+same tile should not animation in unison.
+
+Optimized the routine for picking up sprites.  The additional trivial
+rejection tests should speed things up a bit.
+
+Warping no longer sets velocity to zero.
+
+You should now be able to operate a platform sector from outside the sector
+(via neartag).  Sector operation code is also optimized.
+
+Head bobbing and weapon swaying are now related to the players actual
+movement, not attempted movement.  This means that you should be still when
+you are jammed up against a wall and running like hell.  There is a low pass
+filter for the amplitude, so it should never jerk your head or the weapon.  I
+also modified the scale for the metrics for bobbing and swaying, but I think
+I've got them pretty close to the way they were before.  Please let me know
+any comments you have on the feel of these features.
+
+When you land and recover, I am now dropping the weapon a bit to simulate its
+inertia.  I think this adds good visual cues for the landing effect.
+
+-----------------------------------------------------------------------------
+
+95/02/15
+
+DO NOT RUN THIS VERSION IN UNCHAINED MODE.  It will probably do something
+really horrible.
+
+Wrote new code to support tiling the background when the screen size is
+reduced.  This is some pretty crappy code right now, and I'll probably
+rewrite it eventually, but for now it works except in unchained mode.
+
+Reduced horizontal swaying of weapon by 1/3.  Let me know if this is enough.
+
+Added code to support DAC effects, which will be used for visual feedback for
+events such as one-ups, injuries, and special sector effects.  I've plugged
+in a little flash effect for picking up items.  Also, try QSOUCH for an
+injury effect.  If the DAC effects cause any snow problems we can always
+switch to using palette lookups of the sort Doom uses, although this will
+severely limit our use of separate palette lookups for sprites, or increase
+the overhead in terms of the number of tables.
+
+Reduced the amount of inverse Z adjustment for looking up and down.
+
+Add QSRATE - Toggle display of frame rate.
+
+Rewrote the 2D map function so it should look just like the map in Doom.
+
+The status bar is always displayed in 2D map mode.
+
+-----------------------------------------------------------------------------
+
+95/02/18
+
+Modified the way the DAC effects work somewhat to fix a bug which would cause
+the hardware DACs not to be updated when the effect was 0.
+
+Added QSGOTO and QSJUMP cheat keys.
+
+Changed key combinations for setting gamma, visibility, and spring
+coefficient to be compatible with those in MAPEDIT.  Use +/- instead of Pad
++/-.
+
+Visibility is no longer written to the BLOOD.INI file, since it is level
+dependent.
+
+Changed key combination to change the depth cueing (visibility) to D +/- for
+compatibility with MAPEDIT.
+
+Provided a workaround for the off by 4 pixel error in getzrange.  This means
+you shouldn't pop in the air when stepping on a floor sprite at floorz level
+anymore.
+
+-----------------------------------------------------------------------------
+
+95/02/19
+
+Added a module for processing command line parameters.  I'm not doing much
+with this yet, but it's now pretty easy to handle switches and other optional
+arguments.  The only visible change now is that when you start Blood, it
+defaults to map E1M1, and if you pass a level (map) name, it ignores the
+extension.
+
+Made a change to the way that player location and velocity is stored.  This
+is an internal code change that shouldn't result in any visible change, but
+is necessary for me to write a more general purpose physics system (so any
+sprite can move around with inertia).
+
+Moved several constants controlling player movement dynamics out of the code
+and into the player posture structure.  Now nearly every aspect of player
+movement is driven by this data.
+
+Rewrote the key handler to better provide services for getting characters in
+a stream type of fashion.
+
+Fixed a bug in the main drawing loop.  I wasn't clearing the gotpic[] array,
+so once you saw the dynamic fire, it was getting calculated every frame.
+This easy fix should give us a nice performance boost.
+
+-----------------------------------------------------------------------------
+
+95/03/05
+
+Projectiles have been added.  Shame on Nick for not documenting them here.
+
+Fixed a bug which would cause extended keys (e.g. Page Up and Delete) to be
+dropped if NumLock was on.  This bug was introduced when I added code to
+prevent filling up the keyboard buffer.  These keys are actually transmitted
+as multiple make codes when Num Lock is on, hence the bug.
+
+Fixed a bug in the debug version of the heap.  Sheesh!  It would dassert out
+occasionally when it was unable to allocate a block when it thought it had
+enough memory.  I wasn't subtracting out the space used for the fenceposts.
+
+-----------------------------------------------------------------------------
+
+95/03/06
+
+Added an assertion to check for overflow of the ext arrays.  I found out that
+some maps had sectorExt structures for nearly every sector, and were
+overflowing the array!
+
+Created a branding utility for limited demo versions.  This utility should
+not be released outside of Q Studios.
+
+-----------------------------------------------------------------------------
+
+95/03/24
+
+BUG FIXES
+
+Fixed problem with allocatepermanenttile not marking the block of memory as
+locked.  It could get added to the purge list during precaching....
+
+Added some missing modify [...] registers to an inline function in the
+dynamic fire system.  This would inevitably cause problems when
+optimizations were enabled.
+
+-----------------------------------------------------------------------------
+
+95/04/18
+
+Changed default key codes for jump, crouching, and alternate firing to be
+identical to Dark Forces.
+
+Added support for view centering (default key is Alt Pad 5) when look lock is
+on.
+
+-----------------------------------------------------------------------------
+
+95/04/30
+
+Added support for various screen modes now supported by the Build engine.
+
+Rewrote line clipping routine, but there are still some problems to work out
+in unchained mode.
+
+INI file changes are not written out until the program exits.  This should
+minimize disk access during game play.
+
+-----------------------------------------------------------------------------
+
+95/04/30
+
+QAV playback support added and several weapon animations now work.
+
+Trigger switches currently supported are:
+	Toggle Switches and Momentary Switches
+
+For Momentary Switches, the "data" field can be set to indicate
+tenths of a second before the switch toggles back to the original state.
+
+Sectors supporting currently switches are:
+	Topdoor, Bottomdoor, Swingdoor, and Lift
+
+Armed Proximity Bombs can now be placed and will function. More flexibility
+for distance and damage will be added shortly.
+
+Exploding bombs affect all "Crate Face" sprites within its proximity.
+MAPPERS: Make sure that you use the damaged crate face for anything
+that can be exploded, and don't use it anywhere else. I repeat, don't
+use the damaged crate face for anything except crate faces that are
+affected by explosions. Especially you, Richard.
+
+-----------------------------------------------------------------------------
+
+95/05/02
+
+Fixed trigger bug with floor pads.
+
+-----------------------------------------------------------------------------
+
+95/05/08
+
+Added panning sector effects, which now work for water current.
+Water movement now has drag even if there is no current.  The drag is
+relative to the depth of the water.
+
+Rewrote/simplified trigger code.  Made callbacks a command type.
+
+Added impulse to explosion projectiles.
+
+Added code to support Top door, Bottom Door, and HSplit door types.
+
+-----------------------------------------------------------------------------
+
+95/05/08
+
+Added !state command.
+
+Sent events are now processed immediately, rather than being posted into the
+message queue.  This allows cleaner coding for LINK commands.  Be careful not
+to create infinite message loops!
+
+Math and palette lookup table building has been removed from the game code.
+These tables will now be created with stand-alone utilities.
+
+Sector lighting amplitude now honors the sector busy state, so you control
+light level with link commands.
+
+-----------------------------------------------------------------------------
+
+95/05/19
+
+Added horizontal and rotation move sector types.  This means sliding and
+swinging doors, but you are certainly not limited to these types.  Use your
+imagination.
+
+Modified DoSectorLighting() so it is not necessary to call
+UndoSectorLighting() in Blood.  Should speed things up just a bit.
+
+Fixed an overflow problem in 2D map mode which cause clipped lines to skew
+weirdly.  I went through all the code and made all the multiply and shift
+operations use a full 64 bits of precision.
+
+Got rid of ALL the old door animation code.  We are no longer unwashed.
+("This house, is clean." - Nick )
+
+Kinetic sectors would never go the final distance fraction when going to the
+on state.  The error fraction was 1/65536.  I've provided a work-around for
+this, but the real solution is to increase the X structure busy variable
+size by 1 bit.
+
+-----------------------------------------------------------------------------
+
+95/05/24
+
+WEAPONS:
+* Modified tommy gun.
+* Added first-pass shadow gun.
+* Added first-pass beast hands.
+* Added code to throw dynamite. Try blowing up the crates in MAP04.MAP.
+  (Don't get too close or you'll set off the proximity bomb and ruin it.)
+* Added vector hit check and ricochet for shotgun and tommy gun.
+  (NOTE: All the ricochets for the shotgun appear in one place for now.)
+
+LIGHTING:
+* New lighting effects and triggers added. Check some of them out in
+the sample maps.
+
+LINKED SECTORS:
+* You can now go underwater, but cannot go back up or move around very well.
+  (We intend to have the water physics working by the next upload.)
+
+There's lots of other stuff, but I have to go to dinner. I'll just upload it
+and let you fool around. Later!
+
+-----------------------------------------------------------------------------
+
+95/05/30
+
+Fixed view bobbing/swaying bob which caused them not to work unless you were
+running.  Don't you just love misplaced braces? <g>
+
+Bobbing and swaying are now optional.  Just added "ViewBobbing=0" to the
+[Options] setting of blood.ini.  This should cure George's nausea.
+
+Increased strafe acceleration, and reduced angular velocity at George's
+request.  You can also accelerate while landing now, also at his request.
+Can we have an equipment advance? ;)
+
+-----------------------------------------------------------------------------
+
+95/06/24
+
+Added sequence engine which will be used for transient sprite effects and
+creature states.
+
+Reworked weapon selection code to allow cleaner changing between certain
+weapons, such as the dynamite and spray can.
+
+Added sequences for ricochets and explosions.
+
+Added the ability for explosions to chain other explosions.
+
+Added a rudimentary death sequence for cultists.
+
+Added damage/death for vector weapons.
+
+-----------------------------------------------------------------------------
+
+95/06/26
+
+Added time delay for dynamite projectiles.
+
+Added code to put dudes affected by explosions on the projectile list, and
+greatly enhanced projectile code.  The net result is you can blow up the
+creatures.  "They sure blowed up _real_ good!"
+
+-----------------------------------------------------------------------------
+
+95/07/03
+
+Converted sprite management code to use a FIFO list for proper handling of
+bullet holes and other purgeable sprites.
+
+Fixed problems with projectiles (including bodies) falling through floor
+sprites.
+
+Temporarily removed above mentioned FIFO code until I can get it working
+correctly.
+
+Added support for moving z of sprites on the floor of z motion sectors.  This
+means that when the floor moves, so too should sprites that are on it.  Also,
+no more player bouncing when you are standing on a z motion floor.  The only
+downside is that the player will not receive any intertia from the vertical
+motion, so you can't 'throw' the player in the air with a fast moving floor.
+
+Changed resource system so that it uses hashing and linear probing for rapid
+lookup of resources.  This was one of those things that had been waiting too
+long to be done.  Now we can move forward with creating RFF (Resource File
+Format) archives and clearing up those directories of thousands of files.
+
+Added weapon QAV and sequence preloading.  If you have enough memory, you
+shouldn't get ANY disk hits during game play, except for status bar graphics,
+which will be done shortly.
+
+-----------------------------------------------------------------------------
+
+95/07/05
+
+Players are now impulsed by explosions.  Try standing on a lit stick of
+dynamite!
+
+Changed the way that friction works for sliding objects.  The current method
+is 'physically' correct.
+
+-----------------------------------------------------------------------------
+
+95/07/08
+
+Rewrote DPMI services and code which attempts to determine how large a heap
+to allocate.  It should now attempt to allocate less than the physical memory
+available, even under DPMI hosts providing virtual memory (e.g., Windows)
+
+Provided locking for nearly all interrupt handlers through new DPMI routines.
+This should improve the robustness of Blood under other operating systems
+such as Win 95.
+
+Wrote a new virtual timer services module.  This allows any number of clients
+to install their own timer handlers with varying rates all through a central
+timer services handler.  This is some pretty low level code, and shouldn't
+affect anyone but Blood programmers.
+
+Fixed a bug in the sequencer in which the first frame would not be displayed
+as long as it should have been.
+
+Increased dispersion for tommy gun, and increase shotgun vectors per barrel
+to 16.
+
+-----------------------------------------------------------------------------
+
+95/07/09
+
+Fixed and reenabled sprite FIFO code.
+
+In Z Motion sectors, sprites on the ceiling as well as sprites on the floor
+will be z adjusted when the floor or ceiling moves, as appropriate.  I also
+changed the method used to determine when to move the sprites.  Previously,
+the code would take into account the sprite z extents to determine whether
+the sprite was on the floor.  Now it looks only at the z value to see if it
+is on or in the ceiling or floor.  This should provide results consistent
+with the type of sprite being using, i.e., sprites meant to be placed on the
+ceiling have their origin set at the top, and sprites meant to be placed on
+the floor have their origin at the bottom.
+
+Did extensive work in code for handling interactions between objects and
+explosions.  Explosions can now be triggered (this is the way that throw
+sticks of TNT are handled).  The impulse effect for explosions is now no
+longer instantaneous, but occurs over the duraction of the explosion.  You
+can see this by watching your health while standing in range of an explosion.
+Sprite movement as a result of impulse still seems off, and I thinks it's
+because I have yet to handle sprite collisions (soon, though).
+
+Creature death sequences are determine by the type of damage which caused the
+death.  Currently, this is supported only (in terms of art) for the fat
+zombie.
+
+When the fat zombie explodes, he throws off chunks of gore.
+
+-----------------------------------------------------------------------------
+
+95/07/14
+
+Multi-player starting markers now function. Check out MAP02.MAP to see
+how they are inserted.
+
+Network code is semi-stable. Runs for a while then asserts out with a
+synchronization failure. This is probably in Ken's code, since we are
+getting bad or missing packets which cause the de-synch.
+
+In multi-player mode players animate in the walk sequece until they shoot,
+then the shooting animation stays on until they die. We are working on the
+AI and animation states for the players and enemies, so bear with us. At
+least now the players, as well as the monsters, die agonizing deaths. Shoot
+the fat boy for fun!
+
+Breakable walls now function. Check out the new types in MAPEDIT by pressing
+Alt-F6 on a red wall you want to mask and turn to a breakable wall. Similar
+sprite types will be added soon. Look at and shoot the stained glass in
+MAP19(?) which used to be QSEYMY.
+
+We try to test out as many bugs as possible before uploading a demo, but
+sometimes we slip up. As always, let Peter or me know if something no
+longer works.
+
+Lots of new artwork this upload. Better take a trip through all the art
+first. Look at the art using EDITART or MAPEDIT before making level or
+area texture changes; you may find just what you've been waiting for.
+
+-----------------------------------------------------------------------------
+
+95/07/17
+
+Monsters now trigger OFF at death and send their command and txID.
+
+Added BloodBath (deathmatch) starts but though you can't play that mode yet.
+
+-----------------------------------------------------------------------------
+
+95/07/20
+
+			 !!! MAP VERSION CHANGE !!!
+
+Once you've backed up all your maps in another directory or ZIP file, run the
+CONVDB5.EXE conversion utility. You can use wildcards, so typing "CONVDB5
+*.MAP" is acceptable.  The old maps will be saved with an extension of ".MA4".
+
+Maps are now loaded as resources, which means they can be placed into
+BLOOD.RFF.
+
+Level definition files are loaded now along with the maps.  See the sample
+FXTEST.DEF for an example.  They can't be placed in resource files yet,
+though.
+
+Explosions now use an expanding sphere of influence, so they won't effect
+things within a possible range immediately.  The closer you are to an
+explosion, the faster you'll take damage from it.
+
+-----------------------------------------------------------------------------
+95/07/27
+
+Modified some cheat keys. Make sure your read the cheat section in this doc.
+
+Ammo can be picked up and is added to your stats. The stats are NOT displayed.
+Since this is still being coded, expect some funkiness with the way the weapon
+behaves when it has no ammo, or you pick up ammo the first time. Your best bet
+is to type "QSAMMO" when you first get into the game.
+
+The spear gun is all screwed up. Don't play with it, or at least don't
+complain if using it causes Blood to crash. ;)
+
+-----------------------------------------------------------------------------
+
+95/07/29
+
+Lot's of new additions to the physics system.  Explosions can now affect all
+dudes and "things", which include body parts.  Everything in the physics
+system now has a mass, which means that lighter things can be blown
+farther.  Have fun with the TNT and TNT barrels.
+
+Player death greatly improved.
+
+Dynamic shadows added for all dudes and things.  This will be a detail level
+option, since it can have an impact on performance for highly populated
+screens. Try DEATH.MAP for a fun time.  This map has around 150 combined
+dudes and TNT barrels in a single sector, and is a pretty good stress test.
+DON'T put this many things in your game maps.
+
+-----------------------------------------------------------------------------
+95/08/01
+
+Temporary fix for sequence caching code that was causing "Out of memory"
+bailout. You will experience slower map loads and slower caching in this
+version. This is just _temporary_ until we have the new resource prelock
+code running.
+
+Added more cheat keys (listed *way* up at the top) and also fixed a bug
+in the QSKEYS cheat code.
+
+!!! IMPORTANT - READ THIS !!!
+For those of you not receiving an art update with this version, the
+Tommy Gun will be positioned incorrectly. This is because we have new art
+that you don't have yet. Since this is primarily a bug fix related update
+I thought it would be better not to include 6MEGS of zipped art.
+
+-----------------------------------------------------------------------------
+95/08/05
+
+After a full 10 hour night of playing Blood deathmatch, we changed the
+following:
+
+Adjusted the dispersion for the tommy gun and the sawed off shotgun for
+tighter dispersal.
+
+Tweaked damage amounts for all weapons.
+
+Adjusted spray can flame speed -- if you run at full speed with it, you
+damage yourself!
+
+Added support for impact triggers to sprites.
+
+Changed impulse center of explosions to be optical center.
+
+-----------------------------------------------------------------------------
+95/08/06
+
+Added respawning for items. Check out DONOR.MAP, which is a test
+deathmatch level.
+
+-----------------------------------------------------------------------------
+95/08/07
+
+Shadows are now only drawn if they are below your view z.  This should
+eliminate shadows "floating" in the air.
+
+Some code got changed which caused breakable walls to no longer change their
+state, hence you couldn't use them for triggering other events.  This has
+been fixed.
+
+-----------------------------------------------------------------------------
+95/08/16
+
+Thrown dynamite no longer goes through walls.
+
+-----------------------------------------------------------------------------
+95/09/16
+* Added auto-targeting. (Does not work for missiles yet.)
+
+* Added the voodoo doll, which can hurt you if you don't have an enemy
+in your auto-targeting cone.
+
+* Added a test glow feature for the flare gun.
+
+* Added a ShowDetails option, which can be added to BLOOD.INI to enable
+or disable shadow and glow processing.
+
+* Added view mode (V and Alt-V) to view the player form a distance.
+
+* Added new status bar. (This has a some bugs when changing view size.)
+
+* Added "wall crack" object which can be used to trigger exploding walls
+when hit by dynamite. Check out MAP01.MAP.
+
+(BUG: Wall cracks can be damaged by other weapons, but will NOT trigger
+the wall explosion. Once the wall crack is taken to 0 health by a
+non-explosive weapon, the crack cannot be triggered. This will be fixed.)
+
+-----------------------------------------------------------------------------
+95/09/20
+* Added the Delirium Shroom "power-up" effect. Pick up a shroom or
+type 'QSHIGH' to test it out. Peace!
+
+-----------------------------------------------------------------------------
+95/09/26
+* Fixed the teleporter height bug.
+* Player sprites now go translucent in invisible mode. Try "QSONERING".
+* Voodoo doll is working, but one of the sequences is reversed.
+* Cultists now drop cool stuff when they die.
+
+-----------------------------------------------------------------------------
+95/11/15
+
+Uh, uh, huh, huh, huh, huh.  We forgot to document stuff for like 2 months, so
+there a billion changes that probably aren't in here.  Huh, huh....  huh, huh.
+
+* Dude AI added.
+
+* New network system put in.  No more sync errors.
+
+* Level music added. Create new .DEF files for your maps to hear music.
+
+* Mouse input added and updated.  The mouse shouldn't diminish keyboard
+movement anymore.
+
+-----------------------------------------------------------------------------
+95/12/18
+
+* Vases can "drop" objects when destroyed. (See the TESTxx maps.)
+* Timer generators added. (See XSYSTEM.TXT.)
+* Fireball generators added. (See the TESTxx maps and XSYSTEM.TXT.)
+* Padlock sprite now works. (See the TESTxx maps.)
+* Z Motion sprite sectors added (See the TESTxx maps.)
+* Linked sectors added (See PFFX.MAP: Dudes don't go through yet, but
+missiles and projectiles, and gibs(!) do.
+
+-----------------------------------------------------------------------------
+96/01/07
+
+Saw blades are now functional.  They can be turned on an off, and do damage
+to anyone touching when spinning.  Lots of blood, too!
+
+Change player movement code so that it uses the generic MoveDude() function.
+This allows the player to get damaged by the saw blades and other stuff that
+we add later.  The negative effect of this is that I have to find a new way
+to do the view inertia effects, so as fall crumbling, stair smoothing, etc.
+You may notice some change in the feel of turning, acceleration,
+deceleration, etc.  I think it feels more responsive, but let me know if you
+have any complaints, and I'll try to please!  You may also notice that if you
+run and jump against a wall, you'll bounce off it, rather than keeping your
+forward momentum (like those 'other' games).
+
+Players drop all their weapons when they are killed.
+
+All dudes now can move through linked sectors.
+
+Added new explosion types.  There are now three concussion types of
+explosions.  Single sticks of TNT do small explosions; bundles do medium
+explosions, and barrels do large explosions.  Barrels may do more damage than
+previously.
+
+All dudes are now affected by falling damage.
+
+Improved accuracy of Tommygun cultists by allowing them to aim while they are
+shooting (what a concept, eh?)  They are pretty brutal monsters now, so we
+may need to tone down the damage or ROF a bit.
+
+New aiming system in place.  Specifically, the auto-aim point does not track
+instantly, but sort of 'homes in' on a target.  If your target is standing
+still and so are you, you should hit your target dead on.  If your target is
+running a serpentine pattern you may miss him a bit unless you do a little
+bit of targeting yourself.  The rate at which the auto-aim homes in is
+adjustable in the code.  For some weapons, such as the tommy gun, the
+auto-aim point gets updated while you are firing.  For others, such as the
+sawed-off, it doesn't.  What this means is that you will get a more accurate
+shot with the sawed-off if you wait a tiny bit between each shot rather than
+just holding down the fire key.  There is an aiming reticle that is present
+for the moment so you can see how this works.  It will probably be taken out
+for the actual game unless people decide they really like it.  To enable
+display of the reticle, type "QSAIM".
+
+QAV playback engine enhanced.  The QAV engine now uses a different metaphor
+to create and display animations.  It is now based on fixed frames intervals,
+with a fixed number of layers (currently 8).  This means that it is much
+easier to control the z-ordering of tiles, and simple to adjust the overall
+speed of playback.  It now supports scaling and rotation of sprites, so you
+should see enhancements in the weapon animations.  This also allows us to cut
+down on some of the weapon art (which is really big and takes lots of
+memory).
+
+Weapon code overhauled.  There are now callbacks in the weapon firing QAVs,
+so this simplifies some of the state code in the weapon system.  Damage is
+now incurred at the appropriate point in the firing sequence, rather that at
+the beginning.  This improvement is particularly noticeable in the pitchfork.
+Automatic weapons such as the tommy gun and the spray can now have a
+consistent rate of fire and smoother animation.
+
+Throwing of TNT enhanced.  When you throw a stick or bundle with the primary
+fire key it will explode on impact, making it simpler to use.  It's a bit
+unrealistic, but, hey, it's more fun.  You can control how hard you throw it
+but how long you hold down the fire key.  If you've played Dark Forces, this
+should be familiar to you as the same way the thermal detonators work.  If
+you press the Alt-Fire key you be able to "burn off" the TNT.  It will light
+and you can hold it in your hand until you throw it or it blows up in your
+face, which ever comes first.  You can also drop it with the Alt-Fire key.
+When you burn off the TNT, it will explode only when the fuse burns out, not
+on impact.
+
+TNT Remote Detonators enabled.  If you throw the bundles, they explode on
+impact.  If you drop them, they can be triggered with the remote detonator.
+You can drop multiple bundles by pressing the Alt-Fire key when you are
+holding just the detonator.
+
+Global physics change.  The relative scale of game units to world units has
+been changed.  One effect of this is that everything is smaller in terms of
+world units (they still look the same, though).  Another effect is that
+things will appear to fall faster.  You'll notice that when you jump, you
+don't seem to hang in the air as long.
+
+There is a new status bar.  Don't count on this one sticking around too long,
+though.  Nobody seems to like it.
+
+Fixed the problem with dudes spinning around in circles.  They should now act
+a bit more intelligent in determining where to go.
+
+Fixed problems with running on slopes.  You can now jump while moving on
+slopes as well.  There may be some residual problems jumping if you are
+running on a flat area and suddenly start down a steep slope, since you will
+be briefly in the air, and you can't jump while falling, but that's life!
+
+Decreased the overall game processing rate, but increased how often dudes
+think.  Hopefully, this will improve the frame rate problems on network play
+and slower machines.
+
+All TNT modes enabled and working.  Try out the proximity bombs and remote
+detonators -- they're great!
+
+-----------------------------------------------------------------------------
+96/01/10
+
+Fixed problems with z velocity, including bodies not falling, thrown things
+to fly in the air or down in the ground, and disappearing TNT.
+
+Changed gravity and restored world scale ratios to previous values.  Gravity
+is now twice normal.
+
+Fixed problems with voodoo doll shaking like it was being held by Beavis on a
+caffeine high when the player stopped.
+
+Cultists now can aim up and down when shooting and throwing TNT.
+
+-----------------------------------------------------------------------------
+96/01/11
+
+Added a .5 second delay between when proximity triggers are activated and
+when they explode.
+
+Added a slight delay when remote detonators are triggers.
+
+Fixed problem with dudes that were on over/under areas spinning around.
+Ken's updatesector() function wasn't taking into account z position, so I
+wrote a replacement that does.
+
+Tweaked axe zombie code to make them a little smarter.  Now they don't go
+into chase mode between axe swings, so they won't creep up on you until
+they're forced to go past you.
+
+-----------------------------------------------------------------------------
+
+96/01/12
+
+Sound channel manager written.  This allows interface sound effects to
+preempt each other or layer as needed.  This code layer will allow the 3D
+sound system to be built on top of it.
+
+-----------------------------------------------------------------------------
+
+96/01/13
+
+Basic 3D sound system in.  The system does distance attenuation, but is not
+yet dynamic, and doesn't support stereo or phasing.  Just a few sound effects
+are in (switch, breaking pottery, breaking glass), but it does support
+relative volume for each sound, which allows the samples to be as hot as
+possible.
+
+-----------------------------------------------------------------------------
+
+96/01/14
+
+More significant work on 3D sound code.  It now supports stereo volume and
+phase effects.  Still yet to do are dynamic updating of position and
+frequency shifting.
+
+Added some player sound effects for jumping, landing, falling, and pushing on
+things which don't trigger.
+
+-----------------------------------------------------------------------------
+
+96/01/19
+
+Sound system now supports fixed and dynamic 3d sound effects.  Fixed location
+sounds use "bonkles" (see Meaning of Liff), which are automatically recycled
+when the sound is complete.  Dynamic sounds are 1 per xsprite, and preempt
+each other automatically.
+
+Many new sound effects added, and existing sound effects changed to use
+bonkles where appropriate.
+
+Dispersion of Tommy gun increased.
+
+-----------------------------------------------------------------------------
+
+96/01/22
+
+Added flares burning in guys.
+
+-----------------------------------------------------------------------------
+
+96/01/24
+
+Player no longer stutters when injured (this was a particular problem when
+burning).
+
+Vector weapons (including melee weapons) now produce a ricochet and sound
+effect appropriate for what they hit.  Try stabbing various types of surfaces
+and objects with the pitchfork to hear this -- really cool.  Also, listen to
+the sounds of bullets ricocheting of walls and things when you are being
+shot.
+
+-----------------------------------------------------------------------------
+
+96/01/25
+
+Weapons tweaked for damage: spray flame, shotgun, tommy gun.
+
+Starbust flare added in alt fire for flare gun.
+
+New fonts added for messages.
+
+Added auto aiming for TNT barrels.
+
+Added gaussian grouping for player shotgun vectors.
+
+Reduced sizes of TNT explosions.
+
+-----------------------------------------------------------------------------
+
+96/01/28
+
+Credits screen roughed in with new font.
+
+General optimizations to code, and tweaks made to improve 3D sound system.
+
+Keyboard control code modified to make it much more like Doom.  Hopefully
+I've got it right this time.  Turning uses a two-step threshold for
+rotational velocity, and player (and dude) movement use drag rather than
+friction to slow down.
+
+-----------------------------------------------------------------------------
+
+96/01/30
+
+Added diving suit mask, with (detail option) translucent reflections.
+
+-----------------------------------------------------------------------------
+
+96/02/01
+
+Major optimization to Ken's cansee() function, which was taking up around 20%
+of execution time (in worst cases).  This new optimization speeds it up by
+about 50%, which is quite noticeable.
+
+-----------------------------------------------------------------------------
+
+96/02/02
+
+MAJOR COOL NEW FEATURE!  Vector masking for masked walls and face sprites!
+What this means is that objects and walls can be partially blocking of
+bullets depending on their shapes.  For example, you can shoot through the
+bars of a grate, but still be able to hit the grate itself.  This is still
+pretty unoptimized, so expect some potential speed hits -- also, there's
+loads of debugger output.
+
+Debris gibs added.  These are pretty rudimentary for now, but we'll be adding
+tables for all the different types of debris soon.  Currently, when dudes
+explode, they spawn 20 little "worm" giblets.
+
+-----------------------------------------------------------------------------
+
+96/02/03
+
+Drip generators changed so that spawned drips start at the bottom of the
+sprite, rather than the z center.
+
+Parallaxed skies now preload correctly.
+
+Re-enabled falling for all things and dudes, and also optimized the z motion
+calculations.  The result is that all things now fall properly, and the frame
+rate is back where it is supposed to be.
+
+Optimized vector masking so it only happens for vector weapons.  This
+prevents is from slowing the AI down.  We still need to add a replacement for
+hitscan to test for arbitrary blocking bits.  I'll be asking Ken about this.

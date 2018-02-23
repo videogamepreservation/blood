@@ -1,0 +1,109 @@
+=============================================================================
+			    ARTEDIT History File
+		 Copyright (c) 1994-95 Q Studios Corporation
+			    Contact: Peter Freese
+		    pfreese@qstudios.com or CIS:74170,543
+=============================================================================
+
+MAIN KEYBOARD FUNCTIONS:
+
+	Esc		Exit the editor
+	Enter		Goto tile editing mode
+	G		Goto a specific tile
+	S		Change surface type for tile(s)
+	Shift		Select a range for moving
+	Insert		Move the selected range
+			Change highlight
+	shift 	Highlight a range of tiles
+	Home		Goto tile 0
+	End		Goto last tile (4095)
+	Pad /		Zoom in
+	Pad *		Zoom out
+	Page Up/Down	Go up/down a page
+	Alt Backspace	Undo previous move
+	Alt Enter	Redo previous undo
+
+
+TILE KEYBOARD FUNCTIONS:
+
+	Esc		Exit tile mode
+	G		Goto a specific tile
+	Space		Play tile animation
+			Nudge tile origin 1 pixel
+	Ctrl 	Set origin to respective edge
+	Ctrl Pad 5	Set origin to center
+	O 		Nudge global origin
+	W		Change tile view type
+	< >		Change view angle
+	/		Set view angle to 0
+	A		Change animation type
+	Pad +/-		Change # of animation frames
+	Shift Pad +/-	Change animation speed
+	O LMouse	Drag origin
+	Page Up/Down	Prev/Next (non-blank) tile
+
+
+VIEW
+
+	Single view objects do not change their view based on the players
+	position.  In other words, they look the same no matter how you look
+	at them.  This works best for objects with radial symtetry, such as
+	pillars, cauldrons, torchiere lamps, etc.
+
+	5 view objects offer 8 different angles of view by x-flipping certain
+	of the views to take advantage of bilateral symetry.  The views
+	represented in the art are 0, 45, 90, 135, and 180 degrees.  Views
+	for 225, 270, and 315 are created by x-flipping 135, 90, and 45
+	respectively.
+
+	8 view objects have unique views for each of the 8 viewing octants.
+
+	5 half view objects are a special case of 8 way views for objects
+	which are flush against a wall.  For these objects, it is not
+	possible to view them from behind the wall, so the 3 rear views are
+	skipped.  Views of 0, 45, 90, 270, and 315 are represented.  This
+	mode works well for sconces, clocks, relief ornaments, etc.
+
+
+-----------------------------------------------------------------------------
+95/06/19
+
+This document created.
+
+Don't move around anything but creature view/animation tiles, since tile
+changes cannot yet be applied to maps.
+
+-----------------------------------------------------------------------------
+95/06/24
+
+Added multiple do/undo capabilities.
+
+-----------------------------------------------------------------------------
+95/07/11
+
+Added view type description above.
+
+-----------------------------------------------------------------------------
+95/08/21
+
+Changed the way extended tile selection works in the tile pick view.  The
+selected range now goes to the upper end - 1, which means you can now
+create an empty selection.  The catch is that you can't select the highest
+tile, but this shouldn't be a big problem.
+
+Tile origin adjustments are now applied to the selected range of tiles, which
+means you can easily adjust the origin for an entire animation.
+
+Changed keys which set origin to the edge and center to use Ctrl instead of
+Shift in order to have a more orthogonal key mapping.  Get it?
+
+-----------------------------------------------------------------------------
+95/10/25
+
+Added ability to modify tile surface types with the S key
+
+-----------------------------------------------------------------------------
+96/01/17
+
+Added ability to modify tile names with the N key. This does NOT work
+in conjunction with tile movement yet.
